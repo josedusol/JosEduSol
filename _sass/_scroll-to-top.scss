@@ -1,0 +1,45 @@
+
+.scroll-to-top {
+	display:none;
+	width:100%;
+	margin:0 auto;
+	position:fixed;
+	bottom:20px;
+	right:10px;	  
+}
+.scroll {
+	position:fixed;
+    border-radius: 50%;
+	right: 20px;
+	bottom: 20px;
+    color: #FFF;
+    background: #C1C1C1;
+    background: rgba(193, 193, 193, 0.6);
+	text-align: center;
+	margin: 0 0 0 0;
+	cursor: pointer;
+    width: 50px;
+    line-height: 50px;
+	transition: 0.5s;
+	-moz-transition: 0.5s;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s; 		
+}
+.scroll:hover {
+    background: #da4453cc;
+	background: rgba(218,68,83,0.8);
+	transition: 0.5s;
+	-moz-transition: 0.5s;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s; 		
+}
+.scroll:hover .fa {
+	padding-top:-10px;
+}
+.scroll .fa {
+	font-size:20px;
+	transition: 0.5s;
+	-moz-transition: 0.5s;
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s; 	
+}

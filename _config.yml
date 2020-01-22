@@ -1,0 +1,87 @@
+# Permalinks
+permalink:              /:categories/:title:output_ext
+
+# General Setup
+title:                  JosEduSol
+tagline:                Computing
+url:                 
+baseurl:                ""
+include:                ['_pages']
+markdown:               kramdown
+highlighter:            rouge
+encoding:               utf-8
+
+# kramdown config
+kramdown:
+  input:                GFM
+  mathjax:              true
+  auto_ids:             true
+  
+
+# Assets
+#
+# We specify the directory for Jekyll so we can use @imports.
+sass:
+  load_paths:
+    - _sass
+    - bower_components
+  style:                :compressed
+
+# About/contact
+author:
+  name:                 JosEdu
+  url:               
+  email:             
+
+# Custom vars
+version:                0.0.1
+github:
+  repo:              
+
+# Plugins/Gems
+plugins:
+  - jekyll-archives
+  - jekyll-gist
+  - jekyll-paginate-v2
+  - jekyll-scholar
+  - jekyll-toc
+  
+  
+# Configuration for jekyll-archives 
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layouts:
+    category:           archive-cat
+    tag:                archive-tag
+  permalinks:
+    category:           /categories/:name/
+    tag:                /tags/:name/
+  
+# Configuration for jekyll-paginate-v2 
+#paginate:               5
+#paginate_path:          /blog/page:num/  
+pagination:
+  enabled:               true
+  per_page:              5
+  permalink:             '/:num/'
+  title:                 ' - page :num'
+  limit:                 0
+  sort_field:            'date'
+  sort_reverse:          true
+
+# Configuration for jekyll-scholar     
+scholar:
+  style:                apa
+  source:               ./_bibliography
+  bibliography:	        references.bib
+  
+# Configuration for jekyll-toc   
+toc:
+  min_level:            2
+  max_level:            4
+  link_class:           nav-link
+
+
+

@@ -1,0 +1,46 @@
+<header class="masthead" role="banner">
+  <div class="the-top"></div>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{{ site.baseurl }}/">   
+        <object class="brand-anim" 
+                width="330" height="46" 
+                data="{{ site.baseurl }}/assets/images/logo-v1.svg" 
+                type="image/svg+xml">
+          <img width="330" src="{{ site.baseurl }}/assets/images/logo-v1.png" />
+        </object>      
+<!--         <img src="{{ site.baseurl }}/assets/images/logo-v1.png" 
+          width="280" alt="JosEduSol">   -->    
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" 
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">     
+        <ul class="nav navbar-nav ml-auto">
+          {% assign current = page.url | downcase | split: '/' %}                 
+          <li class="nav-item {% if current[1] == null %}active{% endif %}">
+            <a class="nav-link" href="/"><i class="fa fa-lg fa-home"></i></a>
+          </li>
+          <li class="nav-item dropdown {% if current[1] == 'blog' %}active{% endif %}">
+            <a class="nav-link" href="#" id="navbarDropdown" 
+               role="button" aria-haspopup="true" aria-expanded="false">
+              Blog
+            </a>
+            <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/blog" >Artículos</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/blog/categories">Categorías</a>
+              <a class="dropdown-item" href="/blog/tags">Tags</a>
+            </div>
+          </li>
+           <li class="nav-item {% if current[1] == 'about' %}active{% endif %}">
+            <a class="nav-link" href="/about/">Acerca de</a>
+          </li>      
+        </ul>  
+      </div>
+    </nav>
+  </div> 
+</header>

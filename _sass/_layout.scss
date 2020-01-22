@@ -1,0 +1,61 @@
+// Layout
+//
+// Styles for managing the structural hierarchy of the site.
+
+
+.content {
+  height: 100%;
+}
+
+.container {
+  max-width: 45rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home {
+  margin-bottom: 4rem; 
+}
+
+.MathJax {
+  font-size: 0.85rem !important;
+}
+.MathJax_Display {
+  font-size: 0.75rem !important;
+  display: flex;
+  padding: 0.5em;
+  overflow-x: auto;
+  overflow-y: hidden;
+  box-sizing: border-box;
+}
+.MathJax_Display .MathJax {
+  display: inline-block;
+  width: 100%;
+}   
+
+footer {
+  margin-top: auto;
+  background-color: $gray-6;  //old 313233
+  color: #999;
+  font-size: 0.75rem;
+  
+  p, ul {
+    margin-bottom: 0;
+  }
+
+  .social-links,
+  .ad-free,
+  .copyright {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+  
+  @media only screen and (min-width: 15rem) {
+    .social-links .list-inline {
+      font-size: 18px;
+    }
+  }
+}

@@ -1,0 +1,50 @@
+
+
+
+.archive-taxonomy {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 2em;
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 1.5rem 0;
+  
+  @media (max-width: 35rem) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 25rem) {
+    grid-template-columns: 1fr;
+  }
+  
+  li {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    padding: 0.25em 0;
+    border-bottom: 1px solid #DDD;
+  }
+  a {
+    color: #515151;
+    text-decoration: none;
+    justify-content: space-between;
+  }
+  .taxonomy-count {
+    margin-left: auto;
+  } 
+}
+
+.cat-list,
+.tag-list {
+  h3 {
+    margin-top: 0;
+  }
+  .post-list {
+    margin-top: 2rem;
+  }
+}
+
+.post-list {
+  h3 {
+    margin-top: 0;
+  }
+}

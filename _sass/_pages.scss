@@ -1,0 +1,24 @@
+// Pages styles
+//
+//
+
+/**
+ * Blog Page articles
+ */
+.blog {
+  .post-list {
+    li {      
+      h3  {
+        margin-top: 0;
+      }
+    }
+  }
+  .post-meta {
+    font-size: 0.8rem;
+    color: $gray-3;
+  }
+  .post-link {
+    display: block;
+    @include relative-font-size(1.5);
+  }
+}

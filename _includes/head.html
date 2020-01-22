@@ -1,0 +1,49 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+    {% if page.title == "Home" %}
+      {{ site.title }} &middot; {{ site.tagline }}
+    {% else %}
+      {{ page.title }} &middot; {{ site.title }}
+    {% endif %}
+  </title>
+ 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/styles.css"> 
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({    
+      jax: ["input/TeX", "output/HTML-CSS"],
+      tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      messageStyle: "none",
+      "HTML-CSS": { preferredFont: "TeX", 
+                    availableFonts: ["STIX","TeX"], 
+      },
+      TeX: {
+        Macros: {
+          veps: "{\\varepsilon}",
+        mtblank: "{\\textvisiblespace}",
+          bold: ["{\\bf #1}",1],
+        xvdash: ["{\\,\\vdash^{\\mkern-10mu\\rule[-.9ex]{0pt}{0pt}#1}_{\\mkern-10mu\\scriptscriptstyle\\rule[-.9ex]{0pt}{0pt}#2}\\,}",2],
+        ceil: ["{\\left\\lceil #1 \\right\\rceil}",1],
+        floor: ["{\\left\\lfloor #1 \\right\\rfloor}",1],
+        len: ["{\\mid #1 \\mid}",1]
+        }
+      }        
+    });
+  </script>
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <link rel="apple-touch-icon-precomposed" sizes="196x196" href="{{ site.baseurl }}/assets/images/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" type="image/png" href="{{ site.baseurl }}/assets/images/favicon.png">
+  <link rel="shortcut icon" sizes="196x196" href="{{ site.baseurl }}/assets/images/favicon.png">
+  <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ site.baseurl }}/atom.xml">
+</head>

@@ -1,0 +1,39 @@
+---
+layout: page
+title: Artículos por categoría
+permalink: /blog/categories/
+---
+
+<ul class="archive-taxonomy">
+  {%- assign categories = site.categories | sort -%}
+  {%- for category in categories -%}
+  <li>   
+    <i class="fa fa-folder-open"></i>&nbsp;
+    <a href="#{{ category[0] }}"><strong>{{ category[0] | replace:'-', ' ' }}</strong></a>
+    <span class="taxonomy-count">{{ category | last | size }}</span>      
+  </li>
+  {%- endfor -%}
+</ul>
+
+{% assign show_cats = false %}
+{% assign show_tags = true %}       
+<div class="cat-list">
+  {% for category in categories %}
+    <div class="post-list">      
+      <h2 id="{{ category[0] }}">
+        <i class="fa fa-folder-open"></i>&nbsp;
+        {{ category[0] | replace:'-', ' ' }} ({{ category | last | size }})
+      </h2>
+      <ul class="list-group">
+        {% assign sorted_posts = site.posts | sort: 'title' %}
+        {% for post in sorted_posts %}
+          {% if post.categories contains category[0] %}
+            <li class="list-group-item">             
+              {%- include post-item.html -%}
+            </li>        
+          {% endif %}
+        {% endfor %}
+      </ul>  
+    </div>  
+  {% endfor %}
+</div>

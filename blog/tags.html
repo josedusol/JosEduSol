@@ -1,0 +1,39 @@
+---
+layout: page
+title: Artículos por etiqueta
+permalink: /blog/tags/
+---
+
+<ul class="archive-taxonomy">
+  {%- assign tags = site.tags | sort -%}
+  {%- for tag in tags -%}
+  <li>   
+    <i class="fa fa-tag"></i>&nbsp;
+    <a href="#{{ tag[0] }}"><strong>{{ tag[0] | replace:'-', ' ' }}</strong></a>
+    <span class="taxonomy-count">{{ tag | last | size }}</span>      
+  </li>
+  {%- endfor -%}
+</ul>
+
+{% assign show_cats = true %}
+{% assign show_tags = false %}       
+<div class="tag-list">
+  {% for tag in tags %}
+    <div class="post-list">      
+      <h2 id="{{ tag[0] }}">
+        <i class="fa fa-tag"></i>&nbsp;
+        {{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
+      </h2>
+      <ul class="list-group">
+        {% assign sorted_posts = site.posts | sort: 'title' %}
+        {% for post in sorted_posts %}
+          {% if post.tags contains tag[0] %}
+            <li class="list-group-item">             
+              {%- include post-item.html -%}
+            </li>        
+          {% endif %}
+        {% endfor %}
+      </ul>  
+    </div>  
+  {% endfor %}
+</div>

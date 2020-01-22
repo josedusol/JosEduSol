@@ -1,0 +1,36 @@
+---
+layout: page-untitled
+pagination: 
+  enabled: true
+---
+
+{% assign show_cats = true %}
+{% assign show_tags = true %}  
+<div class="blog">
+  {%- if site.posts.size > 0 -%}
+    <ul class="post-list list-group">
+      {%- for post in paginator.posts -%}
+      <li class="list-group-item">
+        {%- include post-item.html -%}
+      </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>
+
+{% if paginator.total_pages > 1 %}
+  <div class="pagination">
+    {% if paginator.next_page %}
+      <a class="pagination-item older" href="{{ paginator.next_page_path | prepend: site.baseurl }}"
+         title="Anteriores" alt="Anteriores"><i class="fa fa-2x fa-angle-left"></i></a>
+    {% else %}
+      <span class="pagination-item older"><i class="fa fa-2x fa-angle-left"></i></span>
+    {% endif %}
+    {% if paginator.previous_page %}
+      <a class="pagination-item newer" href="{{ paginator.previous_page_path | prepend: site.baseurl }}"
+         title="Posteriores" alt="Posteriores"><i class="fa fa-2x fa-angle-right"></i></a>
+    {% else %}
+      <span class="pagination-item newer"><i class="fa fa-2x fa-angle-right"></i></span>
+    {% endif %}
+  </div>
+{%- endif -%}
