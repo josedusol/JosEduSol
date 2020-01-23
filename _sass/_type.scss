@@ -11,7 +11,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 h2 {
@@ -105,6 +105,9 @@ a[href^="#fnref:"] {
 .footnotes {
   margin-top: 1rem;
   font-size: 85%;
+  p {
+    margin-bottom: 0;
+  }
 }
 
 // Custom type
