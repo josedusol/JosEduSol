@@ -29,11 +29,11 @@
 nav.navbar {
     
   .navbar-brand {
-    margin-right:0px;
+    margin-right: 0px;
     
     .brand-anim {
         
-      margin-top:5px;
+      margin-top: 5px;
       
       @media (max-width: 480px) {
         width:55vw! important;
@@ -65,13 +65,13 @@ nav.navbar {
     
   ul li a {
     position: relative;
-    font-weight: 500;
+    font-weight: 500;    // TODO: no se ve muy bold en firefox, difiere de chrome 
     
     &:after {
       transition: all .5s;
       position: absolute;
       bottom: 0;
-      left: 0;
+      left: 0; 
       right: 0;
       margin: auto;
       width: 0%;

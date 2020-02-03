@@ -463,7 +463,7 @@ $$\begin{aligned}
 
 Por lo tanto, el lenguaje aceptado por $M$ es el lenguaje denotado por:
 
-  $$ ((a\,a + b\,b) + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a))^\star $$
+  $$ ((a a + b b) + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a))^\star $$
 
 </div>
 
@@ -474,7 +474,7 @@ Por lo tanto, el lenguaje aceptado por $M$ es el lenguaje denotado por:
               de lenguajes denominada *lenguajes regulares*.
 * [^notation_abuse]: Haciendo abuso de notación es común identificar la ER $r$ con el
                      el lenguaje denotado por $r$, o sea $\mathcal{L}(r)$.
-* [^arden_variant]: Esta forma es la presentada en el paper original de Arden.
+* [^arden_variant]: Esta es la forma presentada originalmente en el paper de Arden.
 * [^afn_epsilon]: Si se tiene un AFN-e, se puede convertir a AFN (o AFD) antes de aplicar el método.
 {:footnotes}
 

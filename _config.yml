@@ -16,7 +16,13 @@ kramdown:
   input:                GFM
   mathjax:              true
   auto_ids:             true
-  
+
+# Do not copy these files to the output directory
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - deploy.sh
+  - other
 
 # Assets
 #

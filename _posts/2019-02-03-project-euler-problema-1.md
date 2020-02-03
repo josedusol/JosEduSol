@@ -55,7 +55,7 @@ $\text{PE1}(n) \in \Theta (n)$.
 
 ### Método 2 - Suma de sucesiones
 {: #metodo_2}
-Los multiplos de 3 se pueden expresar mediante una sucesión, y esta se puede sumar hasta donde
+Los múltiplos de 3 se pueden expresar mediante una sucesión, y esta se puede sumar hasta donde
 sea necesario. Un razonamiento análogo se puede realizar con los múltiplos de 5. Ambos resultados 
 se deben suman para obtener el total, pero siguiendo el principio de inclusión-exclusión hay que 
 considerar los múltiplos en común para 3 y 5, por lo que la suma de estos se debe restar del total.
