@@ -4,12 +4,13 @@ permalink:              /:categories/:title:output_ext
 # General Setup
 title:                  JosEduSol
 tagline:                Computing
-url:                 
+url:                   
 baseurl:                ""
 include:                ['_pages']
 markdown:               kramdown
 highlighter:            rouge
 encoding:               utf-8
+lsi:                    false
 
 # kramdown config
 kramdown:

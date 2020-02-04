@@ -463,7 +463,7 @@ $$\begin{aligned}
 
 Por lo tanto, el lenguaje aceptado por $M$ es el lenguaje denotado por:
 
-  $$ ((a a + b b) + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a))^\star $$
+  $$ ((a\,a + b\,b) + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a))^\star $$
 
 </div>
 
