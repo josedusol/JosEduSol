@@ -3,6 +3,8 @@ _gh_pages
 _site
 .ruby-version
 .sass-cache
+.jekyll-cache
+.jekyll-metadata
 
 # Numerous always-ignore extensions
 *.diff
@@ -37,6 +39,3 @@ nbproject
 # grunt-html-validation
 validation-status.json
 validation-report.json
-
-# Folders to ignore
-node_modules
