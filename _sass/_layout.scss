@@ -19,22 +19,6 @@
   margin-bottom: 4rem; 
 }
 
-.MathJax {
-  font-size: 0.85rem !important;
-}
-.MathJax_Display {
-  font-size: 0.75rem !important;
-  display: flex;
-  padding: 0.5em;
-  overflow-x: auto;
-  overflow-y: hidden;
-  box-sizing: border-box;
-}
-.MathJax_Display .MathJax {
-  display: inline-block;
-  width: 100%;
-}   
-
 footer {
   margin-top: auto;
   background-color: $gray-6;  //old 313233

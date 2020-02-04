@@ -16,6 +16,16 @@ layout: default
       {%- include post-tags.html -%}
     </div>
 	</header>
+  <div class="post-top">
+    {% if post.toc %}
+      <nav class="toc">
+        <header>
+          <h4 class="nav-title"><i class="fa fa-file"></i> &nbsp;&nbsp; Contenido</h4>
+        </header>
+        {{ content | toc_only }}      
+      </nav>
+    {% endif %}
+  </div>  
   <div class="post-content">
     {{ content }}
   </div>

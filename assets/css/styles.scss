@@ -19,17 +19,17 @@
 
 @import "variables";
 @import "base";
-@import "type";
-@import "syntax-monokai";
 @import "code";
 @import "layout";
 @import "masthead";
+@import "mathjax";
+@import "message";
 @import "posts";
 @import "pages";
 @import "pagination";
-@import "message";
 @import "scroll-to-top";
-@import "sidebar-right";
+@import "syntax-monokai";
 @import "taxonomy";
 @import "theorem";
-
+@import "toc";
+@import "type";
