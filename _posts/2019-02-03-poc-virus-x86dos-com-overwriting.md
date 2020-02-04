@@ -1,8 +1,9 @@
 ---
-layout: post
-title: "Prueba de concepto - Virus: x86/DOS, COM, Overwriting"
 categories: [Malware, Programacion]
+layout: post
+published: true
 tags: [16-bit, ASM-x86, DOS, PoC, TASM, Virus]
+title: "Prueba de concepto - Virus: x86/DOS, COM, Overwriting"
 toc: true
 ---
 
@@ -18,10 +19,12 @@ virus son idénticas.
 <img src="/assets/images/poc-virus-x86dos-com-overwriting/infection.png" alt="" 
   width="350" class="aligncenter" />
 
-Generalmente nada se preserva de los archivos huéspedes ya que son destruidos por la sobrescritura. La desinfección consiste en eliminar todos los archivos infectados.
+Generalmente nada se preserva de los archivos huéspedes ya que son destruidos por la sobrescritura. 
+La desinfección consiste en eliminar todos los archivos infectados.
 
 ## Método de propagación
-La infección se realiza en el momento de ejecución infectando todos los archivos COM en el directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYSTEM.
+La infección se realiza en el momento de ejecución infectando todos los archivos COM en el 
+directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYSTEM.
 
 ## Flujo de ejecución
 <img src="/assets/images/poc-virus-x86dos-com-overwriting/flow.png" alt="" 

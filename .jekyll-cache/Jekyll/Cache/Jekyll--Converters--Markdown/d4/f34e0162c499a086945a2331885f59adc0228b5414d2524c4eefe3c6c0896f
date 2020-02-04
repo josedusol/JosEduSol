@@ -1,0 +1,539 @@
+I"?Y<h2 id="teoría">Teoría</h2>
+
+<h3 id="autómata-finito">Autómata Finito</h3>
+<div class="definition" data-number="1" data-name=" (AFN)"> 
+Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,F)$ donde:
+<div>
+    <ol>
+      <li>$ Q$ es un conjunto finito de estados.</li>
+      <li>$ \Sigma $ es un alfabeto finito.</li>
+      <li>$ \delta \subseteq Q \times \Sigma^\star$ es la relación de transición.</li>
+      <li>$ s \in Q$ es el estado inicial.</li>
+      <li>$ F \subseteq Q$ es el conjunto de estados finales (de aceptación).</li>
+    </ol>
+  </div>
+</div>
+
+<h3 id="lenguajes-y-operaciones">Lenguajes y operaciones</h3>
+<div class="definition" data-number="2" data-name=" (Alfabetos, Cadenas, Lenguajes)">
+  <ol>
+    <li>Un <strong>alfabeto</strong> $\Sigma$ es un conjunto finito no vació cuyos elementos son 
+denominados símbolos (o letras).</li>
+    <li>Una <strong>cadena</strong> (o palabra) $w = w_1\,w_2 \dots w_n$ es una secuencia finita formada 
+por la concatenación de $n$ símbolos tal que $w_i\in\Sigma$. El número de símbolos en $w$, 
+denotado $\len{w}$, es el largo de $w$. La cadena vacía, sin símbolos, se denota $\veps$ 
+y es la única cadena con largo $0$. Para toda cadena $w$ definimos $w^0=\veps \ $ 
+y $ \ w^k=w^{k-1}\,w$.</li>
+    <li>Un <strong>lenguaje</strong> formal $L$ definido sobre $\Sigma$ es un conjunto de cadenas formadas a 
+partir de los símbolos de $\Sigma$.</li>
+  </ol>
+</div>
+
+<p>Algunos lenguajes particulares son:</p>
+
+<ul>
+  <li>$ \varnothing$ es el lenguaje vacío, no tiene cadenas.</li>
+  <li>$ \lbrace \veps \rbrace$ es el lenguaje que tiene únicamente la cadena vacía.</li>
+  <li>$ \Sigma^\star$ es el lenguaje de todas las cadenas que se 
+pueden formar sobre $\Sigma$, incluyendo la cadena vacía. Por lo tanto, 
+para cualquier lenguaje $L$ definido sobre $\Sigma$, 
+tenemos $L \ \subseteq \ \Sigma^\star$.</li>
+</ul>
+
+<p>Se pueden obtener lenguajes nuevos a partir de otros aplicando operaciones 
+sobre estos. Como un lenguaje es un conjunto, entonces valen las operaciones 
+ordinarias sobre conjuntos como Unión, Intersección, etc. Adicionalmente, se 
+definen otras operaciones especiales.</p>
+
+<div class="definition" data-number="3" data-name=" (Unión)">
+Sean $L_1$ y $L_2$ lenguajes. La unión de $L_1$ y $L_2$ se define:
+
+ $$ L_1 \cup L_2 \ = \ \{\, w \ | \ w \in L_1 \text{ o } w \in L_2  \,\} $$
+</div>
+
+<div class="definition" data-number="4" data-name=" (Concatenación)">
+Sean $L_1$ y $L_2$ lenguajes. La concatenación de $L_1$ y $L_2$ se define:
+
+ $$ L_1 \cdot L_2 \ = \ \{\, w \ | \ w = w_1\,w_2 \text{ con }
+                           w_1 \in L_1 \text{ y } w_2 \in L_2  \,\} $$
+</div>
+
+<div class="definition" data-number="5" data-name=" (Potencia)">
+Sea $L$ un lenguaje y $n \in \mathbb{N}$. La potencia de $L$ a la $n$ se define:
+
+ $$ L^n \ = \
+  \begin{cases}
+    \{ \veps \}       &amp;\text{si } \,n=0   \\
+    L^{n-1} \cdot L   &amp;\text{si } \,n&gt;0
+  \end{cases}$$
+</div>
+
+<div class="definition" data-number="6" data-name=" (Clausura Kleene)">
+Sea $L$ un lenguaje. La clausura Kleene de $L$ se define:
+
+  $$L^\star \ = \ L^0 \,\cup\, L^1 \,\cup\, L^2 \,\cup\, \dots  
+            \ = \ \bigcup\limits_{k=0}^{\infty}L^k$$ 
+
+Alternativamente, una definición recursiva:
+
+  $$L^\star \ = \ \{ \veps \} \,\cup\, \{\, w \ | \ w = w_1\,w_2 \text{ con } 
+                     w_1 \in L \text{ y } w_2 \in L^\star \,\}$$
+</div>
+
+<div class="definition" data-number="7" data-name=" (Clausura Kleene+)">
+Sea $L$ un lenguaje. La clausura Kleene+ de $L$ se define:
+
+  $$L^+ \ = \ L \cdot L^\star $$
+</div>
+
+<h3 id="lenguajeexpresión-regular">Lenguaje/Expresión Regular</h3>
+<div class="theorem" data-number="1" data-name=" (Kleene 1, Lenguaje Regular)">
+Un lenguaje $L$ definido sobre un alfabeto $\Sigma$ es regular si y solo si $L$ 
+es aceptado por un Autómata Finito.<span><sup id="fnref:afn_afd"><a href="#fn:afn_afd" class="footnote">1</a></sup></span>
+</div>
+
+<div class="theorem" data-number="2" data-name=" (Kleene 2)">
+Todo lenguaje regular $L$ definido sobre un alfabeto $\Sigma$ puede ser construido 
+a partir de $\varnothing$ y $\{ a \}$ (con $a\in\Sigma$) mediante las operaciones 
+de Unión, Concatenación y Clausura Kleene.
+</div>
+
+<p>Otras operaciones como Intersección y Complemento también son cerradas sobre 
+lenguajes regulares, pero no son esenciales.</p>
+
+<p>Se define un lenguaje formal de Expresiones Regulares (ER) para denotar lenguajes 
+complejos construidos mediante las operaciones elementales, de manera que para cada 
+lenguaje regular $L$ hay una ER $r$ tal que $\mathcal{L}(r)=L$. <sup id="fnref:notation_abuse"><a href="#fn:notation_abuse" class="footnote">2</a></sup></p>
+
+<div class="definition" data-number="8" data-name=" (ER)">
+Sean $r_1,r_2$ expresiones regulares y $\Sigma$ un alfabeto. Entonces el lenguaje de ER
+definido sobre $\Sigma$ se construye de acuerdo con las siguientes reglas de sintaxis 
+y semántica.
+<div class="table-responsive">
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th></th>
+      <th>Descripción</th>
+      <th>Sintaxis</th>
+      <th>Semántica</th>
+    </tr>
+  </thead>
+  <tr>
+    <td rowspan="3">Caso base</td>
+    <td>Lenguaje vacío</td>
+    <td>$\emptyset$</td>
+    <td>$\mathcal{L}(\emptyset) \ = \ \{ \} \ = \ \varnothing$</td>
+  </tr>
+  <tr>
+    <td>Cadena vacía</td>
+    <td>$\veps$</td>
+    <td>$\mathcal{L}(\veps) \ = \ \{ \veps \}$</td>
+  </tr>
+  <tr>
+    <td>$a\in\Sigma$</td>
+    <td>$a$</td>
+    <td>$\mathcal{L}(a) \ = \ \{ a \}$</td>
+  </tr>
+  <tr>
+    <td rowspan="3">Paso inductivo</td>
+    <td>Clausura Kleene</td>
+    <td>$r_{1}^{\star}$</td>
+    <td>$\mathcal{L}(r_{1}^{\star}) \ = \ \mathcal{L}(r_1)^\star$</td>
+  </tr>
+  <tr>
+    <td>Unión</td>
+    <td>$r_1 + r_2$</td>
+    <td>$\mathcal{L}(r_1 + r_2) \ = \ \mathcal{L}(r_1) \cup \mathcal{L}(r_2)$</td>
+  </tr>
+  <tr>
+    <td>Concatenación</td>
+    <td>$r_1\,r_2$</td>
+    <td>$\mathcal{L}(r_1\,r_2) \ = \ \mathcal{L}(r_1) \cdot \mathcal{L}(r_2)$</td>
+  </tr>
+</table>
+</div>
+</div>
+
+<div class="definition" data-number="9">
+Sean $r_1,r_2$ expresiones regulares. Entonces $r_1$ y $r_2$ son iguales si y 
+solo si ambas denotan el mismo lenguaje. Es decir:  
+
+  $$r_1 = r_2 \ \iff \ \mathcal{L}(r_1) = \mathcal{L}(r_2)$$
+</div>
+
+<p>La definición de $\veps$ (cadena vacía) como primitiva es conveniente, pero redundante
+porque $\mathcal{L}(\emptyset^\star) = \mathcal{L}(\veps) = \lbrace \veps \rbrace$. Notar que 
+un lenguaje puede ser denotado por más de una RE.</p>
+
+<div class="lemma" data-number="1" data-name=" (Identidades)">
+Sean $r_1,r_2,r_3$ expresiones regulares sobre un alfabeto. Entonces las siguientes
+son identidades básicas:
+
+<div>
+    <ol>
+      <li>
+        <p>Conmutatividad:</p>
+
+        <script type="math/tex; mode=display">r_1 + r_2 \ = \ r_2 + r_1</script>
+      </li>
+      <li>
+        <p>Asociatividad:</p>
+
+        <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+  r_1 + (r_2 + r_3) \ &= \ (r_1 + r_2) + r_3   && \\
+  r_1\,(r_2\,r_3)   \ &= \ (r_1\,r_2)\,r_3     &&
+\end{aligned} %]]></script>
+      </li>
+      <li>
+        <p>Distributividad:</p>
+
+        <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+  r_1\,(r_2 + r_3)  \ &= \  r_1\,r_2 + r_1\,r_3   && \\
+  (r_1 + r_2)\,r_3  \ &= \  r_1\,r_3 + r_2\,r_3   &&
+\end{aligned} %]]></script>
+      </li>
+      <li>
+        <p>Elemento Neutro:</p>
+
+        <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+  & r_1\,\veps      \ = \ \veps\,r_1      \ = \ r_1   && \\
+  & r_1 + \emptyset \ = \ \emptyset + r_1 \ = \ r_1   && \\           
+  & r_1 + \veps     \ = \ \veps     + r_1 \ = \ r_1   && \text{ si } \ \veps \in \mathcal {L}(r_1) 
+\end{aligned} %]]></script>
+      </li>
+      <li>
+        <p>Elemento Cero:</p>
+
+        <script type="math/tex; mode=display">r_1\,\emptyset \ = \ \emptyset\,r_1 \ = \ \emptyset</script>
+      </li>
+      <li>
+        <p>Otros:</p>
+
+        <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+  r_1^+ + \veps      \ &= \  r_1^\star   && \\           
+  (r_1^\star)^\star  \ &= \  r_1^\star   && \\    
+  r_1^+              \ &= \  r_1^\star   && \text{ si } \ \veps \in \mathcal{L}(r_1) \\ 
+  \emptyset^\star    \ &= \  \veps       &&
+\end{aligned} %]]></script>
+      </li>
+    </ol>
+  </div>
+</div>
+
+<div class="example" data-number="1">
+Sea $\Sigma=\{0,1\}$ :
+
+<div>
+    <ul>
+      <li>
+        <p>$0^\star + 1^\star$ denota el lenguaje de cadenas formadas con $0$ o $1$:</p>
+
+        <script type="math/tex; mode=display">\mathcal{L}(0^\star + 1^\star) = \{\veps, 0, 1, 00, 11, 000, 111, ... \}</script>
+      </li>
+      <li>
+        <p>$(0\,1)^\star$ denota el lenguaje de cadenas formadas con $0$ y $1$:</p>
+
+        <script type="math/tex; mode=display">\mathcal{L}((0\,1)^\star) = \{\veps, 01, 0101, 010101, 01010101, ... \}</script>
+      </li>
+      <li>
+        <p>$(0 + 1)^\star$ denota el lenguaje de cadenas formadas con $0$ y/o $1$:</p>
+
+        <script type="math/tex; mode=display">\mathcal{L}((0 + 1)^\star) = \{\veps, 0, 1, 00, 11, 01, 10, ... \}</script>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<h2 id="lema-de-arden">Lema de Arden</h2>
+
+<div class="lemma" data-number="2" data-name=" (Arden)">
+Sean $X,A,B\subseteq\Sigma^\star$ con $\veps\not\in A$. Entonces:
+ 
+   $$X \ = \ A \cdot X \cup B \ \ \iff \ \ X \ = \ A^\star \cdot B$$ 
+
+En palabras, $A^\star \cdot B$ es el lenguaje más pequeño tal que es solución
+en la ecuación lineal $X = A \cdot X \cup B$. Además, si $\veps\not\in A$ 
+entonces dicha solución es única.
+</div>
+
+<h3 id="demostración-1">Demostración 1</h3>
+<p>Procedemos en ambas direcciones.</p>
+
+<div>
+  <p>$\large\Longleftarrow)$ Sea $X = A^\star \cdot B$. Verificamos que $X$ es una 
+solución para la ecuación:</p>
+
+  <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+  X  &=  A^\star\cdot B                      && \\
+     &=  (A^+ \cup \{\veps\}) \cdot B        && \\
+     &=  A^+\cdot B \cup B                   && \\ 
+     &=  (A \cdot A^\star) \cdot B  \cup B   && \\
+     &=  A \cdot (A^\star \cdot B) \cup B    && \\
+     &=  A \cdot X \cup B                    &&
+\end{aligned} %]]></script>
+
+  <p>$\large\Longrightarrow)$ Sea $S$ una solución cualquiera de $X = A \cdot X \,\cup\, B$. 
+Expandiendo tenemos:</p>
+
+  <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+S  &=  A \cdot S \cup B                                       && \\
+   &=  A \cdot (A\cdot S \cup B) \cup B                       && \\
+   &=  A^2 \cdot S \cup A\cdot B \cup B                       && \\
+   &=  A^2 \cdot (A \cdot S \cup B) \cup A \cdot B \cup B     && \\ 
+   &=  A^3 \cdot S \cup A^2 \cdot B \cup A \cdot B \cup B     && \\
+   & \ \ \vdots                                               && \\
+   &=  A^{n+1}\cdot S \cup A^{n}\cdot B \cup \dots \cup A^3\cdot B \cup A^2\cdot B \cup A\cdot B \cup B &&\\
+   &=  A^{n+1}\cdot S \cup (A^{n} \cup \dots \cup A^3 \cup A^2 \cup A \cup \{\veps\})\cdot B            &&
+\end{aligned} %]]></script>
+
+  <p>Entonces para todo $n \geq 0$:</p>
+
+  <script type="math/tex; mode=display">S \ = \ A^{n+1}\cdot S \ \cup \ \left(\bigcup\limits_{k=0}^{n}A^k\right)\cdot B \tag{1}\label{eq1}</script>
+
+  <p>Esto significa en particular $A^k \cdot B \ \subseteq \ S$ para todo $n \geq 0$, 
+entonces $A^\star \cdot B \ \subseteq \ S$. Hasta aquí hemos probado que $A^\star \cdot B$
+es una solución y debe ser la más pequeña porque está incluida en cualquier otra solución $S$.</p>
+
+  <p>Ahora, considerando también la hipotesis $\veps\not\in A$ vamos a ver 
+que dicha solución además es única. Sea $w\in S$ tal que $\len{w}=n$ con $n \geq 0$, 
+entonces por $\eqref{eq1}$ tenemos dos casos posibles:</p>
+
+  <ol>
+    <li>$\ w \in A^{n+1}\cdot S \ $: Pero si $\veps\not\in A$ entonces la cadena 
+  más corta que puede haber en $A^{n+1}\cdot S$ es de largo $n+1$. Luego 
+  $w \not\in A^{n+1}\cdot S$ y este caso queda descartado.</li>
+    <li>$\ w \in \left(\bigcup\limits_{k=0}^{n}A^k\right)\cdot B \ $: Se cumple 
+  por haber descartado el caso anterior.</li>
+  </ol>
+
+  <p>Necesariamente $w \in \left(\bigcup\limits_{k=0}^{n}A^k\right)\cdot B \ \subseteq \ A^\star \cdot B$, 
+entonces $S \ \subseteq \ A^\star \cdot B$.<br />
+Por lo tanto $S = A^\star \cdot B$.
+<span style="float:right;font-size:1.2em">⃞</span></p>
+</div>
+
+<h3 id="demostración-2">Demostración 2</h3>
+<p>Otra manera de probar el lema es usando inducción. 
+Consideremos la dirección $\Longrightarrow$. Supongamos $X = A \cdot X \cup B$ con $\veps\not\in A$, 
+entonces tenemos que demostrar $X = A^\star \cdot B$, es decir: 
+$X \ \subseteq \ A^\star \cdot B$ y $A^\star \cdot B \ \subseteq \ X $. 
+Ahora demostramos ambas inclusiones por separado.</p>
+
+<p>$\large\subseteq)$ Notar que:</p>
+
+<script type="math/tex; mode=display">X \subseteq A^\star \cdot B \ \iff \ \forall w \in X \ : \ w \in A^\star \cdot B</script>
+
+<p>Procedemos por inducción completa en el largo de la cadena $w\in X$:</p>
+
+<p><strong>Caso Base.</strong> Sea $\len{w}=0$, o sea $w=\veps$.<br />
+Tenemos que $w\in X$ y $X = A \cdot X \cup B$. Luego $w \in A \cdot X \cup B$, 
+es decir: $w \in A \cdot X$ o $w \in B$.<br />
+Pero $\veps\not\in A$, entonces $w \not\in A \cdot X$. Luego necesariamente $w \in B$.<br />
+Además $B \subseteq A^\star \cdot B$, por lo tanto $w \in A^\star \cdot B$.</p>
+
+<p><strong>Paso Inductivo.</strong><br />
+      <strong>HI.</strong> $v \in A^\star \cdot B$ para todo $v\in X$ con $1 \leq \len{v} \leq n $.<br />
+ <strong>T.</strong> $w \in A^\star \cdot B$ para $\len{w} \gt n$.<br />
+Por casos:</p>
+<ul>
+  <li>Si $w \in B$. Entonces $w \in A^\star \cdot B$.</li>
+  <li>
+    <p>Si $w \not\in B$. Tenemos que $w\in X$ y $X = A \cdot X \cup B$, 
+luego $w \in A \cdot X \cup B$, es decir: $w \in A \cdot X$ o $w \in B$. 
+Pero $w \not\in B$, luego necesariamente $w \in A \cdot X$.<br />
+Si $w \in A \cdot X$ entonces existen cadenas $w_1\in A$ y $w_2\in X$ tal que $w = w_1\,w_2$.<br />
+Como $\veps\not\in A$, tenemos que $\len{w_1}\geq 1$ y entonces $\len{w} \gt \len{w_2}$.<br />
+Tomando $w_2=v$, por la HI: $ \ w_2 \in A^\star \cdot B$.<br />
+Luego $w=w_1\,w_2 \in A \cdot (A^\star \cdot B)$.<br />
+Pero además:</p>
+
+    <script type="math/tex; mode=display">A \cdot (A^\star \cdot B) \ = \ (A \cdot A^\star) \cdot B 
+                              \ = \ A^+ \cdot B 
+                              \ \subseteq \ A^\star \cdot B</script>
+
+    <p>Por lo tanto $w \in A^\star \cdot B$.</p>
+  </li>
+</ul>
+
+<p>Habiendo completado la inducción, hemos demostrado $X \subseteq A^\star \cdot B$.</p>
+
+<p>$\large\supseteq)$ Se procede de manera similar.
+<span style="float:right;font-size:1.2em">⃞</span></p>
+
+<h3 id="observaciones">Observaciones</h3>
+<ul>
+  <li>Si los lenguajes $A$ y $B$ son regulares, entonces la solución $A^\star \cdot B$ es un 
+lenguaje regular. Esto es porque las operaciones de Clausura Kleene y Concatenación son 
+cerradas sobre lenguajes regulares.</li>
+  <li>
+    <p>Si $\veps\in A$, entonces la ecuación $X = A \cdot X \cup B$ tiene infinitas soluciones 
+de la forma $A^\star\cdot(B \cup C)$ donde $C \subseteq \Sigma^\star$ es un lenguaje
+arbitrario, como se puede verificar:</p>
+
+    <script type="math/tex; mode=display">% <![CDATA[
+\begin{aligned}
+ X  &=  A^\star \cdot (B \cup C)                           && \\
+    &=  A^\star \cdot B \cup A^\star \cdot C               && \\
+    &=  (A^+ \cup \{\veps\}) \cdot B \cup A^\star \cdot C  && \\ 
+    &=  A^+ \cdot B \cup B \cup A^\star \cdot C            && \\
+    &=  A^+ \cdot B \cup A^\star \cdot C \cup B            && \\
+    &=  A^+ \cdot B \cup A^+ \cdot C \cup B                && \\
+    &=  A^+ \cdot(B \cup C) \cup B                         && \\
+    &=  A \cdot A^\star \cdot (B \cup C) \cup B            && \\
+    &=  A \cdot X \cup B                                   &&
+\end{aligned} %]]></script>
+
+    <p>En este caso, $A^\star \cdot B$ es una de las soluciones posibles cuando $C=\varnothing$,
+siendo así la más pequeña pero no la única. Por lo tanto, sin la hipótesis 
+$\veps \not\in A$ no hay unicidad y entonces el lema se cumple solo en la 
+dirección $\Longleftarrow$.</p>
+  </li>
+  <li>
+    <p>Otra versión del Lema de Arden se cumple de manera análoga para gramáticas lineales por
+izquierda: <sup id="fnref:arden_variant"><a href="#fn:arden_variant" class="footnote">3</a></sup></p>
+
+    <script type="math/tex; mode=display">X \ = \ X \cdot A \cup B \ \ \iff \ \ X \ = \ B \cdot A^\star</script>
+  </li>
+</ul>
+
+<h2 id="aplicación-conversión-de-af-a-er">Aplicación: conversión de AF a ER</h2>
+<p>Según el Teorema 1, todo Autómata Finito (AFD o AFN) acepta un lenguaje regular.
+Un método de conversión de AF a ER consiste en resolver el sistema de ecuaciones
+lineales regulares asociado al AF. Una aplicación del lema de Arden es en la 
+resolución de dicho sistema de ecuaciones, específicamente en las 
+ecuaciones recursivas. <sup id="fnref:afn_epsilon"><a href="#fn:afn_epsilon" class="footnote">4</a></sup></p>
+
+<div class="definition" data-number="10">
+Sea $M=(Q,\Sigma,\delta,s,F)$ un AFD/AFN tal que $Q=\{ q_1,q_2,...,q_n \}$. El sistema 
+de ecuaciones asociado a $M$ tiene $n$ incógnitas $X_1,X_2,...,X_n$ y $n$ ecuaciones, una 
+por cada $q_i$, de la forma:
+
+$$X_i \ = \ \sum_{q_j\,\in\,\delta(q_i,x)} x\,X_j 
+            \ + \ \begin{cases} \veps     &amp;\text{si } \ q_i\in F     \\ 
+                                \emptyset &amp;\text{si } \ q_i\not\in F 
+                  \end{cases} $$
+</div>
+
+<p>Cada $X_i$ es una ER que denota aquellas cadenas aceptadas por $M$ comenzando desde el 
+estado $q_i$. Entonces si $q_1$ es el estado inicial, la solución de $X_1$ es la ER que 
+denota el lenguaje aceptado por $M$, o sea $\mathcal{L}(X_1)=\mathcal{L}(M)$.</p>
+
+<div class="example" data-number="2">
+Sea $M=(Q,\Sigma,\delta,s,F)$ un AFN con:
+<div>
+    <ul>
+      <li>$ Q=\lbrace q_1, q_2, q_3, q_4 \rbrace$</li>
+      <li>$ \Sigma=\lbrace \texttt{a}, \texttt{b} \rbrace$</li>
+      <li>$ s=q_1 $</li>
+      <li>$ F=\lbrace q_1 \rbrace$</li>
+    </ul>
+  </div>
+y $\delta$ representada por el siguiente diagrama de transición:
+
+<img src="/assets/images/lema-arden/example2.svg" alt="" width="280" class="aligncenter" />
+
+Siguiendo la definición 10, el sistema de ecuaciones correspondiente a $M$ es:
+
+$$\left\{\begin{aligned}
+  X_1  &amp;=  a\,X_2 + b\,X_4 + \veps &amp; (1) \\ 
+  X_2  &amp;=  a\,X_1 + b\,X_3         &amp; (2) \\ 
+  X_3  &amp;=  b\,X_2 + a\,X_4         &amp; (3) \\ 
+  X_4  &amp;=  b\,X_1 + a\,X_3         &amp; (4)
+\end{aligned}\right.$$ 
+
+Sustitución de $(2)$ en $(1)$ y $(3)$:
+
+$$\begin{aligned}
+  X_1  &amp;=  a\,(a\,X_1 + b\,X_3) + b\,X_4 + \veps    &amp; \\ 
+       &amp;=  a\,a\,X_1 + a\,b\,X_3 + b\,X_4 + \veps   &amp;
+\end{aligned}$$ 
+
+$$\begin{aligned}
+  X_3  &amp;=  b\,(a\,X_1 + b\,X_3) + a\,X_4    &amp; \\ 
+       &amp;=  b\,a\,X_1 + b\,b\,X_3 + a\,X_4   &amp;
+\end{aligned}$$ 
+
+Nos queda un sistema en 3 incógnitas:
+
+$$\left\{\begin{aligned}
+ X_1  &amp;=  a\,a\,X_1 + a\,b\,X_3 + b\,X_4 + \veps  &amp; (5) \\ 
+ X_3  &amp;=  b\,a\,X_1 + b\,b\,X_3 + a\,X_4          &amp; (6) \\ 
+ X_4  &amp;=  b\,X_1 + a\,X_3                         &amp; 
+\end{aligned}\right.$$ 
+
+Sustitución de $(4)$ en $(5)$ y $(6)$:
+
+$$\begin{aligned}
+ X_1  &amp;=  a\,a\,X_1 + a\,b\,X_3 + b\,(b\,X_1 + a\,X_3)  + \veps    &amp; \\ 
+      &amp;=  a\,a\,X_1 + a\,b\,X_3 + b\,b\,X_1 + b\,a\,X_3 + \veps    &amp; \\ 
+      &amp;=  (a\,a + b\,b)\,X_1 + (a\,b + b\,a)\,X_3  + \veps         &amp;
+\end{aligned}$$ 
+
+$$\begin{aligned}
+ X_3  &amp;=  b\,a\,X_1 + b\,b\,X_3 + a\,(b\,X_1 + a\,X_3)     &amp; \\ 
+      &amp;=  b\,a\,X_1 + b\,b\,X_3 + a\,b\,X_1 + a\,a\,X_3    &amp; \\ 
+      &amp;=  (a\,a + b\,b)\,X_3 + (a\,b + b\,a)\,X_1          &amp; \\
+      &amp;=  (a\,a + b\,b)^\star (a\,b + b\,a)\,X_1           &amp; \text{(lema de Arden)}
+\end{aligned}$$ 
+
+Nos queda un sistema en 2 incógnitas:
+
+$$\left\{\begin{aligned}
+ X_1  &amp;=  (a\,a + b\,b)\,X_1 + (a\,b + b\,a)\,X_3 + \veps  &amp; (7) \\ 
+ X_3  &amp;=  (a\,a + b\,b)^\star (a\,b + b\,a)\,X_1           &amp; (8) \\ 
+\end{aligned}\right.$$ 
+
+Sustitución de $(8)$ en $(7)$:
+
+$$\begin{aligned}
+ X_1  &amp;=  (a\,a + b\,b)\,X_1 + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a)\,X_1 + \veps  &amp; \\ 
+      &amp;=  ((a\,a + b\,b) + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a))\,X_1 + \veps     &amp; \\
+      &amp;=  ((a\,a + b\,b) + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a))^\star \veps      &amp; \text{(lema de Arden)} \\
+      &amp;=  ((a\,a + b\,b) + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a))^\star            &amp;
+\end{aligned}$$ 
+
+Por lo tanto, el lenguaje aceptado por $M$ es el lenguaje denotado por:
+
+  $$ ((a\,a + b\,b) + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a))^\star $$
+
+</div>
+
+<h2 id="referencias">Referencias</h2>
+<div class="footnotes">
+  <ol>
+    <li id="fn:afn_afd">
+      <p>Un resultado importante sobre Autómatas Finitos es que <em>deterministas</em> (AFD’s) 
+        y <em>no deterministas</em> (AFN’s) son equivalentes en el sentido de que tienen el mismo
+        poder expresivo, esto es que pueden reconocer/aceptar la misma clase
+        de lenguajes denominada la clase de <em>lenguajes regulares</em>. <a href="#fnref:afn_afd" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:notation_abuse">
+      <p>Haciendo abuso de notación es común identificar la ER $r$ con el
+               el lenguaje denotado por $r$, o sea $\mathcal{L}(r)$. <a href="#fnref:notation_abuse" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:arden_variant">
+      <p>Esta es la forma presentada originalmente en el paper de Arden. <a href="#fnref:arden_variant" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:afn_epsilon">
+      <p>Si se tiene un AFN-e, se puede convertir a AFN (o AFD) antes de aplicar el método. <a href="#fnref:afn_epsilon" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+<h2 id="relacionados">Relacionados</h2>
+<ol>
+  <li><a href="/malware/programacion/poc-virus-x86dos-com-overwriting.html">Prueba de concepto - Virus: x86/DOS, COM, Overwriting</a></li>
+  <li><a href="/matematica/programacion/project-euler-problema-1.html">Project Euler - Problema 1: Múltiplos de 3 y 5</a></li>
+</ol>
+
+<h2 id="bibliografía">Bibliografía</h2>
+<ol class="bibliography"><li><span id="Hopcroft-Motwani-Ullman2000">J. Hopcroft, J. U., R. Motwani. (2000). <i>Introduction to Automata Theory, Languages, and Computation</i> (2nd ed.). Addison Wesley.</span></li>
+<li><span id="Arden1961">Arden, D. N. (1961). <i>Delayed-logic and finite-state machines</i> (2nd Annual Symposium on Switching Circuit Theory &amp; L. D. (S. W. C. T. 1961), Eds.; pp. 133–151).</span></li></ol>
+:ET

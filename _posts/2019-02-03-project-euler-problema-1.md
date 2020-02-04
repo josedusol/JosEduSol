@@ -1,7 +1,8 @@
 ---
-layout: post
-title: "Project Euler - Problema 1: Múltiplos de 3 y 5"
 categories: [Matematica, Programacion]
+layout: post
+published: true
+title: "Project Euler - Problema 1: Múltiplos de 3 y 5"
 toc: true
 ---
 {% include fragments/pseudocode.html %}
@@ -9,7 +10,8 @@ toc: true
 
 
 ## Letra del problema
-> If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+> If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. 
+  The sum of these multiples is 23.
 > Find the sum of all the multiples of 3 or 5 below 1000.
 
 ## Soluciones
@@ -21,11 +23,13 @@ existe $c \in \mathbb{Z}$ tal que $b = a\,c$. Cuando $a \mid b$ decimos que $a$ 
 o divisor de $b$ y que $b$ es múltiplo de $a$
 </div>
 
-Por la definición precedente, si $b = a\,c \ $ y $ \ \frac ba = c$ entonces $b$ es *múltiplo* de $a$ 
-si contiene a $a$ un número entero de veces determinado por $c$. Esto es decir que el resto de 
-la división euclidiana $\frac ba$ es $0$, lo cual se puede verificar comprobando que $b \bmod a = 0$.
+Por la definición precedente, si $b = a\,c \ $ y $ \ \frac ba = c$ entonces $b$ es 
+*múltiplo* de $a$ si contiene a $a$ un número entero de veces determinado por $c$. Esto es decir 
+que el resto de la división euclidiana $\frac ba$ es $0$, lo cual se puede verificar comprobando 
+que $b \bmod a = 0$.
 
-Entonces una solución posible es sumar cada $x \in [0...n)$ tal que $x \bmod 3 = 0$ o $x \bmod 5 = 0$.
+Entonces una solución posible es sumar cada $x \in [0...n)$ tal que $x \bmod 3 = 0$ o 
+$x \bmod 5 = 0$.
 
 <div id="algorithm1-pe1" class="algorithm-pscode">
 \begin{algorithm}
