@@ -18,12 +18,7 @@ layout: default
 	</header>
   <div class="post-top">
     {% if post.toc %}
-      <nav class="toc">
-        <header>
-          <h4 class="nav-title"><i class="fa fa-file"></i> &nbsp;&nbsp; Contenido</h4>
-        </header>
-        {{ content | toc_only }}      
-      </nav>
+      {%- include toc.html -%}
     {% endif %}
   </div>  
   <div class="post-content">

@@ -1,5 +1,5 @@
 # Permalinks
-permalink:              /:categories/:title:output_ext
+permalink:              /blog/:categories/:title:output_ext
 
 # General Setup
 title:                  JosEduSol
@@ -63,8 +63,8 @@ jekyll-archives:
     category:           archive-cat
     tag:                archive-tag
   permalinks:
-    category:           /categories/:name/
-    tag:                /tags/:name/
+    category:           /blog/categories/:name/
+    tag:                /blog/tags/:name/
   
 # Configuration for jekyll-paginate-v2 
 #paginate:               5

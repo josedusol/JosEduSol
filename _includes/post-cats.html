@@ -3,7 +3,7 @@
     <i class="fa fa-folder-open"></i>&nbsp;
     {%- assign sorted_cats = (post.categories | sort) -%}
     {%- for cat in sorted_cats -%}
-      <a href="{{ site.baseurl }}/categories/{{ cat | slugify }}">{{ cat }}</a>
+      <a href="{{ site.baseurl }}/blog/categories/{{ cat | slugify }}">{{ cat }}</a>
       {%- if forloop.last != true -%},&nbsp;{%- endif -%}
     {%- endfor -%}  
   {%- endif -%}

@@ -3,7 +3,7 @@
     <i class="fa fa-tags"></i>&nbsp;
     {%- assign sorted_tags = (post.tags | sort) -%}
     {%- for tag in sorted_tags -%}
-      <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}" >{{ tag }}</a>
+      <a href="{{ site.baseurl }}/blog/tags/{{ tag | slugify }}" >{{ tag }}</a>
        {%- if forloop.last != true -%}&nbsp;{%- endif -%}
     {%- endfor -%}  
   {%- endif -%}
