@@ -13,11 +13,10 @@ de ejecución.
 
 ## Método de infección
 El virus simplemente sobrescribe otros archivos COM con el código viral. Es la estrategia
- más primitiva, pero puede ser muy agresiva y destructiva. Todas las generaciones del 
+ más primitiva, pero es muy agresiva y destructiva. Todas las generaciones del 
 virus son idénticas.
 
-<img src="/assets/images/poc-virus-x86dos-com-overwriting/infection.png" alt="" 
-  width="350" class="aligncenter" />
+![infection](/assets/images/poc-virus-x86dos-com-overwriting/infection.png){:width="350"}
 
 Generalmente nada se preserva de los archivos huéspedes ya que son destruidos por la sobrescritura. 
 La desinfección consiste en eliminar todos los archivos infectados.
@@ -27,8 +26,7 @@ La infección se realiza en el momento de ejecución infectando todos los archiv
 directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYSTEM.
 
 ## Flujo de ejecución
-<img src="/assets/images/poc-virus-x86dos-com-overwriting/flow.png" alt="" 
-  width="349" class="aligncenter" />
+![flow](/assets/images/poc-virus-x86dos-com-overwriting/flow.png){:width="350"}
 
 ## Análisis estático
 Hex dump de un archivo sano de tamaño 80 bytes:
@@ -195,14 +193,13 @@ infect_file:    mov     ah, 3Dh               ; | AH = 3Dh
 {% endhighlight %}
 
 ## Casos reales
-* La familia de virus <em>Trivial</em> en sistemas DOS se caracteriza por tener los 
-  ejemplares de virus más pequeños. Por ejemplo,<em> DOS/Trivial.22</em> es un 
+* La familia de virus *Trivial* en sistemas DOS se caracteriza por tener los 
+  ejemplares de virus más pequeños. Por ejemplo, *DOS/Trivial.22* es un 
   virus de solo 22 bytes.
-* El gusano <em>VBS/LoveLetter.A@mm</em> tiene como principal vector de propagación el
+* El gusano *VBS/LoveLetter.A@mm* tiene como principal vector de propagación el
   envió masivo de e-mails. Al ejecutarse sobre escribe archivos de extensión 
-  <em>.vbs</em>, <em>.vbe</em>, <em>.js</em>, <em>.css</em>, <em>.jpg</em>, 
-  <em>.txt</em>, <em>.html</em>, <em>.avi</em>, <em>.mp3</em>, y muchos más. Fue 
-  notablemente exitoso en el 2000.
+  *.vbs*, *.vbe*, *.js*, *.css*, *.jpg*, *.txt*, *.html*, *.avi*, *.mp3*, 
+  y muchos más. Fue notablemente exitoso en el 2000.
 
 ## Bibliografía
 {% bibliography -q

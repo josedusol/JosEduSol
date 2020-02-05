@@ -3,15 +3,27 @@
 .example,
 .lemma,
 .proof,
-.theorem{
-  display:block;
-  margin:10px 0 25px;
-  text-align:justify
+.theorem {
+  display: block;
+  margin: 10px 0 25px;
+  text-align: justify;
+  
+  /* Little fix for raw HTML and kramdown interaction issue */
+  p:first-child {
+    display: inline;
+  }
+  p:first-child::before {
+    content: &nbsp ;
+  }
+  p:first-child + ul, 
+  p:first-child + ol,  {  
+    margin-top: 0.5rem;
+  }
 }
   
 .definition,
 .lemma,
-.theorem{
+.theorem {
   font-size:1em
 }
 
@@ -19,7 +31,7 @@
   font-style:italic
 }
 .theorem::before {
-  content:"Teorema " attr(data-number) attr(data-name) ".";
+  content:"Teorema " attr(data-number) attr(data-name) ". ";
   font-style:normal;
   font-weight:700
 }
@@ -28,7 +40,7 @@
   font-style:italic
 }
 .lemma::before {
-  content:"Lema " attr(data-number) attr(data-name) ".";
+  content:"Lema " attr(data-number) attr(data-name) ". ";
   font-style:normal;
   font-weight:700
 }
@@ -59,7 +71,7 @@
   font-style:italic
 }
 .definition::before {
-  content:"Definici\F3n " attr(data-number) attr(data-name) ".";
+  content:"Definici\F3n " attr(data-number) attr(data-name) ". ";
   font-style:normal;
   font-weight:700
 }
@@ -68,7 +80,7 @@
   font-style:normal
 }
 .example:before {
-  content:"Ejemplo " attr(data-number) ".";
+  content:"Ejemplo " attr(data-number) ". ";
   font-style:normal;
   font-weight:700
 }

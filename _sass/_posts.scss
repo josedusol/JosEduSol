@@ -1,7 +1,7 @@
 // Posts and pages
 //
-// Each post is wrapped in `.post` and is used on default and post layouts. Each
-// page is wrapped in `.page` and is only used on the page layout.
+// Each post is wrapped in `.post` and is used on default and post layouts. 
+// Each page is wrapped in `.page` and is only used on the page layout.
 
 .page,
 .post {
@@ -9,6 +9,16 @@
   
   li + li {
     margin-top: .25rem;
+  }
+  
+  p + ul {  
+    margin-top: -0.5rem;
+  }
+  
+  img {
+    clear: both;
+    display: block;
+    margin: 0 auto;    
   }
   
   .aligncenter {

@@ -9,15 +9,14 @@ toc: true
 ## Teoría
 
 ### Autómata Finito
-<div class="definition" data-number="1" data-name=" (AFN)"> 
+<div class="definition" data-number="1" data-name=" (AFN)" markdown="1"> 
 Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,F)$ donde:
-<div markdown="1">
-1. $ Q$ es un conjunto finito de estados.
-2. $ \Sigma $ es un alfabeto finito.
-3. $ \delta \subseteq Q \times \Sigma^\star$ es la relación de transición.
-4. $ s \in Q$ es el estado inicial.
-5. $ F \subseteq Q$ es el conjunto de estados finales (de aceptación).
-</div>
+
+1. $Q$ es un conjunto finito de estados.
+2. $\Sigma$ es un alfabeto finito.
+3. $\delta \subseteq Q \times \Sigma^\star$ es la relación de transición.
+4. $s \in Q$ es el estado inicial.
+5. $F \subseteq Q$ es el conjunto de estados finales (de aceptación).
 </div>
 
 ### Lenguajes y operaciones
@@ -35,12 +34,12 @@ Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,
 
 Algunos lenguajes particulares son:
 
-* $ \varnothing$ es el lenguaje vacío, no tiene cadenas.
-* $ \lbrace \veps \rbrace$ es el lenguaje que tiene únicamente la cadena vacía.
-* $ \Sigma^\star$ es el lenguaje de todas las cadenas que se 
+* $\varnothing$ es el lenguaje vacío, no tiene cadenas.
+* $$\{ \veps \}$$ es el lenguaje que tiene únicamente la cadena vacía.
+* $\Sigma^\star$ es el lenguaje de todas las cadenas que se 
   pueden formar sobre $\Sigma$, incluyendo la cadena vacía. Por lo tanto, 
   para cualquier lenguaje $L$ definido sobre $\Sigma$, 
-  tenemos $L \ \subseteq \ \Sigma^\star$. 
+  tenemos $L \subseteq \Sigma^\star$. 
 
 Se pueden obtener lenguajes nuevos a partir de otros aplicando operaciones 
 sobre estos. Como un lenguaje es un conjunto, entonces valen las operaciones 
@@ -89,9 +88,9 @@ Sea $L$ un lenguaje. La clausura Kleene+ de $L$ se define:
 </div>
 
 ### Lenguaje/Expresión Regular
-<div class="theorem" data-number="1" data-name=" (Kleene 1, Lenguaje Regular)">
+<div class="theorem" data-number="1" data-name=" (Kleene 1, Lenguaje Regular)" markdown="1">
 Un lenguaje $L$ definido sobre un alfabeto $\Sigma$ es regular si y solo si $L$ 
-es aceptado por un Autómata Finito.<span markdown="1">[^afn_afd]</span>
+es aceptado por un Autómata Finito.[^afn_afd]
 </div> 
 
 <div class="theorem" data-number="2" data-name=" (Kleene 2)">
@@ -165,14 +164,13 @@ solo si ambas denotan el mismo lenguaje. Es decir:
 </div>
 
 La definición de $\veps$ (cadena vacía) como primitiva es conveniente, pero redundante
-porque $\mathcal{L}(\emptyset^\star) = \mathcal{L}(\veps) = \lbrace \veps \rbrace$. Notar que 
+porque $$\mathcal{L}(\emptyset^\star) = \mathcal{L}(\veps) = \{ \veps \}$$. Notar que 
 un lenguaje puede ser denotado por más de una RE. 
 
-<div class="lemma" data-number="1" data-name=" (Identidades)">
+<div class="lemma" data-number="1" data-name=" (Identidades)" markdown="1">
 Sean $r_1,r_2,r_3$ expresiones regulares sobre un alfabeto. Entonces las siguientes
 son identidades básicas:
 
-<div markdown="1">
 1. Conmutatividad: 
 
    $$r_1 + r_2 \ = \ r_2 + r_1$$
@@ -207,12 +205,10 @@ son identidades básicas:
      \emptyset^\star    \ &= \  \veps       &&
    \end{aligned}$$
 </div>
-</div>
 
-<div class="example" data-number="1">
-Sea $\Sigma=\{0,1\}$ :
+<div class="example" data-number="1" markdown="1">
+Sea $$\Sigma=\{ 0,1 \}$$ :
 
-<div markdown="1">
 * $0^\star + 1^\star$ denota el lenguaje de cadenas formadas con $0$ o $1$: 
  
     $$\mathcal{L}(0^\star + 1^\star) = \{\veps, 0, 1, 00, 11, 000, 111, ... \}$$
@@ -224,7 +220,6 @@ Sea $\Sigma=\{0,1\}$ :
 * $(0 + 1)^\star$ denota el lenguaje de cadenas formadas con $0$ y/o $1$:  
 
     $$\mathcal{L}((0 + 1)^\star) = \{\veps, 0, 1, 00, 11, 01, 10, ... \}$$
-</div>
 </div>
 
 ## Lema de Arden
@@ -295,8 +290,8 @@ Por lo tanto $S = A^\star \cdot B$.
 
 
 ### Demostración 2
-Otra manera de probar el lema es usando inducción. 
-Consideremos la dirección $\Longrightarrow$. Supongamos $X = A \cdot X \cup B$ con $\veps\not\in A$, 
+Otra manera de probar la dirección $\Longrightarrow$ es por inducción. 
+Supongamos $X = A \cdot X \cup B$ con $\veps\not\in A$, 
 entonces tenemos que demostrar $X = A^\star \cdot B$, es decir: 
 $X \ \subseteq \ A^\star \cdot B$ y $A^\star \cdot B \ \subseteq \ X $. 
 Ahora demostramos ambas inclusiones por separado.
@@ -380,7 +375,7 @@ Sea $M=(Q,\Sigma,\delta,s,F)$ un AFD/AFN tal que $Q=\{ q_1,q_2,...,q_n \}$. El s
 de ecuaciones asociado a $M$ tiene $n$ incógnitas $X_1,X_2,...,X_n$ y $n$ ecuaciones, una 
 por cada $q_i$, de la forma:
 
-$$X_i \ = \ \sum_{q_j\,\in\,\delta(q_i,x)} x\,X_j 
+$$X_i \ = \ \sum_{q_j \, \in \, \delta(q_i,x)} x\,X_j 
             \ + \ \begin{cases} \veps     &\text{si } \ q_i\in F     \\ 
                                 \emptyset &\text{si } \ q_i\not\in F 
                   \end{cases} $$
@@ -390,18 +385,17 @@ Cada $X_i$ es una ER que denota aquellas cadenas aceptadas por $M$ comenzando de
 estado $q_i$. Entonces si $q_1$ es el estado inicial, la solución de $X_1$ es la ER que 
 denota el lenguaje aceptado por $M$, o sea $\mathcal{L}(X_1)=\mathcal{L}(M)$.
 
-<div class="example" data-number="2">
+<div class="example" data-number="2" markdown="1">
 Sea $M=(Q,\Sigma,\delta,s,F)$ un AFN con:
-<div markdown="1">
-* $ Q=\lbrace q_1, q_2, q_3, q_4 \rbrace$
-* $ \Sigma=\lbrace \texttt{a}, \texttt{b} \rbrace$
-* $ s=q_1 $
-* $ F=\lbrace q_1 \rbrace$
-</div>
+
+* \$$Q=\{ q_1, q_2, q_3, q_4 \}$$
+* \$$\Sigma=\{ \texttt{a}, \texttt{b} \}$$
+* $s=q_1$
+* \$$F=\{ q_1 \}$$
+
 y $\delta$ representada por el siguiente diagrama de transición:
 
-<img src="/assets/images/lema-arden/example2.svg" alt=""
-     width="280" class="aligncenter" />
+![transitions](/assets/images/lema-arden/example2.svg){:width="280"}
 
 Siguiendo la definición 10, el sistema de ecuaciones correspondiente a $M$ es:
 
