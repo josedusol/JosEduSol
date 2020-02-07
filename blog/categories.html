@@ -9,7 +9,7 @@ title: "Artículos por categoría"
   {%- for category in categories -%}
   <li>   
     <i class="fa fa-folder-open"></i>&nbsp;
-    <a href="#{{ category[0] }}"><strong>{{ category[0] | replace:'-', ' ' }}</strong></a>
+    <a href="#{{ category[0] }}"><strong>{{ category[0] | replace:'-', ' ' | capitalize }}</strong></a>
     <span class="taxonomy-count">{{ category | last | size }}</span>      
   </li>
   {%- endfor -%}
@@ -22,7 +22,7 @@ title: "Artículos por categoría"
     <div class="post-list">      
       <h2 id="{{ category[0] }}">
         <i class="fa fa-folder-open"></i>&nbsp;
-        {{ category[0] | replace:'-', ' ' }} ({{ category | last | size }})
+        {{ category[0] | replace:'-', ' ' | capitalize }} ({{ category | last | size }})
       </h2>
       <ul class="list-group">
         {% assign sorted_posts = site.posts | sort: 'title' %}

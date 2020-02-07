@@ -1,5 +1,5 @@
 ---
-categories: [Malware, Programacion]
+categories: [malware, programacion]
 layout: post
 published: true
 tags: [16-bit, ASM-x86, DOS, PoC, TASM, Virus]

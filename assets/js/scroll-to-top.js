@@ -9,9 +9,7 @@ $(window).scroll(function() {
 });
 $(function(){
   $(".scroll").click(function(){
-    $("html,body").animate({ 
-      scrollTop: $(".the-top").offset().top
-    }, "1000");
+    $("html,body").animate({ scrollTop: $(".the-top").offset().top }, "1000");
     return false;
   })
 })

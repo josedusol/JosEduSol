@@ -1,0 +1,51 @@
+---
+layout: page
+permalink: /blog/search/
+title: "Buscar"
+---
+
+<input type="text" id="search-input" placeholder="search...">
+<div class="blog">
+   <ul id="results-container" class="post-list list-group">       
+   </ul>
+</div>
+
+<script src="{{ site.baseurl }}/assets/js/search.min.js" type="text/javascript"></script>
+<script>
+SimpleJekyllSearch({
+  searchInput:      document.getElementById("search-input"),
+  resultsContainer: document.getElementById("results-container"),
+  json: "{{ site.baseurl }}/blog/search.json",
+  searchResultTemplate: 
+    '<li class="list-group-item"><header class="post-header">'
+  +   '<h3><a class="post-link" href="{url}">{title}</a></h3>'
+  +   '<div class="post-meta">{categories}{tags}</div>'  
+  + '</header></li>',    
+  templateMiddleware: function(prop, value, template) {
+      if (prop === 'categories' && value !== "") {
+        ret = value.split(',')
+                   .map(function(str) {
+                          str = str.trim().replace(/-/g, ' ');
+                          return str.charAt(0).toUpperCase() + str.slice(1);
+                        })
+                   .join(', ');                            
+        return '<span class="post-cats"><i class="fa fa-folder-open"></i>&nbsp;' + ret + '</span>';
+      } else if (prop === 'categories' && value === "") {
+        return "";
+      } else if (prop === 'tags' && value !== "") {
+        return '<span class="post-tags"><i class="fa fa-tags"></i>&nbsp;' + value + '</span>';
+      } else if (prop === 'tags' && value === "") {
+        return "";
+      }        
+    },
+  noResultsText: "No hay resultados!",
+  limit: 10,
+  fuzzy: false,
+  exclude: ["blog"]
+})
+</script>
+
+
+
+
+

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Example content
-categories: [prueba, bla blaa]
+categories: [prueba, bla-blaa]
 toc: true
 ---
 

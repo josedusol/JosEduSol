@@ -1,5 +1,5 @@
 ---
-categories: [Matematica, Programacion]
+categories: [matematica, programacion]
 layout: post
 published: true
 title: "Project Euler - Problema 1: Múltiplos de 3 y 5"

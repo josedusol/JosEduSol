@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg viewBox="0 0 650 90" 
+     width="100%" 
+     height="100%" 
+     preserveAspectRatio="xMinYMin meet"
+     onload="onLoad()"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <script>
+    var last_active;
+    
+    function onLoad() {   
+      last_active = document.getElementById("g7");
+      last_active.classList.add("active");
+    }
+  
+    function mouseEvent(evt, x){  
+      //console.log(evt);
+      var head = document.getElementById("head");
+      var new_active = evt;      
+      head.setAttributeNS(null, "x", x-8);
+      head.setAttributeNS(null, "y", 13);        
+      last_active.classList.remove("active");
+      new_active.classList.add("active");
+      last_active = new_active;
+    }
+  </script>
+
+  <style>
+    .half-cell polyline {
+      fill: rgb(245,239,210); 
+      stroke: rgb(239,218,183); 
+      stroke-width: 2;
+      fill-opacity: 1;
+      stroke-opacity: 1;
+    }
+    .symbol-cell text {
+      font-family: "Prestige Elite std";
+      font-size: 38px;
+      fill: black;
+    }
+    .symbol-cell rect {
+      fill: rgb(245,239,210); 
+      stroke: rgb(239,218,183); 
+      stroke-width: 2;
+      fill-opacity: 1;
+      stroke-opacity: 1;
+    }
+    .symbol-cell.active rect {
+      fill: rgb(240, 228, 193); 
+      fill-opacity: 1;
+    }
+    .symbol-cell.active text {
+      text-shadow: .1em .1em .2em rgba(0, 0, 0, 0.6);
+    }
+  </style>
+
+  <g id="g1" class="half-cell">  
+    <rect x="23" y="13" width="10" height="65" style="stroke-width: 10px; 
+      fill: rgb(0, 0, 0); stroke: rgb(188,157,0); stroke-miterlimit: 3; 
+      paint-order: stroke;" rx="3.128" ry="3.128">
+    </rect>
+    <polyline points="23,20 70,20 70,70 23,70" />      
+  </g> 
+  <g id="g2" class="symbol-cell" onmousemove="mouseEvent(this, 50)">
+    <rect x="50" y="20" width="50" height="50"/>                       
+  </g>  
+  <g id="g3" class="symbol-cell" onmousemove="mouseEvent(this, 100)">        
+    <rect x="100" y="20" width="50" height="50"/>  
+  </g>        
+  <g id="g4" class="symbol-cell" onmousemove="mouseEvent(this, 150)">        
+    <rect x="150" y="20" width="50" height="50"/>      
+  </g> 
+  <g id="g5" class="symbol-cell" onmousemove="mouseEvent(this, 200)">          
+    <rect x="200" y="20" width="50" height="50"/>    
+  </g>
+  <g id="g6" class="symbol-cell" onmousemove="mouseEvent(this, 250)">          
+    <rect x="250" y="20" width="50" height="50"/>   
+    <text x="265" y="56">4</text>          
+  </g> 
+  <g id="g7" class="symbol-cell" onmousemove="mouseEvent(this, 300)">        
+    <rect x="300" y="20" width="50" height="50" />
+    <text x="315" y="56">0</text>     
+  </g>      
+  <g id="g8" class="symbol-cell" onmousemove="mouseEvent(this, 350)">
+    <rect x="350" y="20" width="50" height="50"/> 
+    <text x="365" y="56">4</text>  
+  </g> 
+  <g id="g9" class="symbol-cell" onmousemove="mouseEvent(this, 400)">        
+    <rect x="400" y="20" width="50" height="50"/> 
+  </g> 
+  <g id="g10" class="symbol-cell" onmousemove="mouseEvent(this, 450)">        
+    <rect x="450" y="20" width="50" height="50"/>         
+  </g>  
+  <g id="g11" class="symbol-cell" onmousemove="mouseEvent(this, 500)">         
+    <rect x="500" y="20" width="50" height="50"/> 
+  </g>  
+  <g id="g12" class="symbol-cell" onmousemove="mouseEvent(this, 550)">                 
+    <rect x="550" y="20" width="50" height="50"/>   
+  </g>  
+  <g id="g13" class="half-cell" >  
+    <rect x="617" y="13" width="10" height="65" style="stroke-width: 10px; 
+      fill: rgb(0, 0, 0); stroke: rgb(188,157,0); stroke-miterlimit: 3; 
+      paint-order: stroke;" rx="3.128" ry="3.128">
+    </rect>
+    <polyline points="627,20 600,20 600,70 627,70" />   
+  </g>    
+      
+  <rect x="292" y="13" width="65" height="65" id="head"
+    style="stroke:rgb(188,157,0); stroke-width:5; fill-opacity:0; stroke-opacity:1">
+  </rect>                      
+    
+</svg>

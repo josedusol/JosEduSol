@@ -1,5 +1,5 @@
 ---
-categories: [Lenguajes Formales]
+categories: [lenguajes-formales]
 layout: post
 published: true
 title: "Lema de Arden"
@@ -475,8 +475,8 @@ Por lo tanto, el lenguaje aceptado por $M$ es el lenguaje denotado por:
 {:footnotes}
 
 ## Relacionados
-1. [Prueba de concepto - Virus: x86/DOS, COM, Overwriting]({% post_url 2019-02-03-poc-virus-x86dos-com-overwriting %})
-2. [Project Euler - Problema 1: Múltiplos de 3 y 5]({% post_url 2019-02-03-project-euler-problema-1 %})
+1. [Prueba de concepto - Virus: x86/DOS, COM, Overwriting]({% post_url 1970-01-01-poc-virus-x86dos-com-overwriting %})
+2. [Project Euler - Problema 1: Múltiplos de 3 y 5]({% post_url 1970-01-01-project-euler-problema-1 %})
 
 ## Bibliografía
 {% bibliography -q

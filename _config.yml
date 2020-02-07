@@ -1,10 +1,10 @@
 # Permalinks
-permalink:              /blog/:categories/:title:output_ext
+permalink:              /blog/:categories/:title
 
 # General Setup
 title:                  JosEduSol
 tagline:                Computing
-url:                   
+url:                    http://solsona.com.uy
 baseurl:                ""
 include:                ['_pages']
 markdown:               kramdown
@@ -24,6 +24,7 @@ exclude:
   - Gemfile.lock
   - deploy.sh
   - other
+  - search.json
 
 # Assets
 #
@@ -38,7 +39,7 @@ sass:
 author:
   name:                 JosEdu
   url:               
-  email:             
+  email:                josedusolsona@gmail.com
 
 # Custom vars
 version:                0.0.1
@@ -63,7 +64,7 @@ jekyll-archives:
     category:           archive-cat
     tag:                archive-tag
   permalinks:
-    category:           /blog/categories/:name/
+    category:           /blog/cats/:name/
     tag:                /blog/tags/:name/
   
 # Configuration for jekyll-paginate-v2 
