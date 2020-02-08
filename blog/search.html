@@ -1,13 +1,17 @@
 ---
-layout: page
+layout: page-untitled
 permalink: /blog/search/
-title: "Buscar"
 ---
 
-<input type="text" id="search-input" placeholder="search...">
-<div class="blog">
-   <ul id="results-container" class="post-list list-group">       
-   </ul>
+<div class="search">
+  <div class="search-box">
+    <input id="search-input" class="search-term" type="text" placeholder="Buscar algo...">
+    <span class="search-button"><i class="fa fa-search"></i></span>
+  </div>
+  
+  <div class="blog">
+    <ul id="results-container" class="post-list list-group"></ul>
+  </div>
 </div>
 
 <script src="{{ site.baseurl }}/assets/js/search.min.js" type="text/javascript"></script>
@@ -36,6 +40,8 @@ SimpleJekyllSearch({
         return '<span class="post-tags"><i class="fa fa-tags"></i>&nbsp;' + value + '</span>';
       } else if (prop === 'tags' && value === "") {
         return "";
+      } else {
+        return value;
       }        
     },
   noResultsText: "No hay resultados!",
