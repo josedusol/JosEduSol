@@ -31,39 +31,37 @@ directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYST
 ## Análisis estático
 Hex dump de un archivo sano de tamaño 80 bytes:
 <pre class="ovf">
-<span class="offsetheader">Offset  00 01 02 03 04 05 06 07  ANSI</span>
-<span class="offsetcol">0x0000</span>  <span class="hexcol">B4 09 BA 39 01 CD 21 90</span>  <span class="textcol">´.º9.Í!.</span>
-<span class="offsetcol">0x0008</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0010</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0018</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0020</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0028</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0030</span>  <span class="hexcol">90 90 90 90 90 B4 00 CD</span>  <span class="textcol">.....´.Í</span>
-<span class="offsetcol">0x0038</span>  <span class="hexcol">21 54 68 69 73 20 69 73</span>  <span class="textcol">!This is</span>
-<span class="offsetcol">0x0040</span>  <span class="hexcol">20 61 20 68 6F 73 74 20</span>  <span class="textcol"> a host </span>
-<span class="offsetcol">0x0048</span>  <span class="hexcol">66 69 6C 65 21 0D 0A 24</span>  <span class="textcol">file!..$</span>
+<span>Offset  00 01 02 03 04 05 06 07  ANSI</span>
+<span>0x0000</span>  <span>B4 09 BA 39 01 CD 21 90</span>  <span>´.º9.Í!.</span>
+<span>0x0008</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0010</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0018</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0020</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0028</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0030</span>  <span>90 90 90 90 90 B4 00 CD</span>  <span>.....´.Í</span>
+<span>0x0038</span>  <span>21 54 68 69 73 20 69 73</span>  <span>!This is</span>
+<span>0x0040</span>  <span>20 61 20 68 6F 73 74 20</span>  <span> a host </span>
+<span>0x0048</span>  <span>66 69 6C 65 21 0D 0A 24</span>  <span>file!..$</span>
 </pre>
 
 Hex dump del archivo infectado:
 <pre class="ovf">
-<span class="offsetheader">Offset  00 01 02 03 04 05 06 07  ANSI</span>
-<span class="offsetcol">0x0000</span>  <span class="vhexcol">B4 4E 33 C9 BA 32 01 CD</span>  <span class="vtextcol">´N3Éº2.Í</span>
-<span class="offsetcol">0x0008</span>  <span class="vhexcol">21 73 08 EB 21 B4 4F CD</span>  <span class="vtextcol">!s.ë!´OÍ</span>
-<span class="offsetcol">0x0010</span>  <span class="vhexcol">21 72 1B B4 3D B0 02 BA</span>  <span class="vtextcol">!r.´=°.º</span>
-<span class="offsetcol">0x0018</span>  <span class="vhexcol">9E 00 CD 21 8B D8 B4 40</span>  <span class="vtextcol">ž.Í!‹Ø´@</span>
-<span class="offsetcol">0x0020</span>  <span class="vhexcol">B9 38 00 BA 00 01 CD 21</span>  <span class="vtextcol">¹8.º..Í!</span>
-<span class="offsetcol">0x0028</span>  <span class="vhexcol">B4 3E CD 21 EB DF B4 00</span>  <span class="vtextcol">´>Í!ëß´.</span>
-<span class="offsetcol">0x0030</span>  <span class="vhexcol">CD 21 2A 2E 63 6F 6D 00</span>  <span class="vtextcol">Í!*.com.</span>
-<span class="offsetcol">0x0038</span>  <span class="hexcol">21 54 68 69 73 20 69 73</span>  <span class="textcol">!This is</span>
-<span class="offsetcol">0x0040</span>  <span class="hexcol">20 61 20 68 6F 73 74 20</span>  <span class="textcol"> a host </span>
-<span class="offsetcol">0x0048</span>  <span class="hexcol">66 69 6C 65 21 0D 0A 24</span>  <span class="textcol">file!..$</span>
+<span>Offset  00 01 02 03 04 05 06 07  ANSI</span>
+<span>0x0000</span>  <span class="vs">B4 4E 33 C9 BA 32 01 CD</span>  <span class="vs">´N3Éº2.Í</span>
+<span>0x0008</span>  <span class="vs">21 73 08 EB 21 B4 4F CD</span>  <span class="vs">!s.ë!´OÍ</span>
+<span>0x0010</span>  <span class="vs">21 72 1B B4 3D B0 02 BA</span>  <span class="vs">!r.´=°.º</span>
+<span>0x0018</span>  <span class="vs">9E 00 CD 21 8B D8 B4 40</span>  <span class="vs">ž.Í!‹Ø´@</span>
+<span>0x0020</span>  <span class="vs">B9 38 00 BA 00 01 CD 21</span>  <span class="vs">¹8.º..Í!</span>
+<span>0x0028</span>  <span class="vs">B4 3E CD 21 EB DF B4 00</span>  <span class="vs">´>Í!ëß´.</span>
+<span>0x0030</span>  <span class="vs">CD 21 2A 2E 63 6F 6D 00</span>  <span class="vs">Í!*.com.</span>
+<span>0x0038</span>  <span>21 54 68 69 73 20 69 73</span>  <span>!This is</span>
+<span>0x0040</span>  <span>20 61 20 68 6F 73 74 20</span>  <span> a host </span>
+<span>0x0048</span>  <span>66 69 6C 65 21 0D 0A 24</span>  <span>file!..$</span>
 </pre>
 <style>
-.offsetheader { color:#000000; line-height:200% }
-.offsetcol { color:#000000 }
-.hexcol { color:#000000 }
-.textcol { color:#000000 }
-.vhexcol, .vtextcol  { color:#ff0000 }
+  pre.ovf span { color: #000; }
+  pre.ovf span:first-of-type { line-height:200% }
+  pre.ovf span.vs { color: #ff0000 }
 </style>
 
 El virus sobrescribe desde el offset 0x0000 hasta 0x0037 (56 bytes). Lo único que se 

@@ -62,67 +62,67 @@ directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYST
 
 Hex dump de un archivo sano de tamaño 80 bytes:
 
-<pre class="ovf"><span class="offsetheader">Offset  00 01 02 03 04 05 06 07  ANSI</span>
-<span class="offsetcol">0x0000</span>  <span class="hexcol">B4 09 BA 39 01 CD 21 90</span>  <span class="textcol">´.º9.Í!.</span>
-<span class="offsetcol">0x0008</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0010</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0018</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0020</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0028</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0030</span>  <span class="hexcol">90 90 90 90 90 B4 00 CD</span>  <span class="textcol">.....´.Í</span>
-<span class="offsetcol">0x0038</span>  <span class="hexcol">21 54 68 69 73 20 69 73</span>  <span class="textcol">!This is</span>
-<span class="offsetcol">0x0040</span>  <span class="hexcol">20 61 20 68 6F 73 74 20</span>  <span class="textcol"> a host </span>
-<span class="offsetcol">0x0048</span>  <span class="hexcol">66 69 6C 65 21 0D 0A 24</span>  <span class="textcol">file!..$</span>
+<pre class="ovf">
+<span>Offset  00 01 02 03 04 05 06 07  ANSI</span>
+<span>0x0000</span>  <span>B4 09 BA 39 01 CD 21 90</span>  <span>´.º9.Í!.</span>
+<span>0x0008</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0010</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0018</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0020</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0028</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0030</span>  <span>90 90 90 90 90 B4 00 CD</span>  <span>.....´.Í</span>
+<span>0x0038</span>  <span>21 54 68 69 73 20 69 73</span>  <span>!This is</span>
+<span>0x0040</span>  <span>20 61 20 68 6F 73 74 20</span>  <span> a host </span>
+<span>0x0048</span>  <span>66 69 6C 65 21 0D 0A 24</span>  <span>file!..$</span>
 </pre>
 
 Hex dump del archivo infectado:
 
-<pre class="ovf"><span class="offsetheader">Offset  00 01 02 03 04 05 06 07  ANSI</span>
-<span class="offsetcol">0x0000</span>  <span class="vhexcol">E9 4D 00</span> <span class="hexcol">39 01 CD 21 90</span>  <span class="vtextcol">éM.</span><span class="textcol">9.Í!.</span>  Cabezal viral
-<span class="offsetcol">0x0008</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0010</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0018</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0020</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0028</span>  <span class="hexcol">90 90 90 90 90 90 90 90</span>  <span class="textcol">........</span>
-<span class="offsetcol">0x0030</span>  <span class="hexcol">90 90 90 90 90 B4 00 CD</span>  <span class="textcol">.....´.Í</span>
-<span class="offsetcol">0x0038</span>  <span class="hexcol">21 54 68 69 73 20 69 73</span>  <span class="textcol">!This is</span>
-<span class="offsetcol">0x0040</span>  <span class="hexcol">20 61 20 68 6F 73 74 20</span>  <span class="textcol"> a host </span>
-<span class="offsetcol">0x0048</span>  <span class="hexcol">66 69 6C 65 21 0D 0A 24</span>  <span class="textcol">file!..$</span>
-<span class="offsetcol">0x0050</span>  <span class="vhexcol">E8 00 00 5D 81 ED 0B 01</span>  <span class="vtextcol">è..].í..</span>  Cuerpo viral
-<span class="offsetcol">0x0058</span>  <span class="vhexcol">B9 03 00 8D B6 9A 01 BF</span>  <span class="vtextcol">¹...¶’.¿</span>
-<span class="offsetcol">0x0060</span>  <span class="vhexcol">00 01 F3 A4 B4 4E 33 C9</span>  <span class="vtextcol">..ó¤´N3É</span>
-<span class="offsetcol">0x0068</span>  <span class="vhexcol">8D 96 94 01 CD 21 73 08</span>  <span class="vtextcol">.–Œ.Í!s.</span>
-<span class="offsetcol">0x0070</span>  <span class="vhexcol">EB 65 B4 4F CD 21 72 5F</span>  <span class="vtextcol">ëe´OÍ!r_</span>
-<span class="offsetcol">0x0078</span>  <span class="vhexcol">B4 3D B0 02 BA 9E 00 CD</span>  <span class="vtextcol">´=°.ºž.Í</span>
-<span class="offsetcol">0x0080</span>  <span class="vhexcol">21 72 EF 50 B4 3F 5B B9</span>  <span class="vtextcol">!rïP´?[¹</span>
-<span class="offsetcol">0x0088</span>  <span class="vhexcol">03 00 8D 96 9A 01 CD 21</span>  <span class="vtextcol">...–’.Í!</span>
-<span class="offsetcol">0x0090</span>  <span class="vhexcol">72 3F B8 00 42 33 C9 33</span>  <span class="vtextcol">r?¸.B3É3</span>
-<span class="offsetcol">0x0098</span>  <span class="vhexcol">D2 CD 21 72 34 A1 9A 00</span>  <span class="vtextcol">ÒÍ!r4¡š.</span>
-<span class="offsetcol">0x00A0</span>  <span class="vhexcol">2D 03 00 3E C6 86 9D 01</span>  <span class="vtextcol">-..>Æ†•.</span>
-<span class="offsetcol">0x00A8</span>  <span class="vhexcol">E9 3E 89 86 9E 01 B4 40</span>  <span class="vtextcol">é>‰†–.´@</span>
-<span class="offsetcol">0x00B0</span>  <span class="vhexcol">B9 03 00 8D 96 9D 01 CD</span>  <span class="vtextcol">¹...–•.Í</span>
-<span class="offsetcol">0x00B8</span>  <span class="vhexcol">21 72 16 B8 02 42 33 C9</span>  <span class="vtextcol">!r.¸.B3É</span>
-<span class="offsetcol">0x00C0</span>  <span class="vhexcol">33 D2 CD 21 72 0B B4 40</span>  <span class="vtextcol">3ÒÍ!r.´@</span>
-<span class="offsetcol">0x00C8</span>  <span class="vhexcol">B9 95 00 8D 96 08 01 CD</span>  <span class="vtextcol">¹•..–..Í</span>
-<span class="offsetcol">0x00D0</span>  <span class="vhexcol">21 B4 3E CD 21 73 9B B9</span>  <span class="vtextcol">!´>Í!s›¹</span>
-<span class="offsetcol">0x00D8</span>  <span class="vhexcol">00 01 FF E1 2A 2E 63 6F</span>  <span class="vtextcol">..ÿá*.co</span>
-<span class="offsetcol">0x00E0</span>  <span class="vhexcol">6D 00</span> <span class="textcol">B4 09 BA</span>           <span class="vtextcol">m.</span><span class="textcol">´.º</span>     Cabezal original
+<pre class="ovf">
+<span>Offset  00 01 02 03 04 05 06 07  ANSI</span>
+<span>0x0000</span>  <span class="vs">E9 4D 00</span> <span>39 01 CD 21 90</span>  <span class="vs">éM.</span><span>9.Í!.</span>  Cabezal viral
+<span>0x0008</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0010</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0018</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0020</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0028</span>  <span>90 90 90 90 90 90 90 90</span>  <span>........</span>
+<span>0x0030</span>  <span>90 90 90 90 90 B4 00 CD</span>  <span>.....´.Í</span>
+<span>0x0038</span>  <span>21 54 68 69 73 20 69 73</span>  <span>!This is</span>
+<span>0x0040</span>  <span>20 61 20 68 6F 73 74 20</span>  <span> a host </span>
+<span>0x0048</span>  <span>66 69 6C 65 21 0D 0A 24</span>  <span>file!..$</span>
+<span>0x0050</span>  <span class="vs">E8 00 00 5D 81 ED 0B 01</span>  <span class="vs">è..].í..</span>  Cuerpo viral
+<span>0x0058</span>  <span class="vs">B9 03 00 8D B6 9A 01 BF</span>  <span class="vs">¹...¶’.¿</span>
+<span>0x0060</span>  <span class="vs">00 01 F3 A4 B4 4E 33 C9</span>  <span class="vs">..ó¤´N3É</span>
+<span>0x0068</span>  <span class="vs">8D 96 94 01 CD 21 73 08</span>  <span class="vs">.–Œ.Í!s.</span>
+<span>0x0070</span>  <span class="vs">EB 65 B4 4F CD 21 72 5F</span>  <span class="vs">ëe´OÍ!r_</span>
+<span>0x0078</span>  <span class="vs">B4 3D B0 02 BA 9E 00 CD</span>  <span class="vs">´=°.ºž.Í</span>
+<span>0x0080</span>  <span class="vs">21 72 EF 50 B4 3F 5B B9</span>  <span class="vs">!rïP´?[¹</span>
+<span>0x0088</span>  <span class="vs">03 00 8D 96 9A 01 CD 21</span>  <span class="vs">...–’.Í!</span>
+<span>0x0090</span>  <span class="vs">72 3F B8 00 42 33 C9 33</span>  <span class="vs">r?¸.B3É3</span>
+<span>0x0098</span>  <span class="vs">D2 CD 21 72 34 A1 9A 00</span>  <span class="vs">ÒÍ!r4¡š.</span>
+<span>0x00A0</span>  <span class="vs">2D 03 00 3E C6 86 9D 01</span>  <span class="vs">-..>Æ†•.</span>
+<span>0x00A8</span>  <span class="vs">E9 3E 89 86 9E 01 B4 40</span>  <span class="vs">é>‰†–.´@</span>
+<span>0x00B0</span>  <span class="vs">B9 03 00 8D 96 9D 01 CD</span>  <span class="vs">¹...–•.Í</span>
+<span>0x00B8</span>  <span class="vs">21 72 16 B8 02 42 33 C9</span>  <span class="vs">!r.¸.B3É</span>
+<span>0x00C0</span>  <span class="vs">33 D2 CD 21 72 0B B4 40</span>  <span class="vs">3ÒÍ!r.´@</span>
+<span>0x00C8</span>  <span class="vs">B9 95 00 8D 96 08 01 CD</span>  <span class="vs">¹•..–..Í</span>
+<span>0x00D0</span>  <span class="vs">21 B4 3E CD 21 73 9B B9</span>  <span class="vs">!´>Í!s›¹</span>
+<span>0x00D8</span>  <span class="vs">00 01 FF E1 2A 2E 63 6F</span>  <span class="vs">..ÿá*.co</span>
+<span>0x00E0</span>  <span class="vs">6D 00</span> <span>B4 09 BA</span>           <span class="vs">m.</span><span>´.º</span>     Cabezal original
 </pre>
 <style>
-.offsetheader { color:#000000; line-height:200% }
-.offsetcol { color:#000000 }
-.hexcol { color:#000000 }
-.textcol { color:#000000 }
-.vhexcol, .vtextcol  { color:#ff0000 }
+  pre.ovf span { color: #000; }
+  pre.ovf span:first-of-type { line-height:200% }
+  pre.ovf span.vs { color: #ff0000 }
 </style>
 
 El archivo huésped ahora tiene 149 bytes adicionales de tamaño.
 
 ## API utilizada
-
 Se utilizan 8 servicios de la DOS API mediante la interrupción de software 21h.
+
 <div class="table-responsive">
-<table  class="table" >
+<table class="table" >
    <thead class="thead-light">
     <tr>
       <th>Servicio</th>
@@ -240,7 +240,7 @@ Se utilizan 8 servicios de la DOS API mediante la interrupción de software 21h.
                 jmp exit                              ; no hay archivo
 
   find_next:    mov ah, 4Fh                           ; | AH = 4Fh  
-                int 21h                               ; |_DOS API &#8211; Buscar siguiente archivo 
+                int 21h                               ; |_DOS API - Buscar siguiente archivo 
 
                 jc exit                               ; no hay archivo
 
