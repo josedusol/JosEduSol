@@ -1,7 +1,8 @@
 ---
-categories: [lenguajes-formales]
+categories: [lenguajes-formales, automatas]
 layout: post
 published: true
+tags: [AFD, AFN]
 title: "Lema de Arden"
 toc: true
 ---
@@ -237,7 +238,6 @@ entonces dicha solución es única.
 ### Demostración 1
 Procedemos en ambas direcciones.  
 
-<div markdown="1">
 $\large\Longleftarrow)$ Sea $X = A^\star \cdot B$. Verificamos que $X$ es una 
 solución para la ecuación:
 
@@ -286,7 +286,6 @@ Necesariamente $w \in \left(\bigcup\limits_{k=0}^{n}A^k\right)\cdot B \ \subsete
 entonces $S \ \subseteq \ A^\star \cdot B$.  
 Por lo tanto $S = A^\star \cdot B$.
 <span style="float:right;font-size:1.2em">&#x20DE;</span>
-</div>
 
 
 ### Demostración 2
@@ -310,7 +309,7 @@ Además $B \subseteq A^\star \cdot B$, por lo tanto $w \in A^\star \cdot B$.
 
 **Paso Inductivo.**  
       **HI.** $v \in A^\star \cdot B$ para todo $v\in X$ con $1 \leq \len{v} \leq n $.  
-&ensp;**T.** $w \in A^\star \cdot B$ para $\len{w} \gt n$.  
+&ensp;**T.**  $w \in A^\star \cdot B$ para $\len{w} \gt n$.  
 Por casos:
 * Si $w \in B$. Entonces $w \in A^\star \cdot B$.
 * Si $w \not\in B$. Tenemos que $w\in X$ y $X = A \cdot X \cup B$, 
