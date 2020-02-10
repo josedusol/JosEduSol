@@ -1,6 +1,6 @@
 <span class="post-tags">
   {%- if post.tags.size > 0 -%}
-    <i class="fa fa-tags"></i>&nbsp;
+    <i class="fas fa-tags"></i>&nbsp;
     {%- assign sorted_tags = (post.tags | sort) -%}
     {%- for tag in sorted_tags -%}
       <a href="{{ site.baseurl }}/blog/tags/{{ tag | slugify }}" >{{ tag }}</a>

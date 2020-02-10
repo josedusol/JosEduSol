@@ -17,7 +17,7 @@
       border: 3px solid #343a40;
       border-right: none;
       padding: 5px;
-      height: 34px;
+      height: 38px;
       border-radius: 5px 0 0 5px;
       outline: none;
       color: #808B96;
@@ -29,13 +29,16 @@
 
     .search-button {
       width: 40px;
-      height: 34px;
+      height: 38px;
       border: 1px solid #343a40;
       background: #343a40;
       text-align: center;
       color: #fff;
       border-radius: 0 5px 5px 0;
-      font-size: 20px;
+      font-size: 20px;         
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }  
 }

@@ -27,10 +27,18 @@
               Blog
             </a>
             <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/blog/">Archivo</a>
-              <a class="dropdown-item" href="/blog/cats">Categorías</a>
-              <a class="dropdown-item" href="/blog/tags">Tags</a>
-              <a class="dropdown-item" href="/blog/search">Buscar</a>
+              <a class="dropdown-item" href="/blog/">
+                <i class="fas fa-sm fa-archive"></i><span>Archivo</span>
+              </a>
+              <a class="dropdown-item" href="/blog/cats">
+                <i class="fas fa-sm fa-folder-open"></i><span>Categorías</span>
+              </a>
+              <a class="dropdown-item" href="/blog/tags">
+                <i class="fas fa-sm fa-tags"></i><span>Tags</span>
+              </a>
+              <a class="dropdown-item" href="/blog/search">
+                <i class="fas fa-sm fa-search"></i><span>Buscar</span>
+              </a>
             </div>
           </li>
            <li class="nav-item {% if current[1] == 'about' %}active{% endif %}">

@@ -1,6 +1,6 @@
 <span class="post-cats">
   {%- if post.categories.size > 0 -%}
-    <i class="fa fa-folder-open"></i>&nbsp;
+    <i class="fas fa-folder-open"></i>&nbsp;
     {%- assign sorted_cats = (post.categories | sort) -%}
     {%- for cat in sorted_cats -%}
       <a href="{{ site.baseurl }}/blog/cats/{{ cat }}">{{ cat | replace: '-', ' ' | capitalize }}</a>
