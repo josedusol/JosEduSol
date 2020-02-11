@@ -17,11 +17,11 @@ toc: true
 ## Soluciones
 
 ### Método 1 - Aritmética modular
-<div class="definition" data-number="1">
+{% math definition 1 %}
 Sean $a, b \in \mathbb{Z}$ y $a \neq 0$. Entonces $a$ divide $b$ (denotado por $a \mid b$) si 
 existe $c \in \mathbb{Z}$ tal que $b = a\ c$. Cuando $a \mid b$ decimos que $a$ es un factor 
 o divisor de $b$ y que $b$ es múltiplo de $a$
-</div>
+{% endmath %}
 
 Por la definición precedente, si $b = a\ c \ $ y $ \ \frac ba = c$ entonces $b$ es 
 *múltiplo* de $a$ si contiene a $a$ un número entero de veces determinado por $c$. Esto es decir 
@@ -31,28 +31,17 @@ que $b \bmod a = 0$.
 Entonces una solución posible es sumar cada $x \in [0...n)$ tal que $x \bmod 3 = 0$ o 
 $x \bmod 5 = 0$.
 
-<div id="algorithm1-pe1" class="algorithm-pscode">
-\begin{algorithm}
-\caption{}
-\begin{algorithmic}
-\FUNCTION{pe1}{$n$}
+{% algorithm 1 %}
+  \FUNCTION{pe1}{$n$}
     \STATE $r := 0$
     \FOR{$x := 0$ \TO $n-1$}
-        \IF{$x \; mod \; 3 = 0$ \OR $x \; mod \; 5 = 0$}
-            \STATE $r := r + x$
-        \ENDIF
+      \IF{$x \; mod \; 3 = 0$ \OR $x \; mod \; 5 = 0$}
+        \STATE $r := r + x$
+      \ENDIF
     \ENDFOR
-    \RETURN $r$
-\ENDFUNCTION
-\end{algorithmic}
-\end{algorithm}
-</div>
-<script>
-var parentEl = document.getElementById("algorithm1-pe1");
-var code = parentEl.textContent;
-parentEl.innerHTML = '';
-pseudocode.render(code, parentEl, pscode_config);
-</script>
+    \RETURN r
+  \ENDFUNCTION
+{% endalgorithm %}
 
 **Complejidad**  
 $\text{PE1}(n) \in \Theta (n)$.
@@ -112,10 +101,10 @@ Sea $(b_n)$ la sucesión de múltiplos de 5:
 
 ##### Suma de múltiplos en común para 3 y 5 en $[0...1000)$ 
 {: #multiplos_en_comun}
-<div class="lemma" data-number="1">
+{% math lemma 1 %}
 Sean $a, b \in \mathbb{Z}$ y $a \neq 0$. Si $a \mid b$ entonces $a \mid c\ b$ para 
 cualquier $c \in \mathbb{Z}$
-</div>
+{% endmath %}
 
 Por el lema precedente, si $3 \mid 15$ y $5 \mid 15$, entonces 3 y 5 dividen también a
 los múltiplos de 15.
@@ -135,32 +124,21 @@ Usando las sumas \ref{sum2.1}, \ref{sum2.2} y \ref{sum2.3} el resultado final es
 
   $$\sum_{i=1}^{333}a_{i} + \sum_{i=1}^{199}b_{i} - \sum_{i=1}^{66}c_{i}  =  166833 + 99500\ - 33165  =  233168$$
 
-<div id="algorithm2-pe1" class="algorithm-pscode">
-\begin{algorithm}
-\caption{}
-\begin{algorithmic}
-\FUNCTION{pe1}{$n$}
+{% algorithm 2 %}
+  \FUNCTION{pe1}{$n$}
     \STATE $m3Sum := $ \CALL{sumMultiples}{$n, 3$}
     \STATE $m5Sum := $ \CALL{sumMultiples}{$n, 5$}
     \STATE $m15Sum := $ \CALL{sumMultiples}{$n, 15$}
     \RETURN $m3Sum+m5Sum-m15Sum$
-\ENDFUNCTION
-\STATE
-\FUNCTION{sumMultiples}{$n, k$}
+  \ENDFUNCTION
+  \STATE
+  \FUNCTION{sumMultiples}{$n, k$}
     \STATE $c := floor((n-1)/k)$
     \STATE $x1 := K$
     \STATE $xc := x1 + (c-1)*k$
     \RETURN $(c \times (x1 + xc))/2$
-\ENDFUNCTION
-\end{algorithmic}
-\end{algorithm}
-</div>
-<script>
-var parentEl = document.getElementById("algorithm2-pe1");
-var code = parentEl.textContent;
-parentEl.innerHTML = '';
-pseudocode.render(code, parentEl, pscode_config);
-</script>
+  \ENDFUNCTION
+{% endalgorithm %}
 
 **Complejidad**  
 $\text{PE1}(n) \in \Theta (1)$.
@@ -231,30 +209,19 @@ Usando las sumas \ref{sum3.1}, \ref{sum3.2} y \ref{sum3.3} el resultado final es
 
   $$\sum_{i=1}^{333}a_{i} + \sum_{i=1}^{199}b_{i} - \sum_{i=1}^{66}c_{i}  =  166833 + 99500\: - 33165  =  233168$$
 
-<div id="algorithm3-pe1" class="algorithm-pscode">
-\begin{algorithm}
-\caption{}
-\begin{algorithmic}
-\FUNCTION{pe1}{$n$}
+{% algorithm 3 %}
+  \FUNCTION{pe1}{$n$}
     \STATE $m3Sum :=$ \CALL{sumMultiples}{$n, 3$}   
     \STATE $m5Sum :=$ \CALL{sumMultiples}{$n, 5$}    
     \STATE $m15Sum :=$ \CALL{sumMultiples}{$n, 15$}    
     \RETURN $m3Sum+m5Sum-m15Sum$
-\ENDFUNCTION
-\STATE
-\FUNCTION{sumMultiples}{$n, k$}
+  \ENDFUNCTION
+  \STATE
+  \FUNCTION{sumMultiples}{$n, k$}
     \STATE $c := floor((n-1)/k)$
     \RETURN $k \times ((c \times (c + 1))/2)$
-\ENDFUNCTION
-\end{algorithmic}
-\end{algorithm}
-</div>
-<script>
-var parentEl = document.getElementById("algorithm3-pe1");
-var code = parentEl.textContent;
-parentEl.innerHTML = '';
-pseudocode.render(code, parentEl, pscode_config);
-</script>
+  \ENDFUNCTION
+{% endalgorithm %}
 
 **Complejidad**  
 $\text{PE1}(n) \in \Theta (1)$, al igual que en el método 2. Pero en este caso hay

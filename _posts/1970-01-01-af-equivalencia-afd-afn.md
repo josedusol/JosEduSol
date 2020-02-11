@@ -11,32 +11,33 @@ Demostración de la equivalencia entre Autómata Finito determinista (AFD) y Aut
 no determinista (AFN) utilizando el método de Construcción de subconjuntos.  
 
 ## Autómatas Finitos
-<div class="definition" data-number="1" data-name=" (AFD)" markdown="1">
+
+{% math definition 1 AFD %}
 Un Autómata Finito determinista (AFD) es una quíntupla $(Q,\Sigma,\delta,s,F)$ donde:
-  
+
 1. $Q$ es un conjunto finito de estados.
 2. $\Sigma$ es un alfabeto finito.
 3. $\delta : Q \times \Sigma \to Q$ es la función (total) de transición.
 4. $s \in Q$ es el estado inicial.
 5. $F \subseteq Q$ es el conjunto de estados finales (de aceptación). 
-</div>
+{% endmath %}
 
-<div class="definition" data-number="2" data-name=" (AFN)" markdown="1">
-Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,F)$ donde: [^afn_e]  
+{% math definition 2 AFN %}
+Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,F)$ donde: [^afn_e]
   
 1. $Q$ es un conjunto finito de estados.
 2. $\Sigma$ es un alfabeto finito.
 3. $$\delta : Q \times (\Sigma \cup \{ \veps \}) \to \mathcal P \left({Q}\right)$$ es la función de transición.
 4. $s \in Q$ es el estado inicial.
 5. $F \subseteq Q$ es el conjunto de estados finales (de aceptación).  
-</div>
+{% endmath %}
 
 ### Composición de transiciones
 La computación en autómatas finitos se puede expresar formalmente como una secuencia de 
 composición de transiciones. Para esto se generaliza/extiende la definición de función 
 de transición de un autómata.
 
-<div class="definition" data-number="3" data-name=" (Computación en AFD)">
+{% math definition 3 "Computación en AFD" %}
 Sea $M$ un AFD y $(q, w) \in Q\times\Sigma^\star$. Entonces se define la función $\hat{\delta}$ 
 de transición generalizada que computa el estado resultante de ejecutar $M$ sobre la 
 configuración $(q, w)$ tal que:   
@@ -50,9 +51,9 @@ $$
 $$
   
 donde $q \in Q$, $v \in \Sigma^\star$ y $x \in \Sigma$.
-</div>
+{% endmath %}
 
-<div class="definition" data-number="4" data-name=" (Computación en AFN)" markdown="1">
+{% math definition 4 "Computación en AFN" %}
 Sea $N$ un AFN y $(q,w)\in Q\times\Sigma^\star$. Entonces se define la función $\hat{\delta}$ de 
 transición generalizada que computa el conjunto de los estados resultantes de ejecutar $N$ sobre 
 la configuración $(q, w)$ tal que:  
@@ -70,24 +71,26 @@ donde:
 * $C_\veps(q)$ es la clausura respecto de $\veps$ para el estado $q$, esto es el conjunto
   de todos los estados alcanzables desde $q$ usando únicamente transiciones $\veps$.
 * Sea $Q$ un conjunto de estados, $C_\veps(Q) = \bigcup\limits_{q \; \in \; Q}^{} C_\veps(q)$ 
-</div>
+{% endmath %}
 
 ### Aceptación
 El lenguaje aceptado (o reconocido) por un autómata se puede expresar en términos de $\hat{\delta}$.
 
-<div class="definition" data-number="5" data-name=" (Aceptación en AFD)">
+{% math definition 5 "Aceptación en AFD" %}
 Sea $M=(Q,\Sigma,\delta,s,F)$ un AFD. Entonces el lenguaje $\mathcal{L}(M)\subseteq\Sigma^\star$ 
-aceptado por $M$ se define: 
+aceptado por $M$ se define:  
 
-$$\mathcal{L}(M)=\{\, w \in \Sigma^\star \,\mid\, \hat{\delta}(s,w) \in F \,\}$$
-</div>
+  $$\mathcal{L}(M)=\{\, w \in \Sigma^\star \,\mid\, \hat{\delta}(s,w) \in F \,\}$$  
+  
+{% endmath %}
 
-<div class="definition" data-number="6" data-name=" (Aceptación en AFN)">
+{% math definition 6 "Aceptación en AFN" %}
 Sea $N=(Q,\Sigma,\delta,s,F)$ un AFN. Entonces el lenguaje $\mathcal{L}(N)\subseteq\Sigma^\star$ 
 aceptado por $N$ se define:
 
-$$\mathcal{L}(N)=\{\, w \in \Sigma^\star \,\mid\, \hat{\delta}(s,w) \cap F \neq \varnothing \,\}$$
-</div>
+  $$\mathcal{L}(N)=\{\, w \in \Sigma^\star \,\mid\, \hat{\delta}(s,w) \cap F \neq \varnothing \,\}$$
+
+{% endmath %}
 
 ### Árbol de cómputo
 La computación en autómatas finitos se puede ilustrar gráficamente en forma de árbol.
@@ -111,23 +114,26 @@ Es fácil notar que cualquier computación determinista se puede ver como una co
 determinista donde hay solo una rama de cómputo, pero no es tan fácil notar el recíproco.
 
 ## Equivalencia AFD-AFN
-<div class="definition" data-number="7">
+{% math definition 7 %}
 Sean $M$ y $M'$ autómatas. Entonces $M$ y $M'$ son equivalentes, denotado $M=M'$, si y solo si 
 $M$ y $M'$ aceptan el mismo lenguaje. Es decir:
   
   $$M = M' \ \iff \ \mathcal{L}(M) = \mathcal{L}(M')$$
-</div>
+  
+{% endmath %}
+
 
 ### AFD simulado por AFN
-<div class="lemma" data-number="1" id="lema_1">
+{% math lemma 1 %}
   Para todo AFD $D$ existe un AFN $N$ tal que $D = N$.
-</div>
-<div class="proof">
+{% endmath %}
+
+{% math proof %}
 Podemos ver al AFD como un caso especial de AFN sin transiciones $\veps$ donde para todo par 
 $(q,x) \in Q\times\Sigma$ se cumple $\left| \delta(q, x) \right| = 1$.
 
 Por lo tanto, cualquier lenguaje aceptado por un AFD puede ser aceptado por un AFN.
-</div>
+{% endmath %}
 
 ### AFN simulado por AFD
 Presentamos el método de Construcción de subconjuntos para construir un AFD a partir de un AFN.
@@ -155,8 +161,7 @@ versión determinista correspondiente:
 {% img afn-afd.png | {"width":"660"} %}
 
 #### Formalización
-
-<div class="definition" data-number="8" data-name=" (Construcción de subconjuntos)" id="def_8" markdown="1">
+{% math definition 8 "Construcción de subconjuntos" %}
 Sea $N=(Q,\Sigma,\delta,s,F)$ un AFN. Entonces $SC(N)=(Q^\prime,\Sigma,\delta^\prime,s^\prime,F^\prime)$ 
 es el AFD resultante de aplicar sobre $N$ el método de construcción de subconjuntos tal que:
   
@@ -173,21 +178,22 @@ es el AFD resultante de aplicar sobre $N$ el método de construcción de subconj
 4. $$F^\prime = \{\; R \in Q^\prime \;|\; R \cap F \neq \varnothing \;\}$$  
    El autómata $SC(N)$ acepta la entrada si termina en un estado que contiene al menos un estado
    final del autómata $N$.
-</div>
+{% endmath %}
 
 Observaciones:
 * El alfabeto $\Sigma$ permanece sin cambios.
 * En el caso de un AFN sin transiciones $\veps$, podemos omitir el uso de $C_\veps$ en 
   los pasos 2 y 3.
 
-<div class="lemma" data-number="2">
+{% math lemma 2 %}
 Sea $N=(Q,\Sigma,\delta,s,F)$ un AFN y $SC(N)=(Q^\prime,\Sigma,\delta^\prime,s^\prime,F^\prime)$ 
 un AFD. Entonces: 
 
-$$\forall\,w\in\Sigma^\star \,:\, \hat{\delta^\prime}(s^\prime, w) = \hat{\delta}(s, w)$$
-</div>
+  $$\forall\,w\in\Sigma^\star \,:\, \hat{\delta^\prime}(s^\prime, w) = \hat{\delta}(s, w)$$
 
-<div class="proof" markdown="1">
+{% endmath %}
+
+{% math proof %}
 Por inducción estructural en $w \in \Sigma^\star$: [^proof_alt]
 
 **Caso Base.** Sea $w=\veps$.  
@@ -219,15 +225,15 @@ $$
   \end{aligned}
 $$
  
-</div> 
-    
-<div class="lemma" data-number="3" data-name=" (Corrección de simulación)" id="lema_3" >
+{% endmath %}
+ 
+{% math lemma 3 "Corrección de simulación" %} 
 Sea $N=(Q,\Sigma,\delta,s,F)$ un AFN y $SC(N)=(Q^\prime,\Sigma,\delta^\prime,s^\prime,F^\prime)$ 
 un AFD. Entonces $\mathcal{L}(N)=\mathcal{L}(SC(N))$. $\label{lema3}$
-</div>
-    
-<div class="proof" markdown="1">
-Para $w\in\Sigma^\prime$ arbitrario:  
+{% endmath %}
+
+{% math proof %}
+Para $w\in\Sigma^\prime$ arbitrario:
 
 $$
   \begin{aligned}
@@ -237,27 +243,28 @@ $$
       &\,\iff\, \hat{\delta^\prime}(s^\prime,w) \in F^\prime            && \text{(def. 8)} \\
       &\,\iff\, w\in\mathcal{L}(SC(N))                                  && \text{(def. 5)}
   \end{aligned}
-$$  
+$$
 
 Por lo tanto $\mathcal{L}(N)=\mathcal{L}(SC(N))$.
-</div>
+{% endmath %}
     
 ### Equivalencia
-<div class="theorem" data-number="1">
+{% math theorem 1 %} 
 Sea $L\subseteq\Sigma^\star$. Entonces existe un AFD $D$ tal que $\mathcal{L}(D)=L$ 
 si y solo si existe un AFN $N$ tal que $\mathcal{L}(N)=L$.
-</div>
-<div class="proof" markdown="1">
+{% endmath %}
+
+{% math proof %} 
 Procedemos en ambas direcciones:  
 
-* **Solo Si**: Sea $D$ un AFD tal que $\mathcal{L}(D)=L$. Por el [lema 1](#lema_1)
+* **Solo Si**: Sea $D$ un AFD tal que $\mathcal{L}(D)=L$. Por el [lema 1](#lemma_1)
   hay un AFN $N$ tal que $D=N$, o sea que se cumple $\mathcal{L}(D)=\mathcal{L}(N)$, 
   entonces $\mathcal{L}(N)=L$.
 * **Si**: Sea $N$ un AFN tal que $\mathcal{L}(N)=L$. Aplicando el método de la 
-  [definición 8](#def_8) obtenemos un AFD $D=SC(N)$ que simula el funcionamiento 
-  de $N$. Por el [lema 3](#lema_3) se cumple $\mathcal{L}(N)=\mathcal{L}(D)$, 
+  [definición 8](#definition_8) obtenemos un AFD $D=SC(N)$ que simula el funcionamiento 
+  de $N$. Por el [lema 3](#lemma_3) se cumple $\mathcal{L}(N)=\mathcal{L}(D)$, 
   entonces $\mathcal{L}(D)=L$.
-</div>
+{% endmath %}
 
 Como consecuencia del Teorema 1, AFD y AFN tienen el mismo poder expresivo (o poder de cómputo) 
 ya que ambos son capaces de aceptar la misma clase de lenguajes.

@@ -10,7 +10,7 @@ toc: true
 ## Teoría
 
 ### Autómata Finito
-<div class="definition" data-number="1" data-name=" (AFN)" markdown="1"> 
+{% math definition 1 AFN %}
 Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,F)$ donde:
 
 1. $Q$ es un conjunto finito de estados.
@@ -18,10 +18,10 @@ Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,
 3. $\delta \subseteq Q \times \Sigma^\star$ es la relación de transición.
 4. $s \in Q$ es el estado inicial.
 5. $F \subseteq Q$ es el conjunto de estados finales (de aceptación).
-</div>
+{% endmath %}
 
 ### Lenguajes y operaciones
-<div class="definition" data-number="2" data-name=" (Alfabetos, Cadenas, Lenguajes)" markdown="1">
+{% math definition 2 "Alfabetos, Cadenas, Lenguajes" %}
 1. Un **alfabeto** $\Sigma$ es un conjunto finito no vació cuyos elementos son 
    denominados símbolos (o letras).
 2. Una **cadena** (o palabra) $w = w_1\,w_2 \dots w_n$ es una secuencia finita formada 
@@ -31,7 +31,7 @@ Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,
    y $ \ w^k=w^{k-1}\,w$. 
 3. Un **lenguaje** formal $L$ definido sobre $\Sigma$ es un conjunto de cadenas formadas a 
    partir de los símbolos de $\Sigma$.
-</div>
+{% endmath %}
 
 Algunos lenguajes particulares son:
 
@@ -47,30 +47,34 @@ sobre estos. Como un lenguaje es un conjunto, entonces valen las operaciones
 ordinarias sobre conjuntos como Unión, Intersección, etc. Adicionalmente, se 
 definen otras operaciones especiales.
 
-<div class="definition" data-number="3" data-name=" (Unión)">
+{% math definition 3 "Unión" %}
 Sean $L_1$ y $L_2$ lenguajes. La unión de $L_1$ y $L_2$ se define:
 
- $$ L_1 \cup L_2 \ = \ \{\, w \ | \ w \in L_1 \text{ o } w \in L_2  \,\} $$
-</div>
+  $$ L_1 \cup L_2 \ = \ \{\, w \ | \ w \in L_1 \text{ o } w \in L_2  \,\} $$
+ 
+{% endmath %}
 
-<div class="definition" data-number="4" data-name=" (Concatenación)">
+{% math definition 4 "Concatenación" %}
 Sean $L_1$ y $L_2$ lenguajes. La concatenación de $L_1$ y $L_2$ se define:
 
- $$ L_1 \cdot L_2 \ = \ \{\, w \ | \ w = w_1\,w_2 \text{ con }
-                           w_1 \in L_1 \text{ y } w_2 \in L_2  \,\} $$
-</div>
+  $$ L_1 \cdot L_2 \ = \ \{\, w \ | \ w = w_1\,w_2 \text{ con }
+                             w_1 \in L_1 \text{ y } w_2 \in L_2  \,\} $$
+                           
+{% endmath %}
 
-<div class="definition" data-number="5" data-name=" (Potencia)">
+{% math definition 5 "Potencia" %}
 Sea $L$ un lenguaje y $n \in \mathbb{N}$. La potencia de $L$ a la $n$ se define:
 
- $$ L^n \ = \
-  \begin{cases}
-    \{ \veps \}       &\text{si } \,n=0   \\
-    L^{n-1} \cdot L   &\text{si } \,n>0
-  \end{cases}$$
-</div>
+$$ 
+  L^n \ = \ \begin{cases}
+              \{ \veps \}       &\text{si } \ n=0   \\
+              L^{n-1} \cdot L   &\text{si } \ n>0
+            \end{cases}
+$$
+  
+{% endmath %}
 
-<div class="definition" data-number="6" data-name=" (Clausura Kleene)">
+{% math definition 6 "Clausura Kleene" %}
 Sea $L$ un lenguaje. La clausura Kleene de $L$ se define:
 
   $$L^\star \ = \ L^0 \,\cup\, L^1 \,\cup\, L^2 \,\cup\, \dots  
@@ -80,25 +84,28 @@ Alternativamente, una definición recursiva:
 
   $$L^\star \ = \ \{ \veps \} \,\cup\, \{\, w \ | \ w = w_1\,w_2 \text{ con } 
                      w_1 \in L \text{ y } w_2 \in L^\star \,\}$$
-</div>
+                     
+{% endmath %}
 
-<div class="definition" data-number="7" data-name=" (Clausura Kleene+)">
+{% math definition 7 "Clausura Kleene+" %}
 Sea $L$ un lenguaje. La clausura Kleene+ de $L$ se define:
 
   $$L^+ \ = \ L \cdot L^\star $$
-</div>
+  
+{% endmath %}
+
 
 ### Lenguaje/Expresión Regular
-<div class="theorem" data-number="1" data-name=" (Kleene 1, Lenguaje Regular)" markdown="1">
+{% math theorem 1 "Kleene 1, Lenguaje Regular" %}
 Un lenguaje $L$ definido sobre un alfabeto $\Sigma$ es regular si y solo si $L$ 
 es aceptado por un Autómata Finito.[^afn_afd]
-</div> 
+{% endmath %}
 
-<div class="theorem" data-number="2" data-name=" (Kleene 2)">
+{% math theorem 2 "Kleene 2" %}
 Todo lenguaje regular $L$ definido sobre un alfabeto $\Sigma$ puede ser construido 
-a partir de $\varnothing$ y $\{ a \}$ (con $a\in\Sigma$) mediante las operaciones 
+a partir de $\varnothing$ y $$\{ a \}$$ (con $a\in\Sigma$) mediante las operaciones 
 de Unión, Concatenación y Clausura Kleene.
-</div>
+{% endmath %}
 
 Otras operaciones como Intersección y Complemento también son cerradas sobre 
 lenguajes regulares, pero no son esenciales.
@@ -107,7 +114,7 @@ Se define un lenguaje formal de Expresiones Regulares (ER) para denotar lenguaje
 complejos construidos mediante las operaciones elementales, de manera que para cada 
 lenguaje regular $L$ hay una ER $r$ tal que $\mathcal{L}(r)=L$. [^notation_abuse]
 
-<div class="definition" data-number="8" data-name=" (ER)">
+{% math definition 8 "ER" %}
 Sean $r_1,r_2$ expresiones regulares y $\Sigma$ un alfabeto. Entonces el lenguaje de ER
 definido sobre $\Sigma$ se construye de acuerdo con las siguientes reglas de sintaxis 
 y semántica.
@@ -155,20 +162,21 @@ y semántica.
   </tr>
 </table>
 </div>
-</div>
+{% endmath %}
 
-<div class="definition" data-number="9">
+{% math definition 9 %}
 Sean $r_1,r_2$ expresiones regulares. Entonces $r_1$ y $r_2$ son iguales si y 
 solo si ambas denotan el mismo lenguaje. Es decir:  
 
   $$r_1 = r_2 \ \iff \ \mathcal{L}(r_1) = \mathcal{L}(r_2)$$
-</div>
+  
+{% endmath %}
 
 La definición de $\veps$ (cadena vacía) como primitiva es conveniente, pero redundante
 porque $$\mathcal{L}(\emptyset^\star) = \mathcal{L}(\veps) = \{ \veps \}$$. Notar que 
 un lenguaje puede ser denotado por más de una RE. 
 
-<div class="lemma" data-number="1" data-name=" (Identidades)" markdown="1">
+{% math lemma 1 Identidades %}
 Sean $r_1,r_2,r_3$ expresiones regulares sobre un alfabeto. Entonces las siguientes
 son identidades básicas:
 
@@ -205,9 +213,9 @@ son identidades básicas:
      r_1^+              \ &= \  r_1^\star   && \text{ si } \ \veps \in \mathcal{L}(r_1) \\ 
      \emptyset^\star    \ &= \  \veps       &&
    \end{aligned}$$
-</div>
+{% endmath %}
 
-<div class="example" data-number="1" markdown="1">
+{% math example 1 %}
 Sea $$\Sigma=\{ 0,1 \}$$ :
 
 * $0^\star + 1^\star$ denota el lenguaje de cadenas formadas con $0$ o $1$: 
@@ -221,11 +229,10 @@ Sea $$\Sigma=\{ 0,1 \}$$ :
 * $(0 + 1)^\star$ denota el lenguaje de cadenas formadas con $0$ y/o $1$:  
 
     $$\mathcal{L}((0 + 1)^\star) = \{\veps, 0, 1, 00, 11, 01, 10, ... \}$$
-</div>
+{% endmath %}
 
 ## Lema de Arden
-
-<div class="lemma" data-number="2" data-name=" (Arden)">
+{% math lemma 2 Arden %}
 Sean $X,A,B\subseteq\Sigma^\star$ con $\veps\not\in A$. Entonces:
  
    $$X \ = \ A \cdot X \cup B \ \ \iff \ \ X \ = \ A^\star \cdot B$$ 
@@ -233,7 +240,7 @@ Sean $X,A,B\subseteq\Sigma^\star$ con $\veps\not\in A$. Entonces:
 En palabras, $A^\star \cdot B$ es el lenguaje más pequeño tal que es solución
 en la ecuación lineal $X = A \cdot X \cup B$. Además, si $\veps\not\in A$ 
 entonces dicha solución es única.
-</div>
+{% endmath %}
 
 ### Demostración 1
 Procedemos en ambas direcciones.  
@@ -369,22 +376,23 @@ lineales regulares asociado al AF. Una aplicación del lema de Arden es en la
 resolución de dicho sistema de ecuaciones, específicamente en las 
 ecuaciones recursivas. [^afn_epsilon] 
 
-<div class="definition" data-number="10" >
+{% math definition 10 %}
 Sea $M=(Q,\Sigma,\delta,s,F)$ un AFD/AFN tal que $Q=\{ q_1,q_2,...,q_n \}$. El sistema 
 de ecuaciones asociado a $M$ tiene $n$ incógnitas $X_1,X_2,...,X_n$ y $n$ ecuaciones, una 
 por cada $q_i$, de la forma:
 
-$$X_i \ = \ \sum_{q_j \, \in \, \delta(q_i,x)} x\,X_j 
-            \ + \ \begin{cases} \veps     &\text{si } \ q_i\in F     \\ 
-                                \emptyset &\text{si } \ q_i\not\in F 
-                  \end{cases} $$
-</div>
+  $$X_i \ = \ \sum_{q_j \, \in \, \delta(q_i,x)} x\,X_j 
+              \ + \ \begin{cases} \veps     &\text{si } \ q_i\in F     \\ 
+                                  \emptyset &\text{si } \ q_i\not\in F 
+                    \end{cases} $$
+                  
+{% endmath %}
 
 Cada $X_i$ es una ER que denota aquellas cadenas aceptadas por $M$ comenzando desde el 
 estado $q_i$. Entonces si $q_1$ es el estado inicial, la solución de $X_1$ es la ER que 
 denota el lenguaje aceptado por $M$, o sea $\mathcal{L}(X_1)=\mathcal{L}(M)$.
 
-<div class="example" data-number="2" markdown="1">
+{% math example 2 %}
 Sea $M=(Q,\Sigma,\delta,s,F)$ un AFN con:
 
 * \$$Q=\{ q_1, q_2, q_3, q_4 \}$$
@@ -396,7 +404,7 @@ y $\delta$ representada por el siguiente diagrama de transición:
 
 {% img example2.svg | {"width":"280"} %}
 
-Siguiendo la definición 10, el sistema de ecuaciones correspondiente a $M$ es:
+Siguiendo la [definición 10](#definition_10), el sistema de ecuaciones correspondiente a $M$ es:
 
 $$\left\{\begin{aligned}
   X_1  &=  a\,X_2 + b\,X_4 + \veps & (1) \\ 
@@ -460,7 +468,7 @@ Por lo tanto, el lenguaje aceptado por $M$ es el lenguaje denotado por:
 
   $$ ((a\,a + b\,b) + (a\,b + b\,a) (a\,a + b\,b)^\star (a\,b + b\,a))^\star $$
 
-</div>
+{% endmath %}
 
 ## Referencias
 * [^afn_afd]: Un resultado importante sobre Autómatas Finitos es que *deterministas* (AFD's) 
