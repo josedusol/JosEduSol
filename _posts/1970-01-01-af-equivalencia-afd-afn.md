@@ -1,5 +1,5 @@
 ---
-categories: [automatas, lenguajes-formales]
+categories: [Autómatas, Lenguajes Formales]
 layout: post
 published: true
 tags: [AFD, AFN]
