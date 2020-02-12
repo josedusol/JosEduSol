@@ -12,7 +12,7 @@ highlighter:            rouge
 encoding:               utf-8
 lsi:                    false
 
-# kramdown config
+# Kramdown md parser
 kramdown:
   input:                GFM
   mathjax:              true
@@ -54,8 +54,7 @@ plugins:
   - jekyll-scholar
   - jekyll-toc
   
-  
-# Configuration for jekyll-archives 
+# Config for jekyll-archives 
 jekyll-archives:
   enabled:
     - categories
@@ -67,25 +66,25 @@ jekyll-archives:
     category:           /blog/cats/:name/
     tag:                /blog/tags/:name/
   
-# Configuration for jekyll-paginate-v2 
-#paginate:               5
+# Config for jekyll-paginate-v2 
+#paginate:               10
 #paginate_path:          /blog/page:num/  
 pagination:
   enabled:               true
-  per_page:              5
+  per_page:              10
   permalink:             '/:num/'
-  title:                 ' - page :num'
+  title:                 'Blog - pag :num'
   limit:                 0
   sort_field:            'date'
   sort_reverse:          true
 
-# Configuration for jekyll-scholar     
+# Config for jekyll-scholar     
 scholar:
   style:                apa
   source:               ./_bibliography
   bibliography:	        references.bib
   
-# Configuration for jekyll-toc   
+# Config for jekyll-toc   
 toc:
   min_level:            2
   max_level:            4

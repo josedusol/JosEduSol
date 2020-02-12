@@ -3,10 +3,14 @@
   font-family: $sans-serif-narrow;
   color: $gray-3;
   background-color: $body-bg;
-  border: 1px solid #f2f3f3;
   border-radius: 4px;
-  -webkit-box-shadow: $box-shadow;
-  box-shadow: $box-shadow;
+  -webkit-box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.5);
+  
+  header {
+    border: none;
+  }
 
   ul {
     list-style: none;
@@ -23,17 +27,19 @@
   }
 
   // Scrollspy marks toc items as .active when they are in focus
-  .active {
-    background: #C1C1C1;
-    background: rgba(193, 193, 193, 0.6);
-    font-weight: 600;
-  }
+  //.active {
+  //  background: #C1C1C1;
+  //  background: rgba(193, 193, 193, 0.6);
+  //  font-weight: 600;
+  //}
   
   .section-nav {
     margin: 0;
     padding: 0;
     width: 100%;
     list-style: none;
+    border: 1px solid #f2f3f3;
+    border-radius: 4px;
 
     //@include breakpoint($large) {
     //  font-size: 0.8rem;
@@ -54,8 +60,6 @@
     }  
   }
 }
-
-
 
 @media (max-width: 70rem) {
   .sidebar-right {
