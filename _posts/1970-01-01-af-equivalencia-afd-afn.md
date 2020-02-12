@@ -11,7 +11,6 @@ Demostración de la equivalencia entre Autómata Finito determinista (AFD) y Aut
 no determinista (AFN) utilizando el método de Construcción de subconjuntos.  
 
 ## Autómatas Finitos
-
 {% math definition 1 AFD %}
 Un Autómata Finito determinista (AFD) es una quíntupla $(Q,\Sigma,\delta,s,F)$ donde:
 
@@ -27,15 +26,15 @@ Un Autómata Finito no determinista (AFN) es una quíntupla $(Q,\Sigma,\delta,s,
   
 1. $Q$ es un conjunto finito de estados.
 2. $\Sigma$ es un alfabeto finito.
-3. $$\delta : Q \times (\Sigma \cup \{ \veps \}) \to \mathcal P \left({Q}\right)$$ es la función de transición.
+3. $$\delta : Q \times (\Sigma \cup \{ \veps \}) \to 2^Q$$ es la función de transición.
 4. $s \in Q$ es el estado inicial.
 5. $F \subseteq Q$ es el conjunto de estados finales (de aceptación).  
 {% endmath %}
 
 ### Composición de transiciones
-La computación en autómatas finitos se puede expresar formalmente como una secuencia de 
-composición de transiciones. Para esto se generaliza/extiende la definición de función 
-de transición de un autómata.
+La computación en autómatas finitos se puede expresar formalmente como la composición de una
+secuencia de transiciones. Para esto se generaliza/extiende la definición de función 
+de transición.
 
 {% math definition 3 "Computación en AFD" %}
 Sea $M$ un AFD y $(q, w) \in Q\times\Sigma^\star$. Entonces se define la función $\hat{\delta}$ 
@@ -44,7 +43,7 @@ configuración $(q, w)$ tal que:
 
 $$
   \begin{aligned} 
-    \hat{\delta} & : Q \times \Sigma^\star \rightarrow Q         &  \\
+    \hat{\delta} & : Q \times \Sigma^\star \to Q         &  \\
     \hat{\delta} & (q,\veps)      = q                            &  \\
     \hat{\delta} & (q, x \cdot v) = \delta(\hat{\delta}(q,v),x)  &
   \end{aligned}
@@ -60,7 +59,7 @@ la configuración $(q, w)$ tal que:
 
 $$
   \begin{aligned}
-    \hat{\delta} & : Q \times \Sigma^\star \rightarrow \mathcal P \left({Q}\right)      & \\
+    \hat{\delta} & : Q \times \Sigma^\star \to 2^Q                                      & \\
     \hat{\delta} & (q,\veps)      = C_\veps(q)                                          & \\
     \hat{\delta} & (q, x \cdot v) = C_\veps \left( \bigcup\limits_{r \;\in\; \hat{\delta}(q,v) }^{} \delta(r,x) \right) &
   \end{aligned}
@@ -80,7 +79,7 @@ El lenguaje aceptado (o reconocido) por un autómata se puede expresar en térmi
 Sea $M=(Q,\Sigma,\delta,s,F)$ un AFD. Entonces el lenguaje $\mathcal{L}(M)\subseteq\Sigma^\star$ 
 aceptado por $M$ se define:  
 
-  $$\mathcal{L}(M)=\{\, w \in \Sigma^\star \,\mid\, \hat{\delta}(s,w) \in F \,\}$$  
+  $$\mathcal{L}(M)=\{ w \in \Sigma^\star \ \mid \ \hat{\delta}(s,w) \in F \}$$  
   
 {% endmath %}
 
@@ -88,7 +87,7 @@ aceptado por $M$ se define:
 Sea $N=(Q,\Sigma,\delta,s,F)$ un AFN. Entonces el lenguaje $\mathcal{L}(N)\subseteq\Sigma^\star$ 
 aceptado por $N$ se define:
 
-  $$\mathcal{L}(N)=\{\, w \in \Sigma^\star \,\mid\, \hat{\delta}(s,w) \cap F \neq \varnothing \,\}$$
+  $$\mathcal{L}(N)=\{ w \in \Sigma^\star \ \mid \ \hat{\delta}(s,w) \cap F \neq \varnothing \}$$
 
 {% endmath %}
 
@@ -130,7 +129,7 @@ $M$ y $M'$ aceptan el mismo lenguaje. Es decir:
 
 {% math proof %}
 Podemos ver al AFD como un caso especial de AFN sin transiciones $\veps$ donde para todo par 
-$(q,x) \in Q\times\Sigma$ se cumple $\left| \delta(q, x) \right| = 1$.
+$(q,x) \in Q\times\Sigma$ se cumple $\len{\delta(q, x)} = 1$.
 
 Por lo tanto, cualquier lenguaje aceptado por un AFD puede ser aceptado por un AFN.
 {% endmath %}
@@ -165,7 +164,7 @@ versión determinista correspondiente:
 Sea $N=(Q,\Sigma,\delta,s,F)$ un AFN. Entonces $SC(N)=(Q^\prime,\Sigma,\delta^\prime,s^\prime,F^\prime)$ 
 es el AFD resultante de aplicar sobre $N$ el método de construcción de subconjuntos tal que:
   
-1. $Q^\prime = \mathcal P \left({Q}\right)$  
+1. $Q^\prime = 2^Q$  
    Los estados de $SC(N)$ son los posibles sub-conjuntos de estados de $N$, 
    esto es $\mathcal P \left({Q}\right)$.
 2. $\delta^\prime(R, x) = C_\veps \left( \bigcup\limits_{r \;\in\; R}^{} \delta(r, x) \right)$  
@@ -175,7 +174,7 @@ es el AFD resultante de aplicar sobre $N$ el método de construcción de subconj
 3. $$s^\prime = C_\veps( \{ s \} )$$  
    El autómata $SC(N)$ comienza en el conjunto de estados alcanzables a través de transiciones 
    $\veps$ desde $s$.
-4. $$F^\prime = \{\; R \in Q^\prime \;|\; R \cap F \neq \varnothing \;\}$$  
+4. $$F^\prime = \{ R \in Q^\prime \ \mid \ R \cap F \neq \varnothing \}$$  
    El autómata $SC(N)$ acepta la entrada si termina en un estado que contiene al menos un estado
    final del autómata $N$.
 {% endmath %}
@@ -274,11 +273,10 @@ ya que ambos son capaces de aceptar la misma clase de lenguajes.
                   transición disponible para un estado y símbolo. Esto significa que la función 
                   de transición es parcial. Sin embargo, esta no es la concepción mas común de AFD.
 * [^afn_e]: Se puede considerar un tipo especial de AFN que no admite transiciones $\veps$. 
-            En este caso la función de transición se define como 
-            $\delta : Q\times\Sigma \to \mathcal P \left({Q}\right)$.            
+            En este caso la función de transición se define como $\delta : Q\times\Sigma \to 2^Q$.            
 * [^proof_alt]: Alternativamente se puede hacer una inducción sobre el largo de la cadena $w$. 
-                Esto es, en el CB $|w|=0$, en el PI asumimos para $|w|=k$ con $k \geq 0$ y luego 
-                demostramos para $|w|=k+1$.          
+                Esto es, en el CB $\len{w}=0$, en el PI asumimos para $\len{w}=k$ con $k \geq 0$ 
+                y luego demostramos para $\len{w}=k+1$.          
 {:footnotes}
 
 ## Bibliografía

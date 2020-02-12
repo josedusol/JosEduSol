@@ -27,16 +27,20 @@
               Blog
             </a>
             <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="/blog/">
+              <a class="dropdown-item {% if current[1] == 'blog' and current[2] == null %}active{% endif %}" 
+                 href="/blog/">
                 <i class="fas fa-sm fa-archive"></i><span>Archivo</span>
               </a>
-              <a class="dropdown-item" href="/blog/cats">
+              <a class="dropdown-item {% if current[2] == 'cats' %}active{% endif %}" 
+                 href="/blog/cats">
                 <i class="fas fa-sm fa-folder-open"></i><span>Categorías</span>
               </a>
-              <a class="dropdown-item" href="/blog/tags">
+              <a class="dropdown-item {% if current[2] == 'tags' %}active{% endif %}" 
+                 href="/blog/tags">
                 <i class="fas fa-sm fa-tags"></i><span>Tags</span>
               </a>
-              <a class="dropdown-item" href="/blog/search">
+              <a class="dropdown-item {% if current[2] == 'search' %}active{% endif %}" 
+                 href="/blog/search">
                 <i class="fas fa-sm fa-search"></i><span>Buscar</span>
               </a>
             </div>

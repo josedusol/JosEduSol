@@ -1,5 +1,5 @@
 ---
-categories: [lenguajes-formales, automatas]
+categories: [Lenguajes Formales, Autómatas]
 layout: post
 published: true
 tags: [AFD, AFN]
@@ -370,7 +370,7 @@ $\large\supseteq)$ Se procede de manera similar.
     $$X \ = \ X \cdot A \cup B \ \ \iff \ \ X \ = \ B \cdot A^\star$$
 
 ## Aplicación: conversión de AF a ER
-Según el Teorema 1, todo Autómata Finito (AFD o AFN) acepta un lenguaje regular.
+Según el [teorema 1](#theorem_1), todo Autómata Finito (AFD o AFN) acepta un lenguaje regular.
 Un método de conversión de AF a ER consiste en resolver el sistema de ecuaciones
 lineales regulares asociado al AF. Una aplicación del lema de Arden es en la 
 resolución de dicho sistema de ecuaciones, específicamente en las 

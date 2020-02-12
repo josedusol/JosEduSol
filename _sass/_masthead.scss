@@ -64,7 +64,13 @@ nav.navbar {
     }   
     span {
       margin-left: 1rem;
-    }
+    }    
+  }
+  
+  .dropdown-item:active,
+  .dropdown-item.active {
+    color: #fff;
+    background: #343a40;
   }
     
   ul li a {

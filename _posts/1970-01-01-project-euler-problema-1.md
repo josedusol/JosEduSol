@@ -1,13 +1,13 @@
 ---
-categories: [matematica, programacion]
+categories: [Matemática, Programación]
 layout: post
 published: true
+tags: [Project Euler]
 title: "Project Euler - Problema 1: Múltiplos de 3 y 5"
 toc: true
 ---
 {% include fragments/pseudocode.html %}
 {% include fragments/katex.html %}
-
 
 ## Letra del problema
 > If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. 
@@ -99,7 +99,7 @@ Sea $(b_n)$ la sucesión de múltiplos de 5:
 
   $$\sum_{i=1}^{199}b_{i}  =  \frac{199(5+995)}{2}  =  99500    \label{sum2.2}\tag{2.2}$$
 
-##### Suma de múltiplos en común para 3 y 5 en $[0...1000)$ 
+##### Suma de múltiplos en común para 3 y 5 en $[0...1000)$
 {: #multiplos_en_comun}
 {% math lemma 1 %}
 Sean $a, b \in \mathbb{Z}$ y $a \neq 0$. Si $a \mid b$ entonces $a \mid c\ b$ para 
@@ -211,10 +211,10 @@ Usando las sumas \ref{sum3.1}, \ref{sum3.2} y \ref{sum3.3} el resultado final es
 
 {% algorithm 3 %}
   \FUNCTION{pe1}{$n$}
-    \STATE $m3Sum :=$ \CALL{sumMultiples}{$n, 3$}   
-    \STATE $m5Sum :=$ \CALL{sumMultiples}{$n, 5$}    
+    \STATE $m3Sum  :=$ \CALL{sumMultiples}{$n, 3$}   
+    \STATE $m5Sum  :=$ \CALL{sumMultiples}{$n, 5$}    
     \STATE $m15Sum :=$ \CALL{sumMultiples}{$n, 15$}    
-    \RETURN $m3Sum+m5Sum-m15Sum$
+    \RETURN $m3Sum + m5Sum - m15Sum$
   \ENDFUNCTION
   \STATE
   \FUNCTION{sumMultiples}{$n, k$}
