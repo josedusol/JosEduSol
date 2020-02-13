@@ -28,7 +28,7 @@ Por la definición precedente, si $b = a\ c \ $ y $ \ \frac ba = c$ entonces $b$
 que el resto de la división euclidiana $\frac ba$ es $0$, lo cual se puede verificar comprobando 
 que $b \bmod a = 0$.
 
-Entonces una solución posible es sumar cada $x \in [0...n)$ tal que $x \bmod 3 = 0$ o 
+Entonces una solución posible es sumar cada $x \in \lbrack ...n)$ tal que $x \bmod 3 = 0$ o 
 $x \bmod 5 = 0$.
 
 {% algorithm 1 %}
@@ -68,11 +68,11 @@ La suma de los términos de una progresión aritmética está dada por:
 
 Donde $n$ es la cantidad de términos, $x_{1}$ es el término inicial y $x_{n}$ es el término final.
 
-La cantidad de múltiplos de $k$ que hay en el intervalo $[0...n)$ es: 
+La cantidad de múltiplos de $k$ que hay en el intervalo $\lbrack 0...n)$ es: 
 
   $$\floor{\frac{n-1}{k}}    \label{form2.2}\tag{2.2}$$ 
 
-Por lo tanto, para sumar los múltiplos de $k$ en el intervalo $[0...n)$:
+Por lo tanto, para sumar los múltiplos de $k$ en el intervalo $\lbrack 0...n)$:
 
   $$\sum_{i=1}^{c}x_{i}  =  \frac{c(x_{1} + x_{c})}{2} 
       \quad \text{donde} \ \ c = \floor{\frac{n-1}{k}}   \label{eq2.3}\tag{2.3}$$
@@ -82,7 +82,7 @@ Sea $(a_n)$ la sucesión de múltiplos de 3:
 
   $$(a_n) = 3,\ 6,\ 9,\ 12,\ 15,\ 18,\ ...$$
 
-Usando \ref{form2.2} se obtiene la cantidad de múltiplos de 3 en el intervalo $[0...1000)$: 
+Usando \ref{form2.2} se obtiene la cantidad de múltiplos de 3 en el intervalo $\lbrack 0...1000)$: 
 
   $$\floor{\frac{1000-1}{3}}  =  \floor{\frac{999}{3}}  =  333$$
 
@@ -90,7 +90,7 @@ Usando \ref{eq2.1} se obtiene el término final de $(a_n)$:
 
   $$a_{333} = 3+(333-1)3 = 999$$
 
-Finalmente, usando \ref{eq2.3} se obtiene la suma de los múltiplos de 3 en el intervalo $[0...1000)$:
+Finalmente, usando \ref{eq2.3} se obtiene la suma de los múltiplos de 3 en el intervalo $\lbrack 0...1000)$:
 
   $$\sum_{i=1}^{333}a_{i}  =  \frac{333(3+999)}{2}  =  166833    \label{sum2.1}\tag{2.1}$$
 
@@ -167,11 +167,11 @@ La suma de términos de la sucesión se puede realizar de la siguiente manera: [
 
 Donde $n$ es la cantidad de términos.
 
-La cantidad de múltiplos de $k$ que hay en el intervalo $[0...n)$ es: 
+La cantidad de múltiplos de $k$ que hay en el intervalo $\lbrack 0...n)$ es: 
 
   $$\floor{\frac{n-1}{k}}   \label{form3.1}\tag{3.1}$$ 
 
-Por lo tanto, para sumar los múltiplos de $k$ en el intervalo $[0...n)$:
+Por lo tanto, para sumar los múltiplos de $k$ en el intervalo $\lbrack 0...n)$:
 
   $$\sum_{i=1}^{c}x_{i}  =  k\ \frac{c(c+1)}{2} 
        \quad \text{donde} \ \ c = \floor{\frac{n-1}{k}}   \label{eq3.2}\tag{3.2}$$
@@ -181,11 +181,11 @@ Sea $(a_n)$ la sucesión de múltiplos de 3:
 
   $$(a_n) = 3,\ 6,\ 9,\ 12,\ 15,\ 18,\ ...$$
 
-Usando \ref{form3.1} se obtiene la cantidad de múltiplos de 3 en el intervalo $[0...1000)$: 
+Usando \ref{form3.1} se obtiene la cantidad de múltiplos de 3 en el intervalo $\lbrack 0...1000)$: 
 
   $$\floor{\frac{1000-1}{3}} = \floor{\frac{999}{3}} = 333$$
 
-Finalmente, usando \ref{eq3.2} se obtiene la suma de los múltiplos de 3 en el intervalo $[0...1000)$:
+Finalmente, usando \ref{eq3.2} se obtiene la suma de los múltiplos de 3 en el intervalo $\lbrack 0...1000)$:
 
   $$\sum_{i=1}^{333}a_{i} = 3\frac{333(333+1)}{2} = 166833   \label{sum3.1}\tag{3.1}$$
 

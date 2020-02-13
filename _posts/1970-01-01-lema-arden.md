@@ -292,8 +292,7 @@ entonces por $\eqref{eq1}$ tenemos dos casos posibles:
 Necesariamente $w \in \left(\bigcup\limits_{k=0}^{n}A^k\right)\cdot B \ \subseteq \ A^\star \cdot B$, 
 entonces $S \ \subseteq \ A^\star \cdot B$.  
 Por lo tanto $S = A^\star \cdot B$.
-<span style="float:right;font-size:1.2em">&#x20DE;</span>
-
+<span class="qed"></span>
 
 ### Demostración 2
 Otra manera de probar la dirección $\Longrightarrow$ es por inducción. 
@@ -337,7 +336,7 @@ Por casos:
 Habiendo completado la inducción, hemos demostrado $X \subseteq A^\star \cdot B$.
 
 $\large\supseteq)$ Se procede de manera similar.
-<span style="float:right;font-size:1.2em">&#x20DE;</span>
+<span class="qed"></span>
 
 ### Observaciones
 * Si los lenguajes $A$ y $B$ son regulares, entonces la solución $A^\star \cdot B$ es un 
