@@ -45,7 +45,7 @@ primos ni compuestos. Observaciones:
 {% math lemma 1 %}
 Todo número natural $n$ mayor a 1 es mayor o igual a sus divisores.
 
-  $$(\forall n)(\forall d)(n\in\mathbb{N} \land d\in\mathbb{N} \land n \gt 0 \land d\mid n \longrightarrow d\leq n)$$
+  $$(\forall n)(\forall d)(n,d\in\mathbb{N} \land n \gt 0 \land d\mid n \longrightarrow d\leq n)$$
   
 {% endmath %}
 
@@ -75,10 +75,8 @@ Otras demostraciones de este lema también son posibles sin apelar al TFA.
 Todo número natural compuesto $n$ se puede expresar como el producto de dos naturales, $a$ y $b$, 
 estrictamente mayores a 1 y menores a $n$. Además $a$ y $b$ no son necesariamente distintos.
 
-<span style="font-size:0.8em">
-  $$(\forall n)(n\in\mathbb{N} \land n \gt 1 \land n \not\in\mathbb{P} 
-               \longrightarrow (\exists a)(\exists b)(a\in\mathbb{N}\land b\in\mathbb{N} \land 1 \lt a \land a \lt n \land 1 \lt b \land b \lt n \land n = a\ b))$$
-</span>
+  $$(\forall n)(n\in\mathbb{N} \land n \gt 1 \land n \not\in\mathbb{P} \longrightarrow (\exists a)(\exists b)(a,b\in\mathbb{N} \land 1 \lt a,b \lt n \land n = a\ b))  $$
+
 {% endmath %}
 
 {% math proof %}
