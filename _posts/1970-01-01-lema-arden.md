@@ -401,7 +401,7 @@ Sea $M=(Q,\Sigma,\delta,s,F)$ un AFN con:
 
 y $\delta$ representada por el siguiente diagrama de transición:
 
-{% img example2.svg | {"width":"280"} %}
+  {% img example2.svg | {"width":"280"} %}
 
 Siguiendo la [definición 10](#definition_10), el sistema de ecuaciones correspondiente a $M$ es:
 

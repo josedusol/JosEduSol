@@ -17,7 +17,7 @@ Los logaritmos en diferentes bases difieren únicamente en un factor constante, 
 son despreciados en la notación $$O(\_)$$ y sus semejantes $$\Theta(\_)$$ y $$\Omega(\_)$$. 
 Por lo tanto, todos los logaritmos pertenecen al mismo orden de crecimiento.
 
-{% img logs.png | {"width":"500"} %}
+  {% img logs.png | {"width":"500"} %}
 
 Algo similar sucede con las funciones de la forma $\log_\alpha (x^c)$. Por propiedad de 
 logaritmos:
@@ -216,9 +216,9 @@ y $$\Omega(\_)$$.
 
 ## Referencias
 * [^1]: Aquí se asume $\log x$ diferenciable. Una alternativa sin este requerimiento es 
-              aplicar el Teorema de la Función Inversa.
+        aplicar el Teorema de la Función Inversa.
 * [^2]: Siendo más preciso, $\frac{\log_e \beta}{\log_e \alpha} \in (0,\infty)$ porque nunca puede 
         ser 0. Este resultado satisface la definición por límite de $$\Theta(\_)$$, por lo tanto se 
         tiene un resultado más fuerte: $\log_{\alpha} x \in \Theta(\log_{\beta} x)$, lo cual 
-        implica $\log_{\alpha} x \in O(\log_{\beta} x)$ y $\log_{\alpha} x \in \Omega(\log_{\beta} x)$.              
+        implica $\log_{\alpha} x \in O(\log_{\beta} x)$ y $\log_{\alpha} x \in \Omega(\log_{\beta} x)$.
 {:footnotes}

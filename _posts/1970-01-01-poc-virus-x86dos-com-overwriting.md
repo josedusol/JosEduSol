@@ -16,7 +16,7 @@ El virus simplemente sobrescribe otros archivos COM con el código viral. Es la 
 más primitiva, pero es muy agresiva y destructiva. Todas las generaciones del 
 virus son idénticas.
 
-{% img infection.png | {"width":"350"} %}
+  {% img infection.png | {"width":"350"} %}
 
 Generalmente nada se preserva de los archivos huéspedes ya que son destruidos por la sobrescritura. 
 La desinfección consiste en eliminar todos los archivos infectados.
@@ -26,7 +26,8 @@ La infección se realiza en el momento de ejecución infectando todos los archiv
 directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYSTEM.
 
 ## Flujo de ejecución
-{% img flow.png | {"width":"350"} %}
+
+  {% img flow.png | {"width":"350"} %}
 
 ## Análisis estático
 Hex dump de un archivo sano de tamaño 80 bytes:
