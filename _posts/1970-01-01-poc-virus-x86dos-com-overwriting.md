@@ -6,6 +6,11 @@ tags: [16-bit, ASM-x86, DOS, PoC, TASM, Virus]
 title: "Prueba de concepto - Virus: x86/DOS, COM, Overwriting"
 toc: true
 ---
+<style>
+  pre.ovf span { color: #000; }
+  pre.ovf span:first-of-type { line-height:200% }
+  pre.ovf span.vs { color: #ff0000 }
+</style>
 
 Prueba de concepto de virus en la plataforma x86/DOS con estrategia de infección por 
 overwriting (sobrescritura) en archivos COM. El virus infecta archivos en tiempo 
@@ -59,11 +64,6 @@ Hex dump del archivo infectado:
 <span>0x0040</span>  <span>20 61 20 68 6F 73 74 20</span>  <span> a host </span>
 <span>0x0048</span>  <span>66 69 6C 65 21 0D 0A 24</span>  <span>file!..$</span>
 </pre>
-<style>
-  pre.ovf span { color: #000; }
-  pre.ovf span:first-of-type { line-height:200% }
-  pre.ovf span.vs { color: #ff0000 }
-</style>
 
 El virus sobrescribe desde el offset 0x0000 hasta 0x0037 (56 bytes). Lo único que se 
 conserva del huésped es el código luego del offset 0x0037. Si el huésped fuera menor 

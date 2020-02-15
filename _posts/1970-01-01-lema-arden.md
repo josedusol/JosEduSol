@@ -480,10 +480,6 @@ Por lo tanto, el lenguaje aceptado por $M$ es el lenguaje denotado por:
 * [^afn_epsilon]: Si se tiene un AFN-e, se puede convertir a AFN (o AFD) antes de aplicar el método.
 {:footnotes}
 
-## Relacionados
-1. [Prueba de concepto - Virus: x86/DOS, COM, Overwriting]({% post_url 1970-01-01-poc-virus-x86dos-com-overwriting %})
-2. [Project Euler - Problema 1: Múltiplos de 3 y 5]({% post_url 1970-01-01-project-euler-problema-1 %})
-
 ## Bibliografía
 {% bibliography -q
    @*[key=Hopcroft-Motwani-Ullman2000 

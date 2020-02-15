@@ -107,7 +107,7 @@ La computación no determinista es un árbol de cómputo donde:
 En contraste, la computación determinista es lineal representándose con una sola rama, y nunca
 queda atorada, es decir siempre acepta o rechaza. [^afn_atorado]
 
-{% img afn-vs-afd-branching.png | {"width":"430"} %}
+  {% img afn-vs-afd-branching.png | {"width":"430"} %}
 
 Es fácil notar que cualquier computación determinista se puede ver como una computación no 
 determinista donde hay solo una rama de cómputo, pero no es tan fácil notar el recíproco.
@@ -124,7 +124,7 @@ $M$ y $M'$ aceptan el mismo lenguaje. Es decir:
 
 ### AFD simulado por AFN
 {% math lemma 1 %}
-  Para todo AFD $D$ existe un AFN $N$ tal que $D = N$.
+Para todo AFD $D$ existe un AFN $N$ tal que $D = N$.
 {% endmath %}
 
 {% math proof %}
@@ -151,13 +151,13 @@ el lenguaje reconocido será el mismo.
 Considerar el AFN $$M=(\{ q_1, q_2, q_3, q_4\}, \{\texttt{a},\texttt{b}\},\delta,q_1,\{ q_4 \})$$, 
 representado por el siguiente diagrama de transiciones:
 
-{% img afn.png | {"width":"405"} %}
+  {% img afn.png | {"width":"405"} %}
 
 La computación de $M$ sobre la entrada $w=\texttt{a}\,\texttt{b}\,\texttt{b}$ resulta en una
 rama que acepta, por lo tanto $w \in L(M)$. A continuación ilustramos este resultado junto a la 
 versión determinista correspondiente:
 
-{% img afn-afd.png | {"width":"660"} %}
+  {% img afn-afd.png | {"width":"660"} %}
 
 #### Formalización
 {% math definition 8 "Construcción de subconjuntos" %}

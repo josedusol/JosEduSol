@@ -6,6 +6,11 @@ tags: [16-bit, ASM-x86, DOS, PoC, TASM, Virus]
 title: "Prueba de concepto - Virus: x86/DOS, COM, Postpending"
 toc: true
 ---
+<style>
+  pre.ovf span { color: #000; }
+  pre.ovf span:first-of-type { line-height:200% }
+  pre.ovf span.vs { color: #ff0000 }
+</style>
 
 Prueba de concepto de virus en la plataforma x86/DOS con estrategia de infección por
 postpending (adición posterior) en archivos COM. El virus infecta archivos en tiempo
@@ -18,7 +23,7 @@ Durante la infección, el virus reemplaza los primeros bytes del archivo huéspe
 de ejecución hacia el final del archivo donde se añade el cuerpo viral. El cabezal 
 original reemplazado es guardado en el cuerpo viral.
 
-{% img infection.png | {"width":"450"} %}
+  {% img infection.png | {"width":"450"} %}
 
 Cuando un archivo infectado es ejecutado, el virus se carga en memoria junto con este y se 
 ejecuta primero realizando sus propias acciones, al terminar restaura el cabezal original
@@ -57,7 +62,7 @@ directorio actual a excepción de aquellos con atributo READ-ONLY, HIDDEN o SYST
 
 ## Flujo de ejecución
 
-{% img flow.png | {"width":"400"} %}
+  {% img flow.png | {"width":"400"} %}
 
 ## Análisis estático
 
@@ -111,11 +116,6 @@ Hex dump del archivo infectado:
 <span>0x00D8</span>  <span class="vs">00 01 FF E1 2A 2E 63 6F</span>  <span class="vs">..ÿá*.co</span>
 <span>0x00E0</span>  <span class="vs">6D 00</span> <span>B4 09 BA</span>           <span class="vs">m.</span><span>´.º</span>     Cabezal original
 </pre>
-<style>
-  pre.ovf span { color: #000; }
-  pre.ovf span:first-of-type { line-height:200% }
-  pre.ovf span.vs { color: #ff0000 }
-</style>
 
 El archivo huésped ahora tiene 149 bytes adicionales de tamaño.
 

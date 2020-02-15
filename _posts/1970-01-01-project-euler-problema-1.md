@@ -7,7 +7,6 @@ title: "Project Euler - Problema 1: Múltiplos de 3 y 5"
 toc: true
 ---
 {% include fragments/pseudocode.html %}
-{% include fragments/katex.html %}
 
 ## Letra del problema
 > If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. 
@@ -18,9 +17,9 @@ toc: true
 
 ### Método 1 - Aritmética modular
 {% math definition 1 %}
-Sean $a, b \in \mathbb{Z}$ y $a \neq 0$. Entonces $a$ divide $b$ (denotado por $a \mid b$) si 
-existe $c \in \mathbb{Z}$ tal que $b = a\ c$. Cuando $a \mid b$ decimos que $a$ es un factor 
-o divisor de $b$ y que $b$ es múltiplo de $a$
+Sean $a, b \in \mathbb{Z}$ y $a \neq 0$. Entonces $a$ divide $b$, denotado por $a \mid b$, si 
+existe $c \in \mathbb{Z}$ tal que $b = a\ c$. Cuando $a \mid b$ decimos que $a$ es divisor de $b$ y 
+que $b$ es múltiplo de $a$.
 {% endmath %}
 
 Por la definición precedente, si $b = a\ c \ $ y $ \ \frac ba = c$ entonces $b$ es 
@@ -31,7 +30,7 @@ que $b \bmod a = 0$.
 Entonces una solución posible es sumar cada $x \in \lbrack ...n)$ tal que $x \bmod 3 = 0$ o 
 $x \bmod 5 = 0$.
 
-{% algorithm 1 %}
+{% pseudocode 1 %}
   \FUNCTION{pe1}{$n$}
     \STATE $r := 0$
     \FOR{$x := 0$ \TO $n-1$}
@@ -41,7 +40,7 @@ $x \bmod 5 = 0$.
     \ENDFOR
     \RETURN r
   \ENDFUNCTION
-{% endalgorithm %}
+{% endpseudocode %}
 
 **Complejidad**  
 $\text{PE1}(n) \in \Theta (n)$.
@@ -124,7 +123,7 @@ Usando las sumas \ref{sum2.1}, \ref{sum2.2} y \ref{sum2.3} el resultado final es
 
   $$\sum_{i=1}^{333}a_{i} + \sum_{i=1}^{199}b_{i} - \sum_{i=1}^{66}c_{i}  =  166833 + 99500\ - 33165  =  233168$$
 
-{% algorithm 2 %}
+{% pseudocode 2 %}
   \FUNCTION{pe1}{$n$}
     \STATE $m3Sum := $ \CALL{sumMultiples}{$n, 3$}
     \STATE $m5Sum := $ \CALL{sumMultiples}{$n, 5$}
@@ -138,7 +137,7 @@ Usando las sumas \ref{sum2.1}, \ref{sum2.2} y \ref{sum2.3} el resultado final es
     \STATE $xc := x1 + (c-1)*k$
     \RETURN $(c \times (x1 + xc))/2$
   \ENDFUNCTION
-{% endalgorithm %}
+{% endpseudocode %}
 
 **Complejidad**  
 $\text{PE1}(n) \in \Theta (1)$.
@@ -209,7 +208,7 @@ Usando las sumas \ref{sum3.1}, \ref{sum3.2} y \ref{sum3.3} el resultado final es
 
   $$\sum_{i=1}^{333}a_{i} + \sum_{i=1}^{199}b_{i} - \sum_{i=1}^{66}c_{i}  =  166833 + 99500\: - 33165  =  233168$$
 
-{% algorithm 3 %}
+{% pseudocode 3 %}
   \FUNCTION{pe1}{$n$}
     \STATE $m3Sum  :=$ \CALL{sumMultiples}{$n, 3$}   
     \STATE $m5Sum  :=$ \CALL{sumMultiples}{$n, 5$}    
@@ -221,7 +220,7 @@ Usando las sumas \ref{sum3.1}, \ref{sum3.2} y \ref{sum3.3} el resultado final es
     \STATE $c := floor((n-1)/k)$
     \RETURN $k \times ((c \times (c + 1))/2)$
   \ENDFUNCTION
-{% endalgorithm %}
+{% endpseudocode %}
 
 **Complejidad**  
 $\text{PE1}(n) \in \Theta (1)$, al igual que en el método 2. Pero en este caso hay

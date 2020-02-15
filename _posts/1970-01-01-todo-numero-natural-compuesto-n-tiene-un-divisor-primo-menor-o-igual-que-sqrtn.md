@@ -7,7 +7,6 @@ title: "Demostración asistida: Todo número natural compuesto n tiene un diviso
 toc: true
 ---
 {% include fragments/pseudocode.html %}
-{% include fragments/katex.html %}
 
 Demostración asistida por máquina de un teorema de Teoría de Números: Todo número natural compuesto
 $n$ tiene un divisor primo $p$ menor o igual que $\sqrt{n}$. El teorema se formaliza parcialmente 
@@ -15,11 +14,17 @@ en un sistema de Deducción Natural y se expresa mediante el lenguaje Isar en el
 interactivo Isabelle.  
 
 ## Teoría
-{% math definition 1 "Número primo" %}
+{% math definition 1 "Divisor" %}
+Sean $a, b \in \mathbb{N}$ y $a \neq 0$. Entonces $a$ divide $b$, denotado por $a \mid b$, si 
+existe $c \in \mathbb{N}$ tal que $b = a\ c$. Cuando $a \mid b$ decimos que $a$ es divisor de $b$ y 
+que $b$ es múltiplo de $a$.
+{% endmath %}
+
+{% math definition 2 "Número primo" %}
 Un número natural $n$ mayor a 1 es **primo** si y solo si los únicos divisores que posee son 1 y $n$.
 {% endmath %}
 
-{% math definition 2 "Número compuesto" %}
+{% math definition 3 "Número compuesto" %}
 Un número natural $n$ mayor a 1 es **compuesto** si y solo si no es primo, es decir que 
 posee más de dos divisores.
 {% endmath %}
@@ -34,11 +39,11 @@ primos ni compuestos. Observaciones:
   de factores primos. Pero sucede que el $0$ solopuede representarse a si mismo y no es una 
   representación única:  
   
-    $$0=0^{1} = 0^{2} = 0^{2} \cdot 2^{1} ...$$  
+    $$0 \ = \ 0^{1} \ = \ 0^{2} \ = \ 0^{2} \cdot 2^{1} ...$$  
     
   Por otro lado, si $1$ fuera primo, podríamos tener que: 
   
-    $$2 = 2\cdot 1 = 2 \cdot 1 \cdot1 = 2 \cdot 1 \cdot 1 ... $$
+    $$2 \ = 2\cdot 1 \ = \ 2 \cdot 1 \cdot1 \ = \ 2 \cdot 1 \cdot 1 ... $$
     
   Por lo tanto, ni $0$ ni $1$ sirven a los propósitos del TFA.
 
@@ -50,8 +55,8 @@ Todo número natural $n$ mayor a 1 es mayor o igual a sus divisores.
 {% endmath %}
 
 {% math proof %}
-Supongamos $n>0$ y $d\mid n$. Luego por definición de divisor: $\exists\ q \in\mathbb{N}$ tal que 
-$n=d\,q$. Ahora, $d \leq d\ q$, entonces $d \leq n$.
+Supongamos $n>0$ y $d\mid n$. Luego por definición de divisor $\exists\ q \in\mathbb{N}$ tal que 
+$n=d\,q$. Además $d \leq d\ q$. Por lo tanto $d \leq n$.
 {% endmath %}
 
 Este resultado puede generalizarse para $$n\in\mathbb{Z}-\{0\}$$.
@@ -149,7 +154,7 @@ que un número dado. Por el [teorema 1](#theorem_1), no es necesario recorrer to
 $[2,n]$, basta con recorrer hasta $\lfloor\sqrt{n}\rfloor$. No obstante, este refinamiento no modifica el 
 comportamiento asintótico temporal del algoritmo. 
 {% endmath %}
-{% algorithm %}
+{% pseudocode %}
   \PROCEDURE{sieve}{$n$}
     \FOR{$k := 1$ \TO $n$}
       \STATE \uppercase{S}$[k] :=$ \TRUE
@@ -163,7 +168,7 @@ comportamiento asintótico temporal del algoritmo.
       \ENDIF
     \ENDFOR
   \ENDPROCEDURE
-{% endalgorithm %} 
+{% endpseudocode %} 
     
 ## Formalización en Deducción Natural    
 Formalizamos la estructura general de la demostración del [teorema 1](#theorem_1) en un sistema de 

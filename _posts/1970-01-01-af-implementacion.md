@@ -7,7 +7,6 @@ title: "Autómatas finitos - Implementación"
 toc: true
 ---
 {% include fragments/pseudocode.html %}
-{% include fragments/katex.html %}
 
 Implementaciones para la simulación de autómatas finitos en su forma determinista y no determinista.  
 
@@ -27,13 +26,13 @@ Sea $M$ un AFD y $(q, w) \in Q\times\Sigma^\star$. Entonces se define la funció
 de transición generalizada que computa el estado resultante de ejecutar $M$ sobre la 
 configuración $(q, w)$ tal que:   
 
-$$
+  $$
   \begin{aligned} 
     \hat{\delta} & : Q \times \Sigma^\star \rightarrow Q         &  \\
     \hat{\delta} & (q,\veps)      = q                            &  \\
     \hat{\delta} & (q, x \cdot v) = \delta(\hat{\delta}(q,v),x)  &
   \end{aligned}
-$$
+  $$
   
 donde $q \in Q$, $v \in \Sigma^\star$ y $x \in \Sigma$.
 {% endmath %}
@@ -42,14 +41,14 @@ donde $q \in Q$, $v \in \Sigma^\star$ y $x \in \Sigma$.
 Sea $M=(Q,\Sigma,\delta,s,F)$ un AFD. Entonces el lenguaje $\mathcal{L}(M)\subseteq\Sigma^\star$ 
 aceptado por $M$ se define:  
 
-  $$\mathcal{L}(M)=\{ w \in \Sigma^\star \ \mid \ \hat{\delta}(s,w) \in F \}$$  
+  $$\mathcal{L}(M) = \{ w \in \Sigma^\star \ \mid \ \hat{\delta}(s,w) \in F \}$$  
   
 {% endmath %}
 
 ### Implementación
 La implementación deriva de $\hat{\delta}$ en la [definición 1.2](#definition_1.2)
 
-{% algorithm 1 %}
+{% pseudocode 1 %}
   \PROCEDURE{afd}{$w: $\uppercase{$\Sigma^\star$}}
     \STATE $q := q_0$
     \STATE $w_i := w_0$
@@ -63,7 +62,7 @@ La implementación deriva de $\hat{\delta}$ en la [definición 1.2](#definition_
       \PRINT \FALSE
     \ENDIF
   \ENDPROCEDURE
-{% endalgorithm %}
+{% endpseudocode %}
 
 El costo de reconocer $w$ es $O(\len{w})$.
 
@@ -83,13 +82,13 @@ Sea $N$ un AFN y $(q,w)\in Q\times\Sigma^\star$. Entonces se define la función 
 transición generalizada que computa el conjunto de los estados resultantes de ejecutar $N$ sobre 
 la configuración $(q, w)$ tal que:  
 
-$$
+  $$
   \begin{aligned}
     \hat{\delta} & : Q \times \Sigma^\star \to 2^Q                                               & \\
     \hat{\delta} & (q,\veps)      = \{ q \}                                                      & \\
     \hat{\delta} & (q, x \cdot v) = \bigcup\limits_{r \;\in\; \hat{\delta}(q,v) }^{} \delta(r,x) &
   \end{aligned}
-$$
+  $$
 
 donde $q \in Q$, $v \in \Sigma^\star$ y $x \in \Sigma$.
 {% endmath %}
@@ -98,14 +97,14 @@ donde $q \in Q$, $v \in \Sigma^\star$ y $x \in \Sigma$.
 Sea $N=(Q,\Sigma,\delta,s,F)$ un AFN. Entonces el lenguaje $\mathcal{L}(N)\subseteq\Sigma^\star$ 
 aceptado por $N$ se define:
 
-  $$\mathcal{L}(N)=\{ w \in \Sigma^\star \ \mid \ \hat{\delta}(s,w) \cap F \neq \varnothing \}$$
+  $$\mathcal{L}(N) = \{ w \in \Sigma^\star \ \mid \ \hat{\delta}(s,w) \cap F \neq \varnothing \}$$
 
 {% endmath %}
 
 ### Implementación
 
 ##### Backtracking
-{% algorithm 2 %}
+{% pseudocode 2 %}
   \PROCEDURE{afn}{$w:$\uppercase{$\Sigma^\star$}}
     \STATE \uppercase{$R$} $:=$ \CALL{afn-rec}{$q_0$, $w_0$}
     \IF{\uppercase{$R \cap F \neq \emptyset$}}
@@ -128,12 +127,12 @@ aceptado por $N$ se define:
       \RETURN \uppercase{$R$}
     \ENDIF
   \ENDFUNCTION
-{% endalgorithm %}
+{% endpseudocode %}
 
 ##### Según $\hat{\delta}$
 La implementación deriva de $\hat{\delta}$ en la [definición 2.2](#definition_2.2).
 
-{% algorithm 3 %}
+{% pseudocode 3 %}
   \PROCEDURE{afn}{$w:$\uppercase{$\Sigma^\star$}}
     \STATE \uppercase{$R$} $:= \{ q_0 \}$
     \STATE $w_i := w_0$
@@ -155,7 +154,7 @@ La implementación deriva de $\hat{\delta}$ en la [definición 2.2](#definition_
     \ENDFOR
     \RETURN \uppercase{$R^\prime$}
   \ENDFUNCTION
-{% endalgorithm %}
+{% endpseudocode %}
 
 La unión de un máximo de $\len{Q}$ conjuntos con a lo sumo $\len{Q}$ estados tiene un costo 
 de $O(\len{Q}^2)$.  
@@ -180,13 +179,13 @@ Sea $N$ un AFN-e y $(q,w)\in Q\times\Sigma^\star$. Entonces se define la funció
 transición generalizada que computa el conjunto de los estados resultantes de ejecutar $N$ sobre 
 la configuración $(q, w)$ tal que:  
 
-$$
+  $$
   \begin{aligned}
     \hat{\delta} & : Q \times \Sigma^\star \to 2^Q                                                                      & \\
     \hat{\delta} & (q,\veps)      = C_\veps(q)                                                                          & \\
     \hat{\delta} & (q, x \cdot v) = C_\veps \left( \bigcup\limits_{r \;\in\; \hat{\delta}(q,v) }^{} \delta(r,x) \right) &
   \end{aligned}
-$$
+  $$
 
 donde:
 * $q \in Q$, $v \in \Sigma^\star$ y $x \in \Sigma$.
@@ -199,7 +198,7 @@ donde:
 Sea $N=(Q,\Sigma,\delta,s,F)$ un AFN-e. Entonces el lenguaje $\mathcal{L}(N)\subseteq\Sigma^\star$ 
 aceptado por $N$ se define:
 
-  $$\mathcal{L}(N)=\{ w \in \Sigma^\star \ \mid \ \hat{\delta}(s,w) \cap F \neq \varnothing \}$$
+  $$\mathcal{L}(N) = \{ w \in \Sigma^\star \ \mid \ \hat{\delta}(s,w) \cap F \neq \varnothing \}$$
 
 {% endmath %}
 

@@ -6,6 +6,11 @@ tags: [16-bit, ASM-x86, DOS, PoC, TASM, Virus]
 title: "Prueba de concepto - Virus: x86/DOS, COM, Overwriting, Residente TSR"
 toc: true
 ---
+<style>
+  pre.ovf span { color: #000; }
+  pre.ovf span:first-of-type { line-height:200% }
+  pre.ovf span.vs { color: #ff0000 }
+</style>
 
 Prueba de concepto de virus en la plataforma x86/DOS con estrategia de infección por 
 overwriting (sobrescritura) en archivos COM. El virus permanece residente en memoria 
@@ -17,7 +22,7 @@ El virus simplemente sobrescribe otros archivos COM con el código viral. Es la 
 más primitiva, pero es muy agresiva y destructiva. Todas las generaciones del 
 virus son idénticas.
 
-{% img infection.png | {"width":"350"} %}
+  {% img infection.png | {"width":"350"} %}
 
 Generalmente nada se preserva de los archivos huéspedes ya que son destruidos por la sobrescritura. 
 La desinfección consiste en eliminar todos los archivos infectados.
@@ -28,7 +33,7 @@ como un programa TSR (Terminate and Stay Resident) normal mediante el servicio 2
 por DOS. Durante la infección, el virus reconoce si ya se encuentra residente mediante un
 servicio propio en la interrupción 21h.
 
-{% img memory.png | {"width":"450"} %}
+  {% img memory.png | {"width":"450"} %}
 
 ## Método de propagación
 El virus modifica el handler original de la interrupción 21h cambiando el vector del handler en 
@@ -41,11 +46,11 @@ Esto tiene dos objetivos:
 ## Flujo de ejecución
 Al ejecutarse un archivo infectado, el virus se hace residente en memoria y modifica la IVT:
 
-{% img flow1.png | {"width":"280"} %}
+  {% img flow1.png | {"width":"280"} %}
 
 Cuando el virus ya es residente en memoria, intercepta todas las llamadas a la interrupción 21h:
 
-{% img flow2.png | {"width":"400"} %}
+  {% img flow2.png | {"width":"400"} %}
 
 ## Análisis estático
 Hex dump de un archivo sano de tamaño 80 bytes:
@@ -90,11 +95,6 @@ Hex dump del archivo infectado:
 <span>0x0098</span>  <span class="vs">2E FF 36 AB 01 2E FF 36</span>  <span class="vs">.ÿ6«..ÿ6</span>
 <span>0x00A0</span>  <span class="vs">A9 01 CF               </span>  <span class="vs">©.Ï</span>
 </pre>
-<style>
-  pre.ovf span { color: #000; }
-  pre.ovf span:first-of-type { line-height:200% }
-  pre.ovf span.vs { color: #ff0000 }
-</style>
 
 ## Análisis dinámico
 Se considera un archivo infectado VTEST.COM en un ambiente MS-DOS 6.22, 

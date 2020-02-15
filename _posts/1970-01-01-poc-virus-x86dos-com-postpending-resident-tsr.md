@@ -6,6 +6,11 @@ tags: [16-bit, ASM-x86, DOS, PoC, TASM, Virus]
 title: "Prueba de concepto - Virus: x86/DOS, COM, Postpending, Residente TSR"
 toc: true
 ---
+<style>
+  pre.ovf span { color: #000; }
+  pre.ovf span:first-of-type { line-height:200% }
+  pre.ovf span.vs { color: #ff0000 }
+</style>
 
 Prueba de concepto de virus en la plataforma x86/DOS con estrategia de infección por 
 postpending (adición posterior) en archivos COM. El virus permanece residente en 
@@ -18,7 +23,7 @@ Durante la infección, el virus reemplaza los primeros bytes del archivo huéspe
 de ejecución hacia el final del archivo donde se añade el cuerpo viral. El cabezal
 original reemplazado es guardado en el cuerpo viral.
 
-{% img infection.png | {"width":"450"} %}
+  {% img infection.png | {"width":"450"} %}
 
 Cuando un archivo infectado es ejecutado, el virus se carga en memoria junto con este y 
 se ejecuta primero realizando sus propias acciones, al terminar restaura el cabezal original
@@ -45,7 +50,7 @@ como un programa TSR (Terminate and Stay Resident) normal mediante el servicio 2
 DOS. Durante la infección, el virus reconoce si ya se encuentra residente mediante un 
 servicio propio en la interrupción 21h.
 
-{% img memory.png | {"width":"450"} %}
+  {% img memory.png | {"width":"450"} %}
 
 ## Método de propagación
 El virus modifica el handler original de la interrupción 21h cambiando el vector del handler en
@@ -64,11 +69,11 @@ Esto tiene dos objetivos:
 ## Flujo de ejecución
 Al ejecutarse un archivo infectado, el virus se hace residente en memoria y modifica la IVT:
 
-{% img flow1.png | {"width":"480"} %}
+  {% img flow1.png | {"width":"480"} %}
 
 Cuando el virus ya es residente en memoria, intercepta todas las llamadas a la interrupción 21h:
 
-{% img flow2.png | {"width":"400"} %}
+  {% img flow2.png | {"width":"400"} %}
 
 ## Análisis estático
 Hex dump de un archivo sano de tamaño 80 bytes:
@@ -135,11 +140,6 @@ Hex dump del archivo infectado:
 <span>0x0148</span>  <span class="vs">EA A0 14 00 F0</span> <span>B4 09 BA</span>  <span class="vs">ê ..ð</span><span>´.º</span>  Cabezal original
 <span>0x0150</span>  <span>39                     </span>  <span>9       </span>
 </pre>
-<style>
-  pre.ovf span { color: #000; }
-  pre.ovf span:first-of-type { line-height:200% }
-  pre.ovf span.vs { color: #ff0000 }
-</style>
 
 ## Análisis dinámico
 Se considera un archivo infectado VTEST.COM en un ambiente MS-DOS 6.22, 
