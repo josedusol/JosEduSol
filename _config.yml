@@ -1,5 +1,5 @@
 # Permalinks
-permalink:              /blog/:categories/:title
+permalink:              /notas/:categories/:title
 
 # General Setup
 title:                  JosEduSol
@@ -63,8 +63,8 @@ jekyll-archives:
     category:           archive-cat
     tag:                archive-tag
   permalinks:
-    category:           /blog/cats/:name/
-    tag:                /blog/tags/:name/
+    category:           /notas/cats/:name/
+    tag:                /notas/tags/:name/
   
 # Config for jekyll-paginate-v2 
 #paginate:               10
@@ -73,7 +73,7 @@ pagination:
   enabled:               true
   per_page:              10
   permalink:             '/:num/'
-  title:                 'Blog - pag :num'
+  title:                 'Notas - pag :num'
   limit:                 0
   sort_field:            'date'
   sort_reverse:          true

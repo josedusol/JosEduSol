@@ -21,26 +21,26 @@
           <li class="nav-item {% if current[1] == null %}active{% endif %}">
             <a class="nav-link" href="/"><i class="fa fa-lg fa-home"></i></a>
           </li>
-          <li class="nav-item dropdown {% if current[1] == 'blog' %}active{% endif %}">
+          <li class="nav-item dropdown {% if current[1] == 'notas' %}active{% endif %}">
             <a class="nav-link" href="#" id="navbarDropdown" 
                role="button" aria-haspopup="true" aria-expanded="false">
-              Blog
+              Notas
             </a>
             <div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item {% if current[1] == 'blog' and current[2] == null %}active{% endif %}" 
-                 href="/blog/">
+              <a class="dropdown-item {% if current[1] == 'notas' and current[2] == null %}active{% endif %}" 
+                 href="/notas/">
                 <i class="fas fa-sm fa-archive"></i><span>Archivo</span>
               </a>
               <a class="dropdown-item {% if current[2] == 'cats' %}active{% endif %}" 
-                 href="/blog/cats">
+                 href="/notas/cats">
                 <i class="fas fa-sm fa-folder-open"></i><span>Categorías</span>
               </a>
               <a class="dropdown-item {% if current[2] == 'tags' %}active{% endif %}" 
-                 href="/blog/tags">
+                 href="/notas/tags">
                 <i class="fas fa-sm fa-tags"></i><span>Tags</span>
               </a>
               <a class="dropdown-item {% if current[2] == 'search' %}active{% endif %}" 
-                 href="/blog/search">
+                 href="/notas/search">
                 <i class="fas fa-sm fa-search"></i><span>Buscar</span>
               </a>
             </div>
