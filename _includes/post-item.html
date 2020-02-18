@@ -5,12 +5,10 @@
     </a>
   </h3>
   <div class="post-meta">
-    {% comment %} 
-      <span class="post-date">
-        <i class="far fa-calendar-alt"></i>
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>  
-      </span>  
-    {% endcomment %} 
+    <span class="post-date">
+      <i class="far fa-calendar-alt"></i>
+      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date_to_string }}</time>  
+    </span>  
     {%- if show_cats -%}
       {%- include post-cats.html -%}
     {%- endif -%}

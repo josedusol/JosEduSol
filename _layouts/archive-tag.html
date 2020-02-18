@@ -7,14 +7,14 @@ layout: default
 
 <article class="page">
   <header class="page-header">
-    <h1 class="page-title">Artículos etiquetados con <i>{{ page.title }}</i></h1>
+    <h1 class="page-title">Notas etiquetadas con <i>{{ page.title }}</i></h1>
   </header>
   <div class="page-content">
     <div class="post-list">
       <ul class="list-group">
-        {% for post in page.posts %}
+        {% for page in page.posts %}
           <li class="list-group-item">             
-            {%- include post-item.html -%}
+            {%- include page-item.html -%}
           </li>    
         {% endfor %}
       </ul>  

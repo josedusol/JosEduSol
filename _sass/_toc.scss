@@ -1,3 +1,6 @@
+// 
+// Table of contents 
+//
 
 .toc {
   font-family: $sans-serif-narrow;
@@ -65,7 +68,7 @@
   .sidebar-right {
     display:none;
   }
-  .post-top {
+  .page-top, .post-top {
     display:block;
     padding: 1em 2em;
     
@@ -100,7 +103,7 @@
 }
 
 @media (min-width: 70rem) {
-  .post-top {
+  .page-top, .post-top {
     display:none;
   }
   .sidebar-right {

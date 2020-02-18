@@ -1,9 +1,12 @@
+//
 // Posts and pages
 //
 // Each post is wrapped in `.post` and is used on default and post layouts. 
 // Each page is wrapped in `.page` and is only used on the page layout.
+//
 
 .page,
+.page-note,
 .post {
   margin-bottom: 3em;
   
@@ -41,9 +44,10 @@ li.list-group-item + li.list-group-item {
 
 .post-content,
 .page-content {
-   text-align: justify;
+  text-align: justify;
 }
 
+.page-note,
 .post {
   h1, h2, h3, h4, h5 {
     border-bottom: 1px solid #DDD;
@@ -63,6 +67,7 @@ li.list-group-item + li.list-group-item {
   margin-top: 0;
 }
 
+.page-header,
 .post-header {
   text-align: left;
   margin-bottom: 0.5rem; 
@@ -76,13 +81,13 @@ li.list-group-item + li.list-group-item {
       color: #9a9a9a;
     }    
   }
-  .post-cats {
+  .page-cats, .post-cats {
     a {
       font-size: 0.9rem;
       color: #9a9a9a;
     }
   }
-  .post-tags {
+  .page-tags, .post-tags {
     a {
       padding: 6px 7px;
       margin-right: 0;
@@ -95,10 +100,17 @@ li.list-group-item + li.list-group-item {
       -webkit-border-radius: 3px;
       font-size: 0.7rem;
       text-decoration: none;
+      
       &:hover, &:focus {
         background-color: #da4453cc;
         text-decoration: none;      
       }
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .page-cats, .page-tags, .post-cats, .post-tags {
+      display: block;
     }
   }
 }

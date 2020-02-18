@@ -10,6 +10,8 @@ module Jekyll
       # instead of url encoded form : /category%20with%20space
       #
       # @see utils.slugify
+      #
+      # Working OK on Jekyll v4.0.0
       def categories
         category_set = Set.new
         Array(@obj.data["categories"]).each do |category|

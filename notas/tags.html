@@ -1,17 +1,17 @@
 ---
 layout: page
-permalink: /notas/tags/
+permalink: /notas/tags
 title: "Etiquetas"
 ---
 
 <ul class="archive-taxonomy">
-  {%- assign tags = site.tags | sort -%}
+  {% assign tags = site.notas | map: 'tags' | join: ',' | split: ',' | group_by: tag | sort: 'name' %}
   {%- for tag in tags -%}
-  <li>   
-    <i class="fa fa-tag"></i>&nbsp;
-    <a href="#{{ tag[0] }}"><strong>{{ tag[0] | replace:'-', ' ' }}</strong></a>
-    <span class="taxonomy-count">{{ tag | last | size }}</span>      
-  </li>
+    <li>   
+      <i class="fa fa-tag"></i>&nbsp;
+      <a href="#{{ tag.name }}"><strong>{{ tag.name | replace:'-', ' ' }}</strong></a>
+      <span class="taxonomy-count">{{ tag.size }}</span>      
+    </li>
   {%- endfor -%}
 </ul>
 
@@ -20,16 +20,16 @@ title: "Etiquetas"
 <div class="tag-list">
   {% for tag in tags %}
     <div class="post-list">      
-      <h2 id="{{ tag[0] }}">
+      <h2 id="{{ tag.name }}">
         <i class="fa fa-tag"></i>&nbsp;
-        {{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
+        {{ tag.name | replace:'-', ' ' }} ({{ tag.size }})
       </h2>
       <ul class="list-group">
-        {% assign sorted_posts = site.posts | sort: 'title' %}
-        {% for post in sorted_posts %}
-          {% if post.tags contains tag[0] %}
+        {% assign sorted_posts = site.notas | sort: 'title' %}
+        {% for page in sorted_posts %}
+          {% if page.tags contains tag.name %}
             <li class="list-group-item">             
-              {%- include post-item.html -%}
+              {%- include page-item.html -%}
             </li>        
           {% endif %}
         {% endfor %}

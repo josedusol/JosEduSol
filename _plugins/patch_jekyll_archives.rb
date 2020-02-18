@@ -10,6 +10,8 @@ module Jekyll
       #    "/esto-y-mas/" 
       # and not
       #    "/esto-y-más/"
+      #
+      # Working OK on Jekyll-Archives v2.2.1
       def initialize(site, title, type, posts)
         @site   = site
         @posts  = posts

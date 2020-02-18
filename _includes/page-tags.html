@@ -1,0 +1,10 @@
+<span class="page-tags">
+  {%- if page.tags.size > 0 -%}
+    <i class="fas fa-tags"></i>&nbsp;
+    {%- assign sorted_tags = (page.tags | sort) -%}
+    {%- for tag in sorted_tags -%}
+      <a href="{{ site.baseurl }}/notas/tags/{{ tag | slugify }}" >{{ tag }}</a>
+       {%- if forloop.last != true -%}&nbsp;{%- endif -%}
+    {%- endfor -%}  
+  {%- endif -%}
+</span>

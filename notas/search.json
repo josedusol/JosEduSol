@@ -2,12 +2,12 @@
 layout: null
 ---
 [
-  {% for post in site.posts %}
+  {% for page in site.notas %}
     {
-      "title"      : "{{ post.title | escape }}",      
-      "categories" : "{{ post.categories | join: ', ' }}",
-      "tags"       : "{{ post.tags | join: ', ' }}",
-      "url"        : "{{ post.baseurl }}{{ post.url }}" 
+      "title"      : "{{ page.title | escape }}",      
+      "categories" : "{{ page.categories | join: ', ' }}",
+      "tags"       : "{{ page.tags | join: ', ' }}",
+      "url"        : "{{ page.baseurl }}{{ page.url }}" 
     } {% unless forloop.last %},{% endunless %}
   {% endfor %}
 ]

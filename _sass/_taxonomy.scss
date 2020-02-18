@@ -1,5 +1,6 @@
-
-
+// 
+// Categories and Tags Taxonomy
+//
 
 .archive-taxonomy {
   display: grid;
@@ -35,16 +36,17 @@
 
 .cat-list,
 .tag-list {
-  h3 {
-    margin-top: 0;
-  }
   .post-list {
     margin-top: 2rem;
-  }
+    
+    h2 {
+      text-align: left;
+    }
+  }    
 }
 
-.post-list {
+.list-group-item {
   h3 {
     margin-top: 0;
-  }
-}
+  }  
+} 

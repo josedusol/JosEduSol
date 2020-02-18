@@ -24,7 +24,7 @@ group :jekyll_plugins do
   gem "jekyll-archives"
   #gem "jekyll-feed",       "~> 0.6"
   gem "jekyll-gist"
-  gem "jekyll-paginate-v2"
+  gem "jekyll-paginate-v2", "~> 3.0.0"
   gem "jekyll-scholar"
   gem "jekyll-toc",         "~> 0.9.1" 
 end
