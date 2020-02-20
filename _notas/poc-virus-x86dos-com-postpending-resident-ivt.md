@@ -1,6 +1,6 @@
 ---
 categories: [Malware, Programación]
-layout: post
+layout: page-note
 published: true
 tags: [16-bit, ASM-x86, DOS, PoC, TASM, Virus]
 title: "Prueba de concepto - Virus: x86/DOS, COM, Postpending, Residente en IVT"

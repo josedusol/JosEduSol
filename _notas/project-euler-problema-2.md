@@ -1,6 +1,6 @@
 ---
 categories: [Matemática, Programación]
-layout: post
+layout: page-note
 published: true
 tags: [Project Euler]
 title: "Project Euler - Problema 2: Números de Fibonacci pares"

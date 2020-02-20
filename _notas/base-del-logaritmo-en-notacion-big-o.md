@@ -1,6 +1,6 @@
 ---
 categories: [Matemática, Complejidad Computacional]
-layout: post
+layout: page-note
 published: true
 title: "Base del logaritmo en notación Big O"
 toc: true

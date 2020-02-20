@@ -1,6 +1,6 @@
 ---
 categories: [Lenguajes Formales, Autómatas]
-layout: post
+layout: page-note
 published: true
 tags: [AFD, AFN]
 title: "Lema de Arden"

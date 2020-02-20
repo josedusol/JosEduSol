@@ -1,6 +1,6 @@
 ---
 categories: [Autómatas, Teoría de la Computación]
-layout: post
+layout: page-note
 published: true
 tags: [AFD, AFN, AFN-e]
 title: "Autómatas finitos - Implementación"

@@ -1,6 +1,6 @@
 ---
 categories: [Matemática, Lógica]
-layout: post
+layout: page-note
 published: true
 tags: [Deducción Natural, Isabelle, Isar]
 title: "Demostración asistida: Todo número natural compuesto n tiene un divisor primo menor o igual que sqrt(n)"

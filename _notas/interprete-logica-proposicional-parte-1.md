@@ -1,6 +1,6 @@
 ---
 categories: [Lenguajes Formales, Autómatas, Lógica]
-layout: post
+layout: page-note
 published: true
 tags: [AFD, AFN, AFN-e, Myhill-Nerode]
 title: "Intérprete para lenguaje de Lógica Proposicional - Parte I"

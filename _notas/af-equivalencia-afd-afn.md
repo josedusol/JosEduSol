@@ -1,6 +1,6 @@
 ---
 categories: [Autómatas, Lenguajes Formales]
-layout: post
+layout: page-note
 published: true
 tags: [AFD, AFN]
 title: "Autómatas finitos - Equivalencia AFD-AFN"
