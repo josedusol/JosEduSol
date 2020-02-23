@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Generamos sitio
+# build site
 JEKYLL_ENV=production bundle exec jekyll build
 
-# Sincronizar con /home/josedu/blog/ en VPS
-rsync -crvz --rsh='ssh -p22' --delete-after --delete-excluded  _site/ jekyll-rsync:/home/josedu/blog/
+# sync with ~/www/ in VPS
+rsync -crvz --rsh='ssh -p22' --delete-after --delete-excluded  _site/ jekyll-rsync:/home/josedu/www/

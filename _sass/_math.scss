@@ -51,7 +51,8 @@
 .theorem::before {
   content: "Teorema " attr(data-number) attr(data-name) ". ";
   font-style: normal;
-  font-weight: 700
+  font-weight: 700;
+  color: #313131;
 }
   
 .lemma {
@@ -60,7 +61,8 @@
 .lemma::before {
   content: "Lema " attr(data-number) attr(data-name) ". ";
   font-style: normal;
-  font-weight: 700
+  font-weight: 700;
+  color: #313131;
 }
 
 .proof {
@@ -74,7 +76,8 @@
 .proof::before {
   content: "Demostraci\F3n. ";
   font-style: italic;
-  font-weight: 700
+  font-weight: 700;
+  color: #313131;
 }  
 .proof::after {
   content: "\20DE";
@@ -100,7 +103,8 @@
 .definition::before {
   content: "Definici\F3n " attr(data-number) attr(data-name) ". ";
   font-style: normal;
-  font-weight: 700
+  font-weight: 700;
+  color: #313131;
 }
 
 .example {
@@ -109,5 +113,6 @@
 .example:before {
   content: "Ejemplo " attr(data-number) ". ";
   font-style: normal;
-  font-weight: 700
+  font-weight: 700;
+  color: #313131;
 }
